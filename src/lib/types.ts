@@ -7,6 +7,9 @@ export interface ActivityType {
   description: string;
   price: string;
   details: string;
+  icon?: LucideIcon | FC<SVGProps<SVGSVGElement>>;
+  image?: string;
+  aiHint?: string;
 }
 
 export interface Activity {
