@@ -50,7 +50,7 @@ export const activities: Activity[] = [
   {
     slug: "alpaca-walk",
     title: "Alpaca Walk",
-    description: "Meet our three Alpacas, walk with them, and feed them in their natural habitat. A true Welsh experience!",
+    description: "Meet our three resident alpacas and take them on a one-mile walk through their natural habitat, enjoying stunning Welsh views. This true country experience includes plenty of photo opportunities and a chance to meet our other friendly barn animals. Please note, the minimum age for a solo walk is 10, and younger children must be accompanied by an adult.",
     icon: AlpacaIcon,
     image: "/alpaca.jpg",
     aiHint: "alpaca walking",

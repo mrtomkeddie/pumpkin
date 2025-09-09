@@ -29,6 +29,63 @@ export default function Home() {
 
     const itemIcon = 'icon' in item ? item.icon : undefined;
 
+    if (activitySlug === 'alpaca-walk') {
+      return (
+        <Card className="bg-card border-border/50 overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+                {/* Left Column: Image, Title, Description, Button */}
+                <div className="flex flex-col">
+                    <CardHeader className="p-0">
+                        <div className="relative h-60 w-full">
+                            <Image
+                            src={item.image!}
+                            alt={item.title}
+                            fill
+                            data-ai-hint={item.aiHint}
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                        </div>
+                    </CardHeader>
+                    <CardContent className="p-6 flex-1 relative flex flex-col">
+                        {itemIcon && <item.icon className="w-6 h-6 text-primary absolute top-6 right-6" />}
+                        <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
+                        {item.title}
+                        </CardTitle>
+                        <CardDescription className="flex-1">{item.description}</CardDescription>
+                    </CardContent>
+                    <CardFooter className="p-6 bg-transparent mt-auto">
+                        <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                            <Link href={bookLink}>
+                            Book Now <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
+                    </CardFooter>
+                </div>
+
+                {/* Right Column: Accordion */}
+                <div className="p-6 border-l border-border/50 flex flex-col justify-center">
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="what-to-expect">
+                            <AccordionTrigger>What to Expect</AccordionTrigger>
+                            <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
+                            <p>When you first arrive at our farm, you'll be greeted by one of our team members at the car park. They will take you down to the alpaca's stable where you will meet our three boys. You will also have the opportunity to meet our goats who often follow us on our walks. Other furry farm friends may also make an appearance during your visit. We then halter our boys and your group will decide which alpaca they would like to walk. The team member will then guide you on a lovely walk (approximately 1 mile) through fields around the farm with plenty of picturesque views along the way. Once finished we will reward our boys with some well-earned treats back at the stable.</p>
+                            <p>Make sure you bring your wellies and dress appropriately as the Welsh weather always makes an appearance! If you are attending with a group and do not wish to walk the alpacas please feel free to join the walk with a spectator ticket.</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="package-options">
+                            <AccordionTrigger>Package Options</AccordionTrigger>
+                            <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
+                            <p>Please note: We can take a maximum of 6 people per walk and have 3 alpacas so if your booking includes more than 3 people, some attendees will share an alpaca for the walk (if this is the case please select the shared alpaca walk ticket).</p>
+                            <p>Also, minimum age for independent walks is 10. Younger children require adult supervision.</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
+            </div>
+        </Card>
+      )
+    }
+
     return (
        <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary hover:shadow-lg">
         <CardHeader className="p-0">
@@ -49,35 +106,6 @@ export default function Home() {
             </CardTitle>
             <CardDescription className="flex-1">{item.description}</CardDescription>
         </CardContent>
-
-        {activitySlug === 'alpaca-walk' && (
-          <CardContent className="p-6 pt-0">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="overview">
-                <AccordionTrigger>Overview</AccordionTrigger>
-                <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
-                  <p>Our alpaca walks offers the opportunity for you to meet our three Alpacas, walk approximately one mile with them with a halter and feed them in their natural habitat, all whilst enjoying the amazing views.​ The walk will include plenty of amazing photo opportunities, and a chance to meet the rest of the barn animals too.</p>
-                  <p>Min age for solo walk is 10. Younger children must be supervised.</p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="what-to-expect">
-                <AccordionTrigger>What to Expect</AccordionTrigger>
-                <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
-                  <p>When you first arrive at our farm, you'll be greeted by one of our team members at the car park. They will take you down to the alpaca's stable where you will meet our three boys. You will also have the opportunity to meet our goats who often follow us on our walks. Other furry farm friends may also make an appearance during your visit. We then halter our boys and your group will decide which alpaca they would like to walk. The team member will then guide you on a lovely walk (approximately 1 mile) through fields around the farm with plenty of picturesque views along the way. Once finished we will reward our boys with some well-earned treats back at the stable.</p>
-                  <p>Make sure you bring your wellies and dress appropriately as the Welsh weather always makes an appearance! If you are attending with a group and do not wish to walk the alpacas please feel free to join the walk with a spectator ticket.</p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="package-options">
-                <AccordionTrigger>Package Options</AccordionTrigger>
-                <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
-                   <p>Please note: We can take a maximum of 6 people per walk and have 3 alpaca's so if your booking includes more than 3 people, some attendees will share an alpaca for the walk (if this is the case please select the shared alpaca walk ticket).</p>
-                   <p>Also, minimum age for independent walks is 10. Younger children require adult supervision.</p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </CardContent>
-        )}
-        
         <CardFooter className="p-6 bg-transparent mt-auto">
            <Button asChild className="w-full bg-primary hover:bg-primary/90">
             <Link href={bookLink}>
@@ -182,10 +210,8 @@ export default function Home() {
                 </div>
               )}
               {activeTab === 'alpaca-walk' && (
-                 <div className="flex justify-center">
-                    <div className="w-full md:w-1/2">
-                        {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
-                    </div>
+                 <div className="flex justify-center max-w-5xl mx-auto">
+                    {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
                  </div>
               )}
               {activeTab === 'gift-card' && (
