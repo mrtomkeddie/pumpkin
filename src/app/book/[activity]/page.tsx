@@ -137,8 +137,9 @@ export default function BookActivityPage() {
     notFound();
   }
   
-  const hasTypes = !!activity.types;
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
+  const selectedActivityType = activity.types?.find(t => t.slug === watchedActivityType);
+  const activityTitle = selectedActivityType?.title || activity.title;
 
   function onSubmit(data: BookingFormValues) {
     const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
@@ -175,7 +176,7 @@ export default function BookActivityPage() {
     <div className="container mx-auto max-w-4xl px-4 py-12 pt-36">
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
+          <CardTitle className="font-headline text-4xl">{activityTitle}</CardTitle>
           <CardDescription>Select your preferred package, date, and time for this magical experience.</CardDescription>
         </CardHeader>
         <CardContent>
@@ -231,54 +232,6 @@ export default function BookActivityPage() {
               </div>
 
               <Separator />
-
-              {hasTypes && (
-                <FormField
-                  control={form.control}
-                  name="activityType"
-                  render={({ field }) => (
-                    <FormItem className="space-y-4">
-                      <FormLabel className="text-lg font-semibold flex items-center gap-2">
-                        <Ticket className="h-6 w-6 text-primary" />
-                        Choose Your Experience
-                      </FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                        >
-                          {activity.types!.map((type) => (
-                            <FormItem key={type.slug}>
-                              <FormControl>
-                                <RadioGroupItem value={type.slug} id={type.slug} className="sr-only" />
-                              </FormControl>
-                              <FormLabel
-                                htmlFor={type.slug}
-                                className="flex flex-col rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-full"
-                              >
-                                <div className="flex items-center justify-between mb-2">
-                                    <h3 className="font-bold text-base">{type.title}</h3>
-                                    <TypeIcon slug={type.slug} />
-                                </div>
-                                <p className="text-sm text-muted-foreground flex-1 mb-3">{type.description}</p>
-                                <div className="text-right">
-                                    <p className="font-bold text-lg">{type.price}</p>
-                                    <p className="text-xs text-muted-foreground">{type.details}</p>
-                                </div>
-                              </FormLabel>
-                            </FormItem>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-
-              {hasTypes && <Separator />}
-
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <FormField
