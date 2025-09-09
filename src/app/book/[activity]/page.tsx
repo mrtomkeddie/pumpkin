@@ -22,6 +22,7 @@ import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
@@ -316,6 +317,30 @@ export default function BookActivityPage() {
                 </div>
               )}
 
+              {isAlpacaBooking && (
+                <div className="space-y-4">
+                  <Accordion type="single" collapsible className="w-full" defaultValue="what-to-expect">
+                        <AccordionItem value="what-to-expect">
+                            <AccordionTrigger>What to Expect</AccordionTrigger>
+                            <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
+                                <p>Your adventure begins the moment you arrive! Our team will welcome you at the car park and introduce you to the stars of the show: our three friendly alpacas. You might even meet some of our other barnyard pals, like the goats who love to tag along.</p>
+                                <p>After a quick meet-and-greet, you'll choose your walking companion and we'll set off on a scenic one-mile trek through picturesque Welsh fields. Once the walk is complete, you'll get to reward your new furry friend with some well-deserved treats.</p>
+                                <p><strong>A quick tip:</strong> Welsh weather is wonderfully unpredictable, so please bring your wellies and dress for the day! If you'd prefer to just come along for the scenery, spectator tickets are also available.</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="package-options">
+                            <AccordionTrigger>Package Options & Rules</AccordionTrigger>
+                            <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
+                                <p>We can take a maximum of 6 people per walk. We have 3 alpacas, so if your group has more than 3 people, some will need to share an alpaca. Please select the "Shared Alpaca" ticket in this case.</p>
+                                <p>The minimum age for a solo walk is 10. Younger children must be accompanied by a supervising adult.</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
+              )}
+
+              {isAlpacaBooking && <Separator />}
+
               {isAlpacaBooking && activity.types && (
                 <div className="space-y-4">
                    <FormLabel className="text-lg font-semibold flex items-center gap-2">
@@ -496,5 +521,3 @@ export default function BookActivityPage() {
     </div>
   );
 }
-
-    
