@@ -7,8 +7,8 @@ import { Header } from '@/components/header';
 import { ReservationsProvider } from '@/context/reservations-context';
 
 export const metadata: Metadata = {
-  title: 'Black Cat Bookings',
-  description: 'Book your next adventure at Black Cat Bookings.',
+  title: 'Black Cat Events',
+  description: 'Book your next adventure at Black Cat Events.',
 };
 
 export default function RootLayout({
@@ -35,3 +35,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    
