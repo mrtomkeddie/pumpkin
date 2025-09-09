@@ -54,21 +54,21 @@ export const activities: Activity[] = [
     types: [
         {
             slug: 'adult',
-            title: 'Adult (1 Alpaca)',
+            title: 'Adult (1 Alpaca per Person)',
             description: 'One adult gets to walk one alpaca. A classic one-on-one experience with our furry friends.',
             price: '£26.20',
             details: 'Min age 10 for solo walk',
         },
         {
             slug: 'child',
-            title: 'Child with Adult',
+            title: 'Child, under age of 10 (includes 1 Adult)',
             description: 'A shared experience for one child (under 10) and one supervising adult, walking one alpaca together.',
             price: '£20.96',
             details: '1 child & 1 adult',
         },
         {
             slug: 'shared',
-            title: 'Shared Alpaca Walk',
+            title: 'Shared Alpaca Walking Experience (1 Alpaca for 2 people)',
             description: 'Perfect for couples or friends. Two people share the responsibility and joy of walking one alpaca.',
             price: '£52.40',
             details: '1 Alpaca for 2 people',
