@@ -18,8 +18,8 @@ export default function Home() {
           <Image
             src="/logo.png"
             alt="Pingle Farm Logo"
-            width={600}
-            height={141}
+            width={500}
+            height={117}
             priority
           />
           

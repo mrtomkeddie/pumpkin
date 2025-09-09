@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={cn('font-body antialiased min-h-screen flex flex-col')}>
         <ReservationsProvider>
           <Header />
-          <main className="flex-1 pt-20">
+          <main className="flex-1">
             {children}
           </main>
           <Toaster />
