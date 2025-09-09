@@ -75,10 +75,10 @@ export default function Home() {
           <div className="relative z-10 flex flex-col items-center">
             <p className="text-primary font-semibold mb-2">Welcome To Black Cat Events</p>
             <h1 className="text-5xl md:text-7xl font-headline font-bold mb-4 leading-tight">
-              Where Autumn Adventures Begin
+              Discover the Spirit of Autumn
             </h1>
             <p className="max-w-2xl text-lg md:text-xl mb-8">
-              From enchanting pumpkin picking to delightful alpaca walks, we bring you the magic of autumn in every step.
+             Pumpkin picking, alpaca adventures, photo opportunities, and festive activities—everything you love about fall in one place.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -105,7 +105,7 @@ export default function Home() {
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'pumpkin-picking'
                       ? "bg-primary text-primary-foreground shadow"
-                      : "text-muted-foreground hover:bg-white/50"
+                      : "text-muted-foreground hover:bg-card/80"
                   )}
                 >
                   <div className='flex items-center gap-2'>
@@ -119,7 +119,7 @@ export default function Home() {
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'alpaca-walk'
                       ? "bg-primary text-primary-foreground shadow"
-                      : "text-muted-foreground hover:bg-white/50"
+                      : "text-muted-foreground hover:bg-card/80"
                   )}
                 >
                   <div className='flex items-center gap-2'>
@@ -133,7 +133,7 @@ export default function Home() {
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'gift-card'
                       ? "bg-primary text-primary-foreground shadow"
-                      : "text-muted-foreground hover:bg-white/50"
+                      : "text-muted-foreground hover:bg-card/80"
                   )}
                 >
                   <div className='flex items-center gap-2'>
