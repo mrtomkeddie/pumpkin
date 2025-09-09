@@ -26,6 +26,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
 const pumpkinTimes = ['15:00', '16:00', '17:00'];
+const alpacaTimes = ['11:00', '13:00'];
 
 const currentYear = new Date().getFullYear();
 
@@ -115,27 +116,37 @@ export default function BookActivityPage() {
         const isMoonlit = typeParam === 'moonlit';
         return isMoonlit ? moonlitTimes : pumpkinTimes;
     }
+    if (activity?.slug === 'alpaca-walk') {
+      return alpacaTimes;
+    }
     return dayTimes;
   }
 
   const [availableTimes, setAvailableTimes] = useState<string[]>(getInitialTimes());
 
   useEffect(() => {
+    let newTimes: string[];
     if (activity?.slug === 'pumpkin-picking') {
-        let newTimes: string[];
         const isMoonlit = watchedActivityType === 'moonlit';
         
         newTimes = isMoonlit ? moonlitTimes : pumpkinTimes;
-        setAvailableTimes(newTimes);
+    } else if (activity?.slug === 'alpaca-walk') {
+        newTimes = alpacaTimes;
+    } else {
+        newTimes = dayTimes;
+    }
+    setAvailableTimes(newTimes);
 
-        const currentTime = form.getValues('time');
-        if (currentTime && !newTimes.includes(currentTime)) {
-          form.setValue('time', '');
-        }
+    const currentTime = form.getValues('time');
+    if (currentTime && !newTimes.includes(currentTime)) {
+      form.setValue('time', '');
+    }
 
+    if (activity?.slug === 'pumpkin-picking') {
         const currentDate = form.getValues('date');
         if (currentDate) {
             const currentDateOnly = new Date(currentDate).setHours(0,0,0,0);
+            const isMoonlit = watchedActivityType === 'moonlit';
             const isQuiet = watchedActivityType === 'quiet';
             if (isMoonlit && !moonlitDates.includes(currentDateOnly)) {
                 form.setValue('date', undefined as any);
@@ -467,7 +478,7 @@ export default function BookActivityPage() {
                   control={form.control}
                   name="time"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col mt-px">
+                    <FormItem className="flex flex-col">
                       <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><Clock className="h-6 w-6 text-primary" /> Time</FormLabel>
                       <FormControl>
                         <RadioGroup
@@ -507,3 +518,4 @@ export default function BookActivityPage() {
     </div>
   );
 }
+
