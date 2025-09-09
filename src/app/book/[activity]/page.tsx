@@ -168,7 +168,7 @@ export default function BookActivityPage() {
 
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
+    <div className="container mx-auto max-w-4xl px-4 py-12 pt-36">
       <Card>
         <CardHeader>
           <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
@@ -256,9 +256,18 @@ export default function BookActivityPage() {
                             disabled={(date) => {
                                 const today = new Date();
                                 today.setHours(0,0,0,0);
-                                if (date < today || date > new Date(new Date().setDate(new Date().getDate() + 60))) {
-                                    return true;
+                                if (date < today) return true;
+
+                                if (activity.slug === 'pumpkin-picking') {
+                                    if (date.getMonth() !== 9) { // 9 is October
+                                        return true;
+                                    }
+                                } else {
+                                     if (date > new Date(new Date().setDate(new Date().getDate() + 60))) {
+                                        return true;
+                                    }
                                 }
+
                                 const isMoonlitType = watchedActivityType === 'moonlit';
                                 const dateOnly = new Date(date);
                                 dateOnly.setHours(0,0,0,0);
@@ -351,3 +360,5 @@ export default function BookActivityPage() {
     </div>
   );
 }
+
+    
