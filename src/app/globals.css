@@ -5,9 +5,9 @@
 @layer base {
   :root {
     --background: 240 10% 3.9%; /* Dark Slate Blue/Near Black */
-    --foreground: 0 0% 98%; /* White */
-    --card: 240 10% 10%; /* Slightly lighter dark */
-    --card-foreground: 0 0% 98%;
+    --foreground: 240 10% 3.9%; /* White */
+    --card: 0 0% 100% / 0.8; /* Slightly lighter dark */
+    --card-foreground: 240 10% 3.9%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 34.1 87.5% 62.2%; /* #F1A04D */
@@ -15,7 +15,7 @@
     --secondary: 190 95% 55%; /* Bright Cyan */
     --secondary-foreground: 240 10% 3.9%;
     --muted: 240 5% 25%;
-    --muted-foreground: 240 5% 65%;
+    --muted-foreground: 240 5% 35%;
     --accent: 34.1 87.5% 62.2%; /* #F1A04D */
     --accent-foreground: 240 10% 3.9%;
     --destructive: 0 84.2% 60.2%;
@@ -33,9 +33,9 @@
 
   .dark {
     --background: 240 10% 3.9%; /* Dark Slate Blue/Near Black */
-    --foreground: 0 0% 98%; /* White */
-    --card: 240 10% 10%; /* Slightly lighter dark */
-    --card-foreground: 0 0% 98%;
+    --foreground: 240 10% 3.9%; /* White */
+    --card: 0 0% 100% / 0.8; /* Slightly lighter dark */
+    --card-foreground: 240 10% 3.9%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 34.1 87.5% 62.2%; /* #F1A04D */
@@ -43,7 +43,7 @@
     --secondary: 190 95% 55%; /* Bright Cyan */
     --secondary-foreground: 240 10% 3.9%;
     --muted: 240 5% 25%;
-    --muted-foreground: 240 5% 65%;
+    --muted-foreground: 240 5% 35%;
     --accent: 34.1 87.5% 62.2%; /* #F1A04D */
     --accent-foreground: 240 10% 3.9%;
     --destructive: 0 84.2% 60.2%;

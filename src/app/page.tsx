@@ -23,7 +23,7 @@ export default function Home() {
             priority
           />
           
-          <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-muted-foreground">
+          <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-foreground">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />
               <span>Pingle Lane, Pingle</span>
@@ -37,7 +37,7 @@ export default function Home() {
               <span>0116 234 5678</span>
             </div>
           </div>
-          <Button asChild size="lg" className="mt-10 bg-accent hover:bg-accent/90 text-accent-foreground">
+          <Button asChild size="lg" className="mt-10 bg-primary hover:bg-primary/90 text-primary-foreground">
             <Link href="#experiences">
               Book Your Experience <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
@@ -74,7 +74,7 @@ export default function Home() {
                     </CardTitle>
                     <CardDescription>{activity.description}</CardDescription>
                   </CardContent>
-                  <CardFooter className="p-6 bg-card">
+                  <CardFooter className="p-6 bg-transparent">
                     <Button asChild className="w-full bg-primary hover:bg-primary/90">
                       <Link href={`/book/${activity.slug}`}>
                         Book Now <ArrowRight className="ml-2 h-4 w-4" />
@@ -87,7 +87,7 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="text-center py-6 text-sm text-muted-foreground border-t">
+      <footer className="text-center py-6 text-sm text-foreground border-t">
         <p>&copy; {new Date().getFullYear()} Pingle Farm. All rights reserved.</p>
         <Link href="/gift-card" className="hover:text-primary transition-colors mt-2 inline-block">Gift Cards</Link>
       </footer>
