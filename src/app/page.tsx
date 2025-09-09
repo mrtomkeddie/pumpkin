@@ -199,13 +199,13 @@ export default function Home() {
       <footer className="py-6 text-sm text-foreground border-t">
         <div className="container mx-auto flex flex-col md:flex-row justify-center items-center gap-8">
             <a
-              href="https://www.google.com/maps/search/?api=1&query=The+Barn%2C+Mansant+Ganol%2C+Ponthenri%2C+Llanelli%2C+United+Kingdom"
+              href="https://www.google.com/maps/search/?api=1&query=The+Barn%2C+Mansant+Ganol%2C+Pontyates%2C+SA15+5RL"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-primary transition-colors"
             >
               <MapPin className="w-4 h-4 text-primary" />
-              <span>The Barn, Mansant Ganol, Ponthenri, Llanelli, United Kingdom</span>
+              <span>The Barn, Mansant Ganol, Pontyates, SA15 5RL</span>
             </a>
             <a href="tel:07527303240" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Phone className="w-4 h-4 text-primary" />
