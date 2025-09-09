@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { useReservations } from '@/context/reservations-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Clock, Trash2, Ticket, User, Users, Box, Search, Mail, Phone } from 'lucide-react';
+import { Calendar, Clock, Trash2, Ticket, User, Users, Box, Search } from 'lucide-react';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
@@ -16,7 +16,6 @@ import { Separator } from '@/components/ui/separator';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import type { Reservation } from '@/lib/types';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const searchFormSchema = z.object({
   query: z.string().min(1, 'Please enter your email or phone number.'),
@@ -101,16 +100,16 @@ export default function ReservationsPage() {
                 </Button>
             </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {searchedReservations.map((reservation) => (
-                    <Card key={reservation.id}>
+                    <Card key={reservation.id} className="flex flex-col">
                     <CardHeader>
                         <CardTitle className="font-headline text-2xl">{reservation.activityTitle}</CardTitle>
                         {reservation.activityType && (
                         <Badge variant="secondary" className='w-fit'>{reservation.activityType}</Badge>
                         )}
                     </CardHeader>
-                    <CardContent className="space-y-3">
+                    <CardContent className="space-y-3 flex-1">
                         <div className="flex items-center gap-3 text-sm font-semibold">
                         <User className="h-4 w-4 text-primary" />
                         <span>{reservation.name}</span>
@@ -147,9 +146,11 @@ export default function ReservationsPage() {
                         </>
                         )}
 
-                        <CardDescription className="pt-2">Reservation ID: {reservation.id.slice(0, 8)}</CardDescription>
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="flex flex-col items-stretch gap-2 pt-4">
+                        <CardDescription>
+                            Reservation ID: {reservation.id.slice(0, 8)}
+                        </CardDescription>
                         <Button
                         variant="outline"
                         className="w-full"
