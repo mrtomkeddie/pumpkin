@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { allReservations, allGiftCardPurchases } from "@/app/staff/data";
 import { format } from 'date-fns';
-import { Ticket, Users, Phone } from "lucide-react";
+import { Ticket, Users, Phone, Mail } from "lucide-react";
 import { GiftCardSummary } from "@/components/staff/gift-card-summary";
 
 export default function StaffDashboard() {
@@ -69,7 +69,8 @@ export default function StaffDashboard() {
                       <TableRow key={reservation.id}>
                         <TableCell>
                           <div className="font-medium">{reservation.name}</div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-sm text-muted-foreground mt-1 flex items-center gap-1.5">
+                            <Mail className="h-3 w-3" />
                             {reservation.email}
                           </div>
                           {reservation.phone && (
