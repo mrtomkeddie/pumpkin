@@ -57,6 +57,10 @@ export default function StaffGiftCardPage() {
                              <User className="h-4 w-4 text-muted-foreground" />
                              {card.senderName}
                            </div>
+                           <div className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
+                             <Mail className="h-4 w-4 text-muted-foreground" />
+                             {card.senderEmail}
+                           </div>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">
                            <div className="flex items-center gap-2">

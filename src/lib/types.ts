@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 import type { FC, SVGProps } from 'react';
 
@@ -47,6 +48,7 @@ export interface GiftCardPurchase {
     id: string;
     amount: string;
     senderName: string;
+    senderEmail: string;
     recipientName: string;
     recipientEmail: string;
     message?: string;
