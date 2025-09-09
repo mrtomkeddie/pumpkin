@@ -206,7 +206,7 @@ export default function Home() {
                           <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
                             Gift Card
                           </CardTitle>
-                          <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Bookings, redeemable against any of our activities.</CardDescription>
+                          <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Events, redeemable against any of our activities.</CardDescription>
                       </CardContent>
                       <CardFooter className="p-6 bg-transparent mt-auto">
                         <Button asChild className="w-full bg-primary hover:bg-primary/90">
@@ -225,13 +225,22 @@ export default function Home() {
       </main>
       <footer className="py-8 md:py-6 text-sm text-foreground border-t">
         <div className="container mx-auto flex flex-col justify-center items-center gap-4 text-center">
-             <Link
-              href="/info"
-              className="flex items-center gap-2 hover:text-primary transition-colors"
-            >
-              <Info className="w-4 h-4 text-primary" />
-              <span>Contact & FAQ</span>
-            </Link>
+            <div className="flex gap-4 items-center">
+                 <Link
+                  href="/info"
+                  className="flex items-center gap-2 hover:text-primary transition-colors"
+                >
+                  <Info className="w-4 h-4 text-primary" />
+                  <span>Contact & FAQ</span>
+                </Link>
+                <span className="text-muted-foreground">|</span>
+                <Link
+                  href="/staff/login"
+                  className="hover:text-primary transition-colors"
+                >
+                  Staff Login
+                </Link>
+            </div>
             <p className="text-muted-foreground">© 2025 Black Cat Events | Design by Tom Keddie</p>
         </div>
       </footer>
