@@ -7,29 +7,26 @@ import { usePathname, useRouter } from 'next/navigation';
 export default function StaffLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
     // This effect runs only on the client.
+    let isAuthenticated = false;
     try {
-      const isAuthenticated = sessionStorage.getItem('staff-authenticated') === 'true';
-
-      if (!isAuthenticated && pathname !== '/staff/login') {
-        router.replace('/staff/login');
-      } else {
-        setIsAuthorized(true);
-      }
+      isAuthenticated = sessionStorage.getItem('staff-authenticated') === 'true';
     } catch (error) {
-        // If sessionStorage is not available, deny access.
-        if (pathname !== '/staff/login') {
-            router.replace('/staff/login');
-        } else {
-             setIsAuthorized(true); // Allow rendering login page
-        }
+      // sessionStorage is not available (e.g., in SSR or private browsing)
+      isAuthenticated = false;
+    }
+    
+    if (!isAuthenticated && pathname !== '/staff/login') {
+      router.replace('/staff/login');
+    } else {
+      setIsAuthorized(true);
     }
   }, [pathname, router]);
 
-  // Render children only if authorized, to prevent flashing of protected content.
+  // Render children only if authorized, otherwise return null to prevent flashing of protected content.
   if (!isAuthorized) {
     return null; // Or a loading spinner
   }

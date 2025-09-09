@@ -180,10 +180,10 @@ export default function Home() {
                 </div>
               )}
               {activeTab === 'alpaca-walk' && (
-                 <div className="flex justify-center">
-                    <div className="w-full md:w-2/3 lg:w-1/2">
-                       <ExperienceCard item={alpacaActivity} />
-                    </div>
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                    {alpacaActivity?.types?.map((type) => (
+                      <ExperienceCard key={type.slug} item={type} parentActivity={alpacaActivity} />
+                    ))}
                  </div>
               )}
               {activeTab === 'gift-card' && (

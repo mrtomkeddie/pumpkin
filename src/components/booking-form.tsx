@@ -96,7 +96,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
 
   const defaultPackages = activity.slug === 'alpaca-walk' 
     ? activity.types?.reduce((acc, type) => {
-        acc[type.slug] = 0;
+        acc[type.slug] = type.slug === activityTypeSlug ? 1 : 0;
         return acc;
       }, {} as Record<string, number>)
     : undefined;
@@ -104,7 +104,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
     defaultValues: {
-      activityType: activityTypeSlug || (activity.slug === 'pumpkin-picking' ? activity.types?.[0].slug : undefined),
+      activityType: activityTypeSlug || (activity.slug === 'pumpkin-picking' ? activity.types?.[0].slug : activity.slug === 'alpaca-walk' ? 'alpaca-walk' : undefined),
       packages: defaultPackages,
     }
   });
@@ -169,6 +169,12 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
       const packageType = activity.types?.find(t => t.slug === slug);
       return total + (quantity * (packageType?.pax || 0));
     }, 0) : 0;
+  
+  const canAddMorePeople = (slug: string) => {
+    const packageType = activity.types?.find(t => t.slug === slug);
+    if (!packageType) return false;
+    return alpacaTotalPeople + packageType.pax <= 6;
+  }
 
   function onSubmit(data: BookingFormValues) {
     if (isAlpacaBooking) {
@@ -211,12 +217,12 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     const currentPackages = form.getValues('packages') || {};
     const currentQuantity = currentPackages[slug] || 0;
     
-    const packageType = activity.types?.find(t => t.slug === slug);
-    const paxPerPackage = packageType?.pax || 0;
-    const peopleChange = (newQuantity - currentQuantity) * paxPerPackage;
-  
-    if (alpacaTotalPeople + peopleChange <= 6) {
-      form.setValue(`packages.${slug}`, newQuantity, { shouldValidate: true });
+    if (newQuantity > currentQuantity) {
+      if (canAddMorePeople(slug)) {
+        form.setValue(`packages.${slug}`, newQuantity, { shouldValidate: true });
+      }
+    } else {
+       form.setValue(`packages.${slug}`, newQuantity, { shouldValidate: true });
     }
   };
 
@@ -365,7 +371,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                                     variant="outline"
                                     className='h-8 w-8'
                                     onClick={() => handlePackageQuantityChange(type.slug, (field.value || 0) + 1)}
-                                    disabled={alpacaTotalPeople >= 6 || (alpacaTotalPeople + (activity.types.find(t=>t.slug===type.slug)?.pax ?? 1) -1) >= 6}
+                                    disabled={!canAddMorePeople(type.slug)}
                                   >
                                     <Plus className='h-4 w-4' />
                                   </Button>
