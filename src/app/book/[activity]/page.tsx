@@ -21,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
@@ -62,6 +63,7 @@ const BookingFormSchema = z.object({
     required_error: 'Please select a time.',
   }),
   activityType: z.string().optional(),
+  quantity: z.string().optional(),
 });
 
 type BookingFormValues = z.infer<typeof BookingFormSchema>;
@@ -79,6 +81,7 @@ export default function BookActivityPage() {
     resolver: zodResolver(BookingFormSchema),
     defaultValues: {
       activityType: typeParam || activity?.types?.[0].slug,
+      quantity: '1',
     }
   });
 
@@ -130,6 +133,7 @@ export default function BookActivityPage() {
   }
   
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
+  const isAlpacaBooking = activity.slug === 'alpaca-walk';
   const selectedActivityType = activity.types?.find(t => t.slug === watchedActivityType);
   const activityTitle = selectedActivityType?.title || activity.title;
 
@@ -145,6 +149,7 @@ export default function BookActivityPage() {
       name: data.name,
       email: data.email,
       phone: data.phone,
+      quantity: isAlpacaBooking ? parseInt(data.quantity!, 10) : undefined
     });
     router.push('/reservations');
   }
@@ -227,45 +232,73 @@ export default function BookActivityPage() {
 
               {activity.types && (
                 <>
-                  <FormField
-                    control={form.control}
-                    name="activityType"
-                    render={({ field }) => (
-                      <FormItem className="space-y-4">
-                        <FormLabel className="text-lg font-semibold flex items-center gap-2">
-                           <TypeIcon slug={watchedActivityType!} />
-                           Choose Your Experience
-                        </FormLabel>
-                        <FormControl>
-                          <RadioGroup
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                            className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                          >
-                            {activity.types!.map((type) => (
-                              <FormItem key={type.slug}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <FormField
+                        control={form.control}
+                        name="activityType"
+                        render={({ field }) => (
+                        <FormItem className="space-y-4">
+                            <FormLabel className="text-lg font-semibold flex items-center gap-2">
+                            <TypeIcon slug={watchedActivityType!} />
+                            Choose Your Experience
+                            </FormLabel>
+                            <FormControl>
+                            <RadioGroup
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                                className="grid grid-cols-1 gap-4"
+                            >
+                                {activity.types!.map((type) => (
+                                <FormItem key={type.slug}>
+                                    <FormControl>
+                                    <RadioGroupItem value={type.slug} id={type.slug} className="sr-only" />
+                                    </FormControl>
+                                    <FormLabel
+                                    htmlFor={type.slug}
+                                    className="flex flex-col rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary"
+                                    >
+                                    <div className="flex justify-between items-start">
+                                        <span className="font-bold text-base">{type.title}</span>
+                                        <span className="font-bold text-primary">{type.price}</span>
+                                    </div>
+                                    <span className="text-sm font-normal text-muted-foreground mt-2">{type.description}</span>
+                                    <span className="text-xs font-semibold text-muted-foreground mt-2">{type.details}</span>
+                                    </FormLabel>
+                                </FormItem>
+                                ))}
+                            </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                    {isAlpacaBooking && (
+                      <FormField
+                        control={form.control}
+                        name="quantity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><Users className="h-6 w-6 text-primary" /> Number of People</FormLabel>
+                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                  <RadioGroupItem value={type.slug} id={type.slug} className="sr-only" />
+                                  <SelectTrigger className="h-11">
+                                    <SelectValue placeholder="Select number of people" />
+                                  </SelectTrigger>
                                 </FormControl>
-                                <FormLabel
-                                  htmlFor={type.slug}
-                                  className="flex flex-col rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary"
-                                >
-                                  <div className="flex justify-between items-start">
-                                    <span className="font-bold text-base">{type.title}</span>
-                                    <span className="font-bold text-primary">{type.price}</span>
-                                  </div>
-                                  <span className="text-sm font-normal text-muted-foreground mt-2">{type.description}</span>
-                                  <span className="text-xs font-semibold text-muted-foreground mt-2">{type.details}</span>
-                                </FormLabel>
-                              </FormItem>
-                            ))}
-                          </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                                <SelectContent>
+                                  {[...Array(6)].map((_, i) => (
+                                    <SelectItem key={i + 1} value={`${i + 1}`}>
+                                      {i + 1}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     )}
-                  />
+                  </div>
                   <Separator />
                 </>
               )}

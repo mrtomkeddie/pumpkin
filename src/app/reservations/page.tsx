@@ -4,7 +4,7 @@
 import { useReservations } from '@/context/reservations-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Clock, Trash2, Ticket, User } from 'lucide-react';
+import { Calendar, Clock, Trash2, Ticket, User, Users } from 'lucide-react';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
@@ -53,6 +53,12 @@ export default function ReservationsPage() {
                   <Clock className="h-4 w-4 text-primary" />
                   <span>{reservation.time}</span>
                 </div>
+                {reservation.quantity && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <Users className="h-4 w-4 text-primary" />
+                    <span>{reservation.quantity} {reservation.quantity > 1 ? 'people' : 'person'}</span>
+                  </div>
+                )}
                 <CardDescription>Reservation ID: {reservation.id.slice(0, 8)}</CardDescription>
               </CardContent>
               <CardFooter>
