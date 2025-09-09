@@ -162,7 +162,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
   
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
   const isAlpacaBooking = activity.slug === 'alpaca-walk';
-  const selectedActivityType = activity.types?.find(t => t.slug === (isPumpkinBooking ? watchedActivityType : watchedActivityType));
+  const selectedActivityType = activity.types?.find(t => t.slug === (isPumpkinBooking ? watchedActivityType : activityTypeSlug));
 
   const alpacaTotalPeople = isAlpacaBooking && watchedPackages ?
     Object.entries(watchedPackages).reduce((total, [slug, quantity]) => {
