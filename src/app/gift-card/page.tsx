@@ -62,7 +62,7 @@ export default function GiftCardPage() {
             <Gift className="h-10 w-10 text-primary" />
             <div>
               <CardTitle className="font-headline text-4xl">Purchase a Gift Card</CardTitle>
-              <CardDescription>The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Bookings.</CardDescription>
+              <CardDescription>The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Events.</CardDescription>
             </div>
           </div>
         </CardHeader>
