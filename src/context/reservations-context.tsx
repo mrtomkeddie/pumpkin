@@ -30,10 +30,13 @@ export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    try {
-      localStorage.setItem('pingleFarmReservations', JSON.stringify(reservations));
-    } catch (error) {
-      console.error("Failed to save reservations to localStorage", error);
+    // We need to check if window is defined to avoid running this on the server
+    if (typeof window !== 'undefined') {
+        try {
+            localStorage.setItem('pingleFarmReservations', JSON.stringify(reservations));
+        } catch (error) {
+            console.error("Failed to save reservations to localStorage", error);
+        }
     }
   }, [reservations]);
 

@@ -1,3 +1,4 @@
+
 import { Sun, Moon, Leaf, Users, Mic2 } from "lucide-react";
 import { AlpacaIcon } from "@/components/icons";
 import { type Activity } from "@/lib/types";
@@ -24,7 +25,7 @@ export const activities: Activity[] = [
         {
             slug: 'quiet',
             title: 'Quiet Pumpkin Picking',
-            description: 'This ticket grants you access to our pumpkin patch. We offer this slot to individuals with sensory sensitivities, so please refrain from booking unless absolutely needed as slots are limited to 5 cars per hour.',
+            description: 'These sessions provide access to the pumpkin patch in a sensory-friendly environment, reserved for individuals with sensory sensitivities. Availability is limited to 5 cars per hour, so we kindly ask that only those who need it book this option.',
             price: '£9.43',
             details: '1 Car Per Ticket',
             icon: Mic2,
