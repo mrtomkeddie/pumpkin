@@ -1,54 +1,110 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import { activities } from "@/app/data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Clock } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-headline font-bold text-primary mb-2">
-          Pingle Farm
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Book your next adventure
-        </p>
-      </div>
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 lg:py-40 px-4 bg-background">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(var(--primary-rgb),0.1),_transparent_40%)] -z-10" />
+          
+          <h1 className="text-6xl md:text-8xl font-headline font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-x">
+            Pingle Farm
+          </h1>
+          <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+            FAMILY ENTERTAINMENT CENTRE
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-secondary" />
+              <span>Pingle Lane, Pingle</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-secondary" />
+              <span>Daily: 10:00am - 9:00pm</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-secondary" />
+              <span>0116 234 5678</span>
+            </div>
+          </div>
+          <Button asChild size="lg" className="mt-10 bg-accent hover:bg-accent/90 text-accent-foreground">
+            <Link href="#experiences">
+              Book Your Experience <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-        {activities.map((activity) => (
-          <Card key={activity.slug} className="flex flex-col overflow-hidden bg-card/80 backdrop-blur-sm border-primary/20 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300">
-            <CardHeader className="p-0">
-              <div className="relative h-60 w-full">
-                <Image
-                  src={activity.image}
-                  alt={activity.title}
-                  fill
-                  data-ai-hint={activity.aiHint}
-                  className="object-cover"
-                />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                 <div className="absolute bottom-4 left-4">
-                  <activity.icon className="h-10 w-10 text-white/80" />
-                 </div>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-1 pt-6">
-              <CardTitle className="font-headline text-2xl mb-2">{activity.title}</CardTitle>
-              <CardDescription>{activity.description}</CardDescription>
-            </CardContent>
-            <CardFooter>
-              <Button asChild className="w-full">
-                <Link href={`/book/${activity.slug}`}>
-                  Book Now <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+        {/* Experiences Section */}
+        <section id="experiences" className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-center text-4xl font-bold font-headline mb-2">CHOOSE YOUR EXPERIENCE</h2>
+            <div className="flex justify-center mb-12">
+              <div className="h-1 w-24 bg-secondary rounded-full" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {activities.map((activity, index) => (
+                <Card key={activity.slug} className="bg-card border-border/50 overflow-hidden group">
+                  <CardHeader className="p-0">
+                    <div className="relative h-60 w-full">
+                      <Image
+                        src={activity.image}
+                        alt={activity.title}
+                        fill
+                        data-ai-hint={activity.aiHint}
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/30" />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <CardTitle className="font-headline text-2xl uppercase tracking-wider mb-2 flex items-center justify-between">
+                      {activity.title}
+                      <activity.icon className="w-6 h-6 text-primary" />
+                    </CardTitle>
+                    <CardDescription>{activity.description}</CardDescription>
+                  </CardContent>
+                  <CardFooter className="p-6 bg-card">
+                    <Button asChild className={`w-full ${index % 2 === 0 ? 'bg-secondary hover:bg-secondary/90 text-secondary-foreground' : 'bg-primary hover:bg-primary/90'}`}>
+                      <Link href={`/book/${activity.slug}`}>
+                        Book Now <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer className="text-center py-6 text-sm text-muted-foreground border-t">
+        <p>&copy; {new Date().getFullYear()} Pingle Farm. All rights reserved.</p>
+        <Link href="/gift-card" className="hover:text-primary transition-colors mt-2 inline-block">Gift Cards</Link>
+      </footer>
+
+      <style jsx global>{`
+        @keyframes gradient-x {
+            0%, 100% {
+                background-size: 200% 200%;
+                background-position: left center;
+            }
+            50% {
+                background-size: 200% 200%;
+                background-position: right center;
+            }
+        }
+        .animate-gradient-x {
+            animation: gradient-x 5s ease infinite;
+        }
+      `}</style>
     </div>
   );
 }

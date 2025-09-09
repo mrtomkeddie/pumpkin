@@ -4,58 +4,58 @@
 
 @layer base {
   :root {
-    --background: 24 94% 98%; /* Creamy white */
-    --foreground: 24 10% 3.9%; /* Dark brown */
-    --card: 24 94% 98%;
-    --card-foreground: 24 10% 3.9%;
-    --popover: 24 94% 98%;
-    --popover-foreground: 24 10% 3.9%;
-    --primary: 16 84% 44%; /* Burnt orange */
-    --primary-foreground: 24 94% 98%;
-    --secondary: 48 96% 86%; /* Pale yellow */
-    --secondary-foreground: 24 10% 3.9%;
-    --muted: 33 92% 95%; /* Light peach */
-    --muted-foreground: 24 5% 45%;
-    --accent: 98 39% 49%; /* Muted green */
-    --accent-foreground: 24 94% 98%;
+    --background: 240 10% 3.9%; /* Dark Slate Blue/Near Black */
+    --foreground: 0 0% 98%; /* White */
+    --card: 240 10% 10%; /* Slightly lighter dark */
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 340 90% 60%; /* Vibrant Pink/Magenta */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 190 95% 55%; /* Bright Cyan */
+    --secondary-foreground: 240 10% 3.9%;
+    --muted: 240 5% 25%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 45 95% 55%; /* Bright Orange/Yellow */
+    --accent-foreground: 240 10% 3.9%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 24 10% 83.9%;
-    --input: 24 10% 83.9%;
-    --ring: 16 84% 44%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 340 90% 60%;
+    --chart-1: 190 95% 55%;
+    --chart-2: 340 90% 60%;
+    --chart-3: 45 95% 55%;
+    --chart-4: 210 95% 55%;
+    --chart-5: 270 90% 60%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 24 10% 3.9%; /* Dark brown */
-    --foreground: 24 94% 98%; /* Creamy white */
-    --card: 24 10% 3.9%;
-    --card-foreground: 24 94% 98%;
-    --popover: 24 10% 3.9%;
-    --popover-foreground: 24 94% 98%;
-    --primary: 16 84% 44%; /* Burnt orange */
-    --primary-foreground: 24 94% 98%;
-    --secondary: 48 96% 16%; /* Dark yellow/brown */
-    --secondary-foreground: 24 94% 98%;
-    --muted: 33 92% 15%; /* Dark peach/brown */
-    --muted-foreground: 24 5% 55%;
-    --accent: 98 39% 29%; /* Dark muted green */
-    --accent-foreground: 24 94% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 24 10% 13.9%;
-    --input: 24 10% 13.9%;
-    --ring: 16 84% 44%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: 240 10% 3.9%; /* Dark Slate Blue/Near Black */
+    --foreground: 0 0% 98%; /* White */
+    --card: 240 10% 10%; /* Slightly lighter dark */
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 340 90% 60%; /* Vibrant Pink/Magenta */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 190 95% 55%; /* Bright Cyan */
+    --secondary-foreground: 240 10% 3.9%;
+    --muted: 240 5% 25%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 45 95% 55%; /* Bright Orange/Yellow */
+    --accent-foreground: 240 10% 3.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 340 90% 60%;
+    --chart-1: 190 95% 55%;
+    --chart-2: 340 90% 60%;
+    --chart-3: 45 95% 55%;
+    --chart-4: 210 95% 55%;
+    --chart-5: 270 90% 60%;
   }
 }
 
@@ -64,25 +64,6 @@
     @apply border-border;
   }
   body {
-    @apply text-foreground;
-  }
-  
-  .bg-image-wrapper {
-    @apply relative isolate;
-  }
-  
-  .bg-image-wrapper::before {
-    content: '';
-    @apply absolute inset-0 -z-10 bg-cover bg-center bg-fixed bg-no-repeat;
-    background-image: url('/hero.jpg');
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    transform: scale(1.1);
-  }
-
-  .bg-image-wrapper::after {
-    content: '';
-    @apply absolute inset-0 -z-10;
-    background-color: hsla(var(--background), 0.7);
+    @apply bg-background text-foreground;
   }
 }
