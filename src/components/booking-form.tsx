@@ -495,7 +495,9 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                               </FormControl>
                               <FormLabel
                                 htmlFor={time}
-                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-11"
+                                className={cn("flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground cursor-pointer h-11",
+                                field.value === time && "border-primary"
+                                )}
                               >
                                 {time}
                               </FormLabel>
