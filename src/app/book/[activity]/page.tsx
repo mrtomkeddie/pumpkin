@@ -47,6 +47,10 @@ const quietDates = [
     new Date(currentYear, 9, 24),
 ].map(d => d.setHours(0,0,0,0));
 
+const pumpkinAvailableDates = [
+    11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27, 28, 30
+].map(day => new Date(currentYear, 9, day).setHours(0,0,0,0));
+
 
 const BookingFormSchema = z.object({
   name: z.string().min(1, 'Name is required.'),
@@ -259,7 +263,7 @@ export default function BookActivityPage() {
                                 const dateOnly = new Date(date).setHours(0,0,0,0);
 
                                 if (activity.slug === 'pumpkin-picking') {
-                                    if (date.getMonth() !== 9) { // 9 is October
+                                    if (!pumpkinAvailableDates.includes(dateOnly)) {
                                         return true;
                                     }
                                     const isMoonlitType = watchedActivityType === 'moonlit';
@@ -335,5 +339,7 @@ export default function BookActivityPage() {
     </div>
   );
 }
+
+    
 
     
