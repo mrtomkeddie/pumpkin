@@ -40,13 +40,15 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/30" />
           </div>
         </CardHeader>
-        <div className="h-1 bg-primary" />
-        <CardContent className="p-6 flex-1 relative">
-          {itemIcon && <item.icon className="w-6 h-6 text-primary absolute top-6 right-6" />}
-          <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
-            {item.title}
-          </CardTitle>
-          <CardDescription>{item.description}</CardDescription>
+        <CardContent className="p-0 pt-0 flex-1 relative flex flex-col">
+          <div className="h-1 bg-primary" />
+          <div className="p-6 flex-1 flex flex-col">
+            {itemIcon && <item.icon className="w-6 h-6 text-primary absolute top-6 right-6" />}
+            <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
+              {item.title}
+            </CardTitle>
+            <CardDescription className="flex-1">{item.description}</CardDescription>
+          </div>
         </CardContent>
         <CardFooter className="p-6 bg-transparent mt-auto">
            <Button asChild className="w-full bg-primary hover:bg-primary/90">
@@ -180,13 +182,15 @@ export default function Home() {
                           <div className="absolute inset-0 bg-black/30" />
                         </div>
                       </CardHeader>
-                      <div className="h-1 bg-primary" />
-                      <CardContent className="p-6 flex-1 relative">
-                        <Gift className="w-6 h-6 text-primary absolute top-6 right-6" />
-                        <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
-                          Gift Card
-                        </CardTitle>
-                        <CardDescription>The perfect gift for any occasion. Give the gift of a magical experience at Pingle Farm.</CardDescription>
+                      <CardContent className="p-0 pt-0 flex-1 relative flex flex-col">
+                        <div className="h-1 bg-primary" />
+                        <div className="p-6 flex-1 flex flex-col">
+                          <Gift className="w-6 h-6 text-primary absolute top-6 right-6" />
+                          <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
+                            Gift Card
+                          </CardTitle>
+                          <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Pingle Farm.</CardDescription>
+                        </div>
                       </CardContent>
                       <CardFooter className="p-6 bg-transparent mt-auto">
                         <Button asChild className="w-full bg-primary hover:bg-primary/90">
