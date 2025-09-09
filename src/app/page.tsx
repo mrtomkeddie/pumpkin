@@ -16,33 +16,35 @@ export default function Home() {
         <section className="relative flex flex-col items-center justify-center text-center px-4 bg-background h-screen">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(var(--primary-rgb),0.1),_transparent_40%)] -z-10" />
           
-          <Image
-            src="/logo.png"
-            alt="The Black Cat Pumpkin Patch Logo"
-            width={450}
-            height={105}
-            priority
-          />
-          
-          <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-foreground">
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-primary" />
-              <span>Pingle Lane, Pingle</span>
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="The Black Cat Pumpkin Patch Logo"
+              width={600}
+              height={140}
+              priority
+            />
+            
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-foreground">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary" />
+                <span>Pingle Lane, Pingle</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary" />
+                <span>Daily: 10:00am - 9:00pm</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-primary" />
+                <span>0116 234 5678</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-primary" />
-              <span>Daily: 10:00am - 9:00pm</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-primary" />
-              <span>0116 234 5678</span>
-            </div>
+            <Button asChild size="lg" className="mt-10 bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Link href="#experiences">
+                Book Your Experience <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
-          <Button asChild size="lg" className="mt-10 bg-primary hover:bg-primary/90 text-primary-foreground">
-            <Link href="#experiences">
-              Book Your Experience <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
         </section>
 
         {/* Experiences Section */}
