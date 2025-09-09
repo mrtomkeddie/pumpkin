@@ -12,7 +12,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 lg:py-40 px-4 bg-background">
+        <section className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 lg:py-40 px-4">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(var(--primary-rgb),0.1),_transparent_40%)] -z-10" />
           
           <Image
@@ -45,7 +45,7 @@ export default function Home() {
         </section>
 
         {/* Experiences Section */}
-        <section id="experiences" className="py-20 bg-background">
+        <section id="experiences" className="py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-center text-4xl font-bold font-headline mb-2">CHOOSE YOUR EXPERIENCE</h2>
             <div className="flex justify-center mb-12">
