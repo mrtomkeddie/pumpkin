@@ -144,7 +144,7 @@ export default function Home() {
               )}
               {activeTab === 'alpaca-walk' && (
                  <div className="flex justify-center max-w-7xl mx-auto">
-                    <div className="w-full md:w-1/2 lg:w-1/3">
+                    <div className="w-full md:w-2/3 lg:w-1/2">
                         {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
                     </div>
                  </div>
