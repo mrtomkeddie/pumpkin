@@ -27,7 +27,7 @@ export default function Home() {
     const itemIcon = 'icon' in item ? item.icon : undefined;
 
     return (
-       <Card className="bg-card border-border/50 overflow-hidden group flex flex-col">
+       <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary">
         <CardHeader className="p-0">
           <div className="relative h-60 w-full">
             <Image
@@ -166,7 +166,7 @@ export default function Home() {
               {activeTab === 'gift-card' && (
                 <div className="flex justify-center max-w-7xl mx-auto">
                   <div className="w-full md:w-2/3 lg:w-1/2">
-                    <Card className="bg-card border-border/50 overflow-hidden group flex flex-col">
+                    <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary">
                       <CardHeader className="p-0">
                         <div className="relative h-60 w-full">
                           <Image
