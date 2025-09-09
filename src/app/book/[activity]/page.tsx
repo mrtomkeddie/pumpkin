@@ -323,16 +323,16 @@ export default function BookActivityPage() {
                         <AccordionItem value="what-to-expect">
                             <AccordionTrigger>What to Expect</AccordionTrigger>
                             <AccordionContent 
-                                className="text-sm text-muted-foreground space-y-4"
-                                dangerouslySetInnerHTML={{ __html: `<p>Your adventure begins the moment you arrive! Our team will welcome you at the car park and introduce you to the stars of the show: our three friendly alpacas. You might even meet some of our other barnyard pals, like the goats who love to tag along.</p><p>After a quick meet-and-greet, you'll choose your walking companion and we'll set off on a scenic one-mile trek through picturesque Welsh fields. Once the walk is complete, you'll get to reward your new furry friend with some well-deserved treats.</p><p><strong>A quick tip:</strong> Welsh weather is wonderfully unpredictable, so please bring your wellies and dress for the day! If you'd prefer to just come along for the scenery, spectator tickets are also available.</p>` }}
-                            />
+                                className="text-sm text-muted-foreground space-y-4">
+                                <p>Your adventure begins the moment you arrive! Our team will welcome you at the car park and introduce you to the stars of the show: our three friendly alpacas. You might even meet some of our other barnyard pals, like the goats who love to tag along.</p><p>After a quick meet-and-greet, you\'\'\'ll choose your walking companion and we\'\'\'ll set off on a scenic one-mile trek through picturesque Welsh fields. Once the walk is complete, you\'\'\'ll get to reward your new furry friend with some well-deserved treats.</p><p><strong>A quick tip:</strong> Welsh weather is wonderfully unpredictable, so please bring your wellies and dress for the day! If you\'\'\'d prefer to just come along for the scenery, spectator tickets are also available.</p>
+                            </AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="package-options">
                             <AccordionTrigger>Package Options & Rules</AccordionTrigger>
                             <AccordionContent 
-                                className="text-sm text-muted-foreground space-y-4"
-                                dangerouslySetInnerHTML={{ __html: `<p>We can take a maximum of 6 people per walk. We have 3 alpacas, so if your group has more than 3 people, some will need to share an alpaca. Please select the "Shared Alpaca" ticket in this case.</p><p>The minimum age for a solo walk is 10. Younger children must be accompanied by a supervising adult.</p>`}}
-                            />
+                                className="text-sm text-muted-foreground space-y-4">
+                                <p>We can take a maximum of 6 people per walk. We have 3 alpacas, so if your group has more than 3 people, some will need to share an alpaca. Please select the "Shared Alpaca" ticket in this case.</p><p>The minimum age for a solo walk is 10. Younger children must be accompanied by a supervising adult.</p>
+                            </AccordionContent>
                         </AccordionItem>
                     </Accordion>
                 </div>
