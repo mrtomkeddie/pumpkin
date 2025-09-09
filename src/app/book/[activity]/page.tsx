@@ -296,7 +296,7 @@ export default function BookActivityPage() {
                               </FormControl>
                               <FormLabel
                                 htmlFor={time}
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-3 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary"
+                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-3 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary py-6"
                               >
                                 {time}
                               </FormLabel>
