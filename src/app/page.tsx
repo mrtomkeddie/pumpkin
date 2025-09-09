@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -18,8 +19,8 @@ export default function Home() {
           <Image
             src="/logo.png"
             alt="Pingle Farm Logo"
-            width={400}
-            height={93}
+            width={450}
+            height={105}
             priority
           />
           
