@@ -18,8 +18,8 @@ export default function Home() {
           <Image
             src="/logo.png"
             alt="Pingle Farm Logo"
-            width={500}
-            height={117}
+            width={400}
+            height={94}
             priority
           />
           
@@ -47,7 +47,7 @@ export default function Home() {
         {/* Experiences Section */}
         <section id="experiences" className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-center text-4xl font-bold font-headline mb-2">CHOOSE YOUR EXPERIENCE</h2>
+            <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose your experience</h2>
             <div className="flex justify-center mb-12">
               <div className="h-1 w-24 bg-secondary rounded-full" />
             </div>
@@ -68,7 +68,7 @@ export default function Home() {
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <CardTitle className="font-headline text-2xl uppercase tracking-wider mb-2 flex items-center justify-between">
+                    <CardTitle className="font-headline text-2xl tracking-wider mb-2 flex items-center justify-between">
                       {activity.title}
                       <activity.icon className="w-6 h-6 text-primary" />
                     </CardTitle>
@@ -93,6 +93,9 @@ export default function Home() {
       </footer>
 
       <style jsx global>{`
+        html {
+          scroll-behavior: smooth;
+        }
         @keyframes gradient-x {
             0%, 100% {
                 background-size: 200% 200%;
