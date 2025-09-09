@@ -61,32 +61,33 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1">
       <main className="flex-1 flex flex-col">
-      <section className="relative flex flex-col items-center justify-center text-center p-4 min-h-screen">
-        <div className="flex flex-col items-center justify-center">
+      <section className="relative flex flex-col items-center justify-center text-center p-4 min-h-screen text-white">
+          <div className="absolute inset-0">
+            <Image 
+              src="https://picsum.photos/1920/1080"
+              alt="Background image of a pumpkin patch"
+              fill
+              data-ai-hint="pumpkin patch hero"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+          </div>
+          <div className="relative z-10 flex flex-col items-center">
             <Image
               src="/logo.png"
               alt="The Black Cat Pumpkin Patch Logo"
               width={200}
               height={46.6}
               priority
-              className="max-w-full h-auto"
+              className="max-w-full h-auto mb-4"
             />
-            
-            <div className="mt-8 flex flex-col items-center justify-center gap-2 text-foreground">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-primary" />
-                <span>The Barn, Mansant Ganol, Ponthenri, Llanelli, United Kingdom</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary" />
-                <span>07527 303240</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-primary" />
-                <span>Tbcpumpkinpatch@outlook.com</span>
-              </div>
-            </div>
-            <Button asChild size="lg" className="mt-10 bg-primary hover:bg-primary/90 text-primary-foreground">
+            <h1 className="text-5xl md:text-7xl font-headline font-bold mb-4 leading-tight">
+              Experience the Magic of Autumn
+            </h1>
+            <p className="max-w-2xl text-lg md:text-xl mb-8">
+              Pingle Farm is your destination for pumpkin picking, alpaca walks, and unforgettable family fun.
+            </p>
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Link href="#experiences">
                 Book Your Experience <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
@@ -157,14 +158,14 @@ export default function Home() {
                 </div>
               )}
               {activeTab === 'alpaca-walk' && (
-                 <div className="flex justify-center max-w-7xl mx-auto">
+                 <div className="flex justify-center">
                     <div className="w-full md:w-1/2">
                         {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
                     </div>
                  </div>
               )}
               {activeTab === 'gift-card' && (
-                <div className="flex justify-center max-w-7xl mx-auto">
+                <div className="flex justify-center">
                   <div className="w-full md:w-2/3 lg:w-1/2">
                     <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary">
                       <CardHeader className="p-0">
@@ -202,8 +203,26 @@ export default function Home() {
         </section>
       </main>
       <footer className="text-center py-6 text-sm text-foreground border-t">
-        <p>&copy; {new Date().getFullYear()} Pingle Farm. All rights reserved.</p>
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+          <p>&copy; {new Date().getFullYear()} Pingle Farm. All rights reserved.</p>
+          <div className="flex items-center gap-4 mt-4 md:mt-0">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-primary" />
+              <span>The Barn, Mansant Ganol, Ponthenri, Llanelli, United Kingdom</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-primary" />
+              <span>07527 303240</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-primary" />
+              <span>Tbcpumpkinpatch@outlook.com</span>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
 }
+
+    
