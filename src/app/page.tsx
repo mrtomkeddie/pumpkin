@@ -7,7 +7,7 @@ import { useState } from "react";
 import { activities } from "@/app/data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, MapPin, Phone, Clock, Sun, Gift } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Mail, Sun, Gift } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Activity, ActivityType } from "@/lib/types";
 import { AlpacaIcon } from "@/components/icons";
@@ -40,10 +40,12 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/30" />
           </div>
         </CardHeader>
-        <CardContent className="p-0 pt-0 flex-1 relative flex flex-col">
-          <div className="h-1 bg-primary" />
+        <CardContent className="p-0 flex-1 relative flex flex-col">
+          <div className="pt-6">
+            <div className="h-1 w-full bg-primary" />
+          </div>
           <div className="p-6 flex-1 flex flex-col">
-            {itemIcon && <item.icon className="w-6 h-6 text-primary absolute top-6 right-6" />}
+            {itemIcon && <item.icon className="w-6 h-6 text-primary absolute top-12 right-6" />}
             <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
               {item.title}
             </CardTitle>
@@ -75,18 +77,18 @@ export default function Home() {
               className="max-w-full h-auto"
             />
             
-            <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-foreground">
+            <div className="mt-8 flex flex-col items-center justify-center gap-2 text-foreground">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span>Pingle Lane, Pingle</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary" />
-                <span>Daily: 10:00am - 9:00pm</span>
+                <span>The Barn, Mansant Ganol, Ponthenri, Llanelli, United Kingdom</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-primary" />
-                <span>0116 234 5678</span>
+                <span>07527 303240</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-primary" />
+                <span>Tbcpumpkinpatch@outlook.com</span>
               </div>
             </div>
             <Button asChild size="lg" className="mt-10 bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -161,7 +163,7 @@ export default function Home() {
               )}
               {activeTab === 'alpaca-walk' && (
                  <div className="flex justify-center max-w-7xl mx-auto">
-                    <div className="w-full md:w-2/3 lg:w-1/2">
+                    <div className="w-full md:w-1/2">
                         {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
                     </div>
                  </div>
