@@ -162,7 +162,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
   
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
   const isAlpacaBooking = activity.slug === 'alpaca-walk';
-  const selectedActivityType = activity.types?.find(t => t.slug === (isPumpkinBooking ? activityTypeSlug : watchedActivityType));
+  const selectedActivityType = activity.types?.find(t => t.slug === (isPumpkinBooking ? watchedActivityType : watchedActivityType));
 
   const alpacaTotalPeople = isAlpacaBooking && watchedPackages ?
     Object.entries(watchedPackages).reduce((total, [slug, quantity]) => {
@@ -401,16 +401,16 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                       <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><CalendarIcon className="h-6 w-6 text-primary" /> Date</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
-                              <Button
-                                variant={'outline'}
-                                className={cn(
-                                  'w-full justify-start text-left font-normal h-11',
-                                  !field.value && 'text-muted-foreground'
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-                              </Button>
+                            <Button
+                              variant={'outline'}
+                              className={cn(
+                                'w-full justify-start text-left font-normal h-11',
+                                !field.value && 'text-muted-foreground'
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                            </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
@@ -462,29 +462,27 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><Clock className="h-6 w-6 text-primary" /> Time</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="grid grid-cols-3 sm:grid-cols-4 gap-2"
-                        >
-                          {availableTimes.map((time) => (
-                            <FormItem key={time}>
-                              <FormControl>
-                                <RadioGroupItem value={time} id={time} className="sr-only" />
-                              </FormControl>
-                              <FormLabel
-                                htmlFor={time}
-                                className={cn("flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground cursor-pointer h-11",
-                                field.value === time && "border-primary"
-                                )}
-                              >
-                                {time}
-                              </FormLabel>
-                            </FormItem>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="grid grid-cols-3 sm:grid-cols-4 gap-2"
+                      >
+                        {availableTimes.map((time) => (
+                          <FormItem key={time}>
+                            <FormControl>
+                              <RadioGroupItem value={time} id={time} className="sr-only" />
+                            </FormControl>
+                            <FormLabel
+                              htmlFor={time}
+                              className={cn("flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground cursor-pointer h-11",
+                              field.value === time && "border-primary"
+                              )}
+                            >
+                              {time}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
                       <FormMessage />
                     </FormItem>
                   )}
