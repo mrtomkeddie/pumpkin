@@ -21,9 +21,9 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className={cn('font-body antialiased min-h-screen flex flex-col')}>
+      <body className={cn('font-body antialiased min-h-screen flex flex-col pt-20')}>
         <ReservationsProvider>
           <Header />
           <main className="flex-1">

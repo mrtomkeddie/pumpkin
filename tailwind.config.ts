@@ -18,8 +18,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['Poppins', 'sans-serif'],
-        headline: ['Raleway', 'sans-serif'],
+        body: ['Nunito Sans', 'sans-serif'],
+        headline: ['Lora', 'serif'],
         code: ['monospace'],
       },
       colors: {
