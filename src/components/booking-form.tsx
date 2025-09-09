@@ -225,6 +225,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     : activity.title;
 
   const formPrice = isPumpkinBooking ? selectedActivityType?.price : null;
+  const formDetails = isPumpkinBooking ? selectedActivityType?.details : 'Select your preferred date and time for this magical experience.';
 
   return (
     <div className="pt-8">
@@ -236,7 +237,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                     <span className='text-xl font-bold text-primary'>{formPrice}</span>
                 )}
             </div>
-          <CardDescription>Select your preferred date and time for this magical experience.</CardDescription>
+          <CardDescription>{formDetails}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -501,5 +502,3 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     </div>
   );
 }
-
-    
