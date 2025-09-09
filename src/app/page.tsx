@@ -67,7 +67,7 @@ export default function Home() {
           <div className="absolute inset-0">
             <Image 
               src="/home.png"
-              alt="Pingle Farm entrance with pumpkin decorations"
+              alt="The Black Cat Events entrance with pumpkin decorations"
               fill
               className="object-cover"
             />
@@ -90,7 +90,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="experiences" className="py-20 bg-background min-h-screen w-full flex flex-col items-center justify-center">
+        <section id="experiences" className="py-20 bg-background min-h-screen w-full flex flex-col items-center justify-center scroll-mt-[50vh] -mt-[50vh]">
           <div className="container mx-auto px-4">
             <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose Your Experience</h2>
             <div className="flex justify-center mb-12">
