@@ -11,9 +11,9 @@ import { ArrowRight, MapPin, Phone, Clock } from "lucide-react";
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="flex-1">
+      <main className="flex-1 flex flex-col">
         {/* Hero Section */}
-        <section className="relative flex flex-col items-center justify-center text-center px-4 bg-background flex-1 -mt-20">
+        <section className="relative flex flex-col items-center justify-center text-center px-4 bg-background flex-grow">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(var(--primary-rgb),0.1),_transparent_40%)] -z-10" />
           
           <Image
