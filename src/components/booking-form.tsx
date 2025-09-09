@@ -419,7 +419,6 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><CalendarIcon className="h-6 w-6 text-primary" /> Date</FormLabel>
-                      <FormControl>
                         <Popover>
                           <PopoverTrigger asChild>
                               <Button
@@ -472,7 +471,6 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                             />
                           </PopoverContent>
                         </Popover>
-                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -522,5 +520,3 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     </div>
   );
 }
-
-    
