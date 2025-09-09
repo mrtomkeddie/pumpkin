@@ -66,8 +66,8 @@ export default function Home() {
             <Image
               src="/logo.png"
               alt="The Black Cat Pumpkin Patch Logo"
-              width={400}
-              height={93.2}
+              width={200}
+              height={46.6}
               priority
               className="max-w-full h-auto"
             />
@@ -143,8 +143,10 @@ export default function Home() {
                 </div>
               )}
               {activeTab === 'alpaca-walk' && (
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                   {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
+                 <div className="flex justify-center max-w-6xl mx-auto">
+                    <div className="w-full md:w-1/2 lg:w-1/3">
+                        {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
+                    </div>
                  </div>
               )}
             </div>
