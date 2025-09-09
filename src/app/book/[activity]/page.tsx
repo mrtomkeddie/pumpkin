@@ -76,6 +76,12 @@ export default function BookActivityPage() {
   const watchedActivityType = form.watch('activityType');
 
   useEffect(() => {
+    if (activity?.slug === 'pumpkin-picking' && typeParam) {
+      form.setValue('activityType', typeParam);
+    }
+  }, [typeParam, activity, form]);
+
+  useEffect(() => {
     const isMoonlit = watchedActivityType === 'moonlit';
     setAvailableTimes(isMoonlit ? moonlitTimes : dayTimes);
 
@@ -162,7 +168,7 @@ export default function BookActivityPage() {
 
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
+    <div className="container mx-auto max-w-4xl px-4 py-12 pt-32">
       <Card>
         <CardHeader>
           <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
@@ -345,7 +351,3 @@ export default function BookActivityPage() {
     </div>
   );
 }
-
-    
-
-    
