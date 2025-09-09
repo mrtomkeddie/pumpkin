@@ -33,7 +33,6 @@ export default function Home() {
       return (
         <Card className="bg-card border-border/50 overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg w-full">
             <div className="grid grid-cols-1 md:grid-cols-2">
-                {/* Left Column: Image, Title, Description, Button */}
                 <div className="flex flex-col">
                     <CardHeader className="p-0">
                         <div className="relative h-60 w-full">
@@ -62,14 +61,12 @@ export default function Home() {
                     </CardFooter>
                 </div>
 
-                {/* Right Column: Accordion */}
                 <div className="p-6 border-l border-border/50 flex flex-col justify-center">
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="what-to-expect">
                             <AccordionTrigger>What to Expect</AccordionTrigger>
                             <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
-                            <p>When you first arrive at our farm, you'll be greeted by one of our team members at the car park. They will take you down to the alpaca's stable where you will meet our three boys. You will also have the opportunity to meet our goats who often follow us on our walks. Other furry farm friends may also make an appearance during your visit. We then halter our boys and your group will decide which alpaca they would like to walk. The team member will then guide you on a lovely walk (approximately 1 mile) through fields around the farm with plenty of picturesque views along the way. Once finished we will reward our boys with some well-earned treats back at the stable.</p>
-                            <p>Make sure you bring your wellies and dress appropriately as the Welsh weather always makes an appearance! If you are attending with a group and do not wish to walk the alpacas please feel free to join the walk with a spectator ticket.</p>
+                            <p>Your adventure begins the moment you arrive! Our team will welcome you at the car park and introduce you to the stars of the show: our three friendly alpacas. You might even meet some of our other barnyard pals, like the goats who love to tag along.</p><p>After a quick meet-and-greet, you'll choose your walking companion and we'll set off on a scenic one-mile trek through picturesque Welsh fields. Once the walk is complete, you'll get to reward your new furry friend with some well-deserved treats.</p><p><strong>A quick tip:</strong> Welsh weather is wonderfully unpredictable, so please bring your wellies and dress for the day! If you'd prefer to just come along for the scenery, spectator tickets are also available.</p>
                             </AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="package-options">
@@ -275,5 +272,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
