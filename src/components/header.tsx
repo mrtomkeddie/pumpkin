@@ -7,8 +7,11 @@ export function Header() {
   return (
     <header className="absolute top-0 z-50 w-full py-4">
       <div className="container flex h-16 max-w-7xl items-center justify-between">
-        {/* Left-aligned navigation for spacing */}
-        <div className="hidden md:flex items-center gap-6 text-sm text-white">
+        {/* Left-aligned navigation */}
+        <div className="flex items-center gap-6 text-sm text-white">
+           <Button asChild variant="ghost" className="hover:bg-white/10 hover:text-white">
+            <Link href="/reservations">Check my booking</Link>
+          </Button>
         </div>
 
         {/* Centered Logo */}
