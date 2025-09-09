@@ -2,14 +2,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { notFound, useParams, useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { Calendar as CalendarIcon, Clock, Users, Sun, Moon, Mic2, User, Mail, Phone, Minus, Plus, Info } from 'lucide-react';
 
-import { activities } from '@/app/data';
 import { useReservations } from '@/context/reservations-context';
 
 import { Button } from '@/components/ui/button';
@@ -19,10 +18,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
-import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import type { Activity, ActivityType } from '@/lib/types';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
@@ -85,16 +84,17 @@ const BookingFormSchema = z.object({
 
 type BookingFormValues = z.infer<typeof BookingFormSchema>;
 
-export default function BookActivityPage() {
-  const router = useRouter();
-  const params = useParams();
-  const searchParams = useSearchParams();
-  const { addReservation } = useReservations();
-  const activitySlug = typeof params.activity === 'string' ? params.activity : '';
-  const activity = activities.find((a) => a.slug === activitySlug);
-  const typeParam = searchParams.get('type');
+interface BookingFormProps {
+  activity: Activity;
+  activityTypeSlug?: string;
+  onBookingConfirmed: () => void;
+}
 
-  const defaultPackages = activity?.slug === 'alpaca-walk' 
+export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: BookingFormProps) {
+  const router = useRouter();
+  const { addReservation } = useReservations();
+
+  const defaultPackages = activity.slug === 'alpaca-walk' 
     ? activity.types?.reduce((acc, type) => {
         acc[type.slug] = 0;
         return acc;
@@ -104,7 +104,7 @@ export default function BookActivityPage() {
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
     defaultValues: {
-      activityType: typeParam || (activity?.slug === 'pumpkin-picking' ? activity?.types?.[0].slug : undefined),
+      activityType: activityTypeSlug || (activity.slug === 'pumpkin-picking' ? activity.types?.[0].slug : undefined),
       packages: defaultPackages,
     }
   });
@@ -113,11 +113,11 @@ export default function BookActivityPage() {
   const watchedPackages = form.watch('packages');
 
   const getInitialTimes = () => {
-    if (activity?.slug === 'pumpkin-picking') {
-        const isMoonlit = typeParam === 'moonlit';
+    if (activity.slug === 'pumpkin-picking') {
+        const isMoonlit = activityTypeSlug === 'moonlit';
         return isMoonlit ? moonlitTimes : pumpkinTimes;
     }
-    if (activity?.slug === 'alpaca-walk') {
+    if (activity.slug === 'alpaca-walk') {
       return alpacaTimes;
     }
     return dayTimes;
@@ -127,11 +127,11 @@ export default function BookActivityPage() {
 
   useEffect(() => {
     let newTimes: string[];
-    if (activity?.slug === 'pumpkin-picking') {
+    if (activity.slug === 'pumpkin-picking') {
         const isMoonlit = watchedActivityType === 'moonlit';
         
         newTimes = isMoonlit ? moonlitTimes : pumpkinTimes;
-    } else if (activity?.slug === 'alpaca-walk') {
+    } else if (activity.slug === 'alpaca-walk') {
         newTimes = alpacaTimes;
     } else {
         newTimes = dayTimes;
@@ -143,7 +143,7 @@ export default function BookActivityPage() {
       form.setValue('time', '');
     }
 
-    if (activity?.slug === 'pumpkin-picking') {
+    if (activity.slug === 'pumpkin-picking') {
         const currentDate = form.getValues('date');
         if (currentDate) {
             const currentDateOnly = new Date(currentDate).setHours(0,0,0,0);
@@ -158,11 +158,7 @@ export default function BookActivityPage() {
             }
         }
     }
-  }, [watchedActivityType, form, activity?.slug]);
-
-  if (!activity) {
-    notFound();
-  }
+  }, [watchedActivityType, form, activity.slug]);
   
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
   const isAlpacaBooking = activity.slug === 'alpaca-walk';
@@ -184,8 +180,8 @@ export default function BookActivityPage() {
         });
 
       addReservation({
-        activityTitle: activity!.title,
-        activitySlug: activity!.slug,
+        activityTitle: activity.title,
+        activitySlug: activity.slug,
         packages,
         date: data.date,
         time: data.time,
@@ -195,10 +191,10 @@ export default function BookActivityPage() {
         quantity: alpacaTotalPeople
       });
     } else {
-      const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
+      const activityType = activity.types?.find(t => t.slug === data.activityType)?.title;
       addReservation({
-        activityTitle: activity!.title,
-        activitySlug: activity!.slug,
+        activityTitle: activity.title,
+        activitySlug: activity.slug,
         activityType: activityType,
         date: data.date,
         time: data.time,
@@ -207,6 +203,7 @@ export default function BookActivityPage() {
         phone: data.phone,
       });
     }
+    onBookingConfirmed();
     router.push('/reservations');
   }
 
@@ -234,17 +231,16 @@ export default function BookActivityPage() {
     }
   };
 
-  const selectedPumpkinType = isPumpkinBooking ? activity.types?.find(t => t.slug === typeParam) : null;
-
+  const selectedPumpkinType = isPumpkinBooking ? activity.types?.find(t => t.slug === activityTypeSlug) : null;
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12 pt-36">
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
+    <div className="pt-8">
+      <Card className="border-0 shadow-none">
+        <CardHeader className="px-1">
+          <CardTitle className="font-headline text-2xl">{activity.title}</CardTitle>
           <CardDescription>Select your preferred package(s), date, and time for this magical experience.</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-1">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               
@@ -328,40 +324,19 @@ export default function BookActivityPage() {
                       <AccordionItem value="what-to-expect">
                         <AccordionTrigger>What to Expect</AccordionTrigger>
                         <AccordionContent>
-                          <div className="text-sm text-muted-foreground space-y-4">
-                            <p>
-                              Your adventure begins the moment you arrive! Our team will welcome you at
-                              the car park and introduce you to the stars of the show: our three
-                              friendly alpacas. You might even meet some of our other barnyard pals,
-                              like the goats who love to tag along.
-                            </p>
-                            <p>
-                              After a quick meet-and-greet, you'll choose your walking companion and
-                              we'll set off on a scenic one-mile trek through picturesque Welsh fields.
-                              Once the walk is complete, you'll get to reward your new furry friend with
-                              some well-deserved treats.
-                            </p>
-                            <p>
-                              <strong>A quick tip:</strong> Welsh weather is wonderfully unpredictable, so
-                              please bring your wellies and dress for the day! If you'd prefer to just
-                              come along for the scenery, spectator tickets are also available.
-                            </p>
+                           <div className="text-sm text-muted-foreground space-y-4">
+                            <p>Your adventure begins the moment you arrive! Our team will welcome you at the car park and introduce you to the stars of the show: our three friendly alpacas. You might even meet some of our other barnyard pals, like the goats who love to tag along.</p>
+                            <p>After a quick meet-and-greet, you'll choose your walking companion and we'll set off on a scenic one-mile trek through picturesque Welsh fields. Once the walk is complete, you'll get to reward your new furry friend with some well-deserved treats.</p>
+                            <p><strong>A quick tip:</strong> Welsh weather is wonderfully unpredictable, so please bring your wellies and dress for the day! If you'd prefer to just come along for the scenery, spectator tickets are also available.</p>
                           </div>
                         </AccordionContent>
                       </AccordionItem>
                       <AccordionItem value="package-options">
                         <AccordionTrigger>Package Options & Rules</AccordionTrigger>
                         <AccordionContent>
-                          <div className="text-sm text-muted-foreground space-y-4">
-                            <p>
-                              We can take a maximum of 6 people per walk. We have 3 alpacas, so if
-                              your group has more than 3 people, some will need to share an alpaca.
-                              Please select the "Shared Alpaca" ticket in this case.
-                            </p>
-                            <p>
-                              The minimum age for a solo walk is 10. Younger children must be
-                              accompanied by a supervising adult.
-                            </p>
+                           <div className="text-sm text-muted-foreground space-y-4">
+                            <p>We can take a maximum of 6 people per walk. We have 3 alpacas, so if your group has more than 3 people, some will need to share an alpaca. Please select the "Shared Alpaca" ticket in this case.</p>
+                            <p>The minimum age for a solo walk is 10. Younger children must be accompanied by a supervising adult.</p>
                           </div>
                         </AccordionContent>
                       </AccordionItem>
@@ -436,9 +411,6 @@ export default function BookActivityPage() {
                   )}
                 </div>
               )}
-
-              {(isPumpkinBooking || isAlpacaBooking) && <Separator />}
-
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <FormField

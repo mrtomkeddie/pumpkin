@@ -11,22 +11,30 @@ import { ArrowRight, MapPin, Phone, Mail, Sun, Gift, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Activity, ActivityType } from "@/lib/types";
 import { AlpacaIcon } from "@/components/icons";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetDescription } from "@/components/ui/sheet";
+import { BookingForm } from "@/components/booking-form";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('pumpkin-picking');
-  const pumpkinActivity = activities.find(a => a.slug === 'pumpkin-picking');
-  const alpacaActivity = activities.find(a => a.slug === 'alpaca-walk');
+  const [selectedItem, setSelectedItem] = useState<{ activity: Activity, type?: ActivityType } | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  
+  const pumpkinActivity = activities.find(a => a.slug === 'pumpkin-picking')!;
+  const alpacaActivity = activities.find(a => a.slug === 'alpaca-walk')!;
+
+  const handleBookClick = (activity: Activity, type?: ActivityType) => {
+    setSelectedItem({ activity, type });
+    setIsSheetOpen(true);
+  };
+  
+  const handleBookingConfirmed = () => {
+    setIsSheetOpen(false);
+  };
 
   const ExperienceCard = ({ item, parentActivity }: { item: Activity | ActivityType, parentActivity?: Activity }) => {
-    const activitySlug = parentActivity ? parentActivity.slug : (item as Activity).slug;
-    const typeSlug = parentActivity ? (item as ActivityType).slug : undefined;
+    const activity = parentActivity || (item as Activity);
+    const type = parentActivity ? (item as ActivityType) : undefined;
     
-    let bookLink = `/book/${activitySlug}`;
-    if (parentActivity && typeSlug) {
-      bookLink = `/book/${parentActivity.slug}?type=${typeSlug}`;
-    }
-
     const itemIcon = 'icon' in item ? item.icon : undefined;
 
     return (
@@ -50,11 +58,9 @@ export default function Home() {
             <CardDescription className="flex-1">{item.description}</CardDescription>
         </CardContent>
         <CardFooter className="p-6 bg-transparent mt-auto">
-           <Button asChild className="w-full bg-primary hover:bg-primary/90">
-            <Link href={bookLink}>
+           <Button className="w-full bg-primary hover:bg-primary/90" onClick={() => handleBookClick(activity, type)}>
               Book Now <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+            </Button>
         </CardFooter>
       </Card>
     )
@@ -62,6 +68,24 @@ export default function Home() {
 
   return (
     <div className="flex flex-col flex-1 pt-0 -mt-24">
+       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+        <SheetContent className="overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle className="font-headline text-3xl">Complete Your Booking</SheetTitle>
+            <SheetDescription>
+              You're just a few steps away from your next adventure.
+            </SheetDescription>
+          </SheetHeader>
+          {selectedItem && (
+            <BookingForm 
+              activity={selectedItem.activity} 
+              activityTypeSlug={selectedItem.type?.slug}
+              onBookingConfirmed={handleBookingConfirmed}
+            />
+          )}
+        </SheetContent>
+      </Sheet>>
+
       <main className="flex-1 flex flex-col">
       <section className="relative flex flex-col items-center justify-center text-center p-4 min-h-screen text-white">
           <div className="absolute inset-0">
@@ -155,7 +179,7 @@ export default function Home() {
               {activeTab === 'alpaca-walk' && (
                  <div className="flex justify-center">
                     <div className="w-full md:w-2/3 lg:w-1/2">
-                        {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
+                       <ExperienceCard item={alpacaActivity} />
                     </div>
                  </div>
               )}
