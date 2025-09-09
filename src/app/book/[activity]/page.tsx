@@ -107,6 +107,11 @@ export default function BookActivityPage() {
         case 'day': return <Sun className="h-5 w-5 text-primary" />;
         case 'quiet': return <Mic2 className="h-5 w-5 text-primary" />;
         case 'moonlit': return <Moon className="h-5 w-5 text-primary" />;
+        case 'adult':
+        case 'child':
+        case 'shared':
+        case 'spectator':
+            return <Users className="h-5 w-5 text-primary" />;
         default: return <Ticket className="h-5 w-5 text-primary" />;
     }
   };
@@ -137,7 +142,7 @@ export default function BookActivityPage() {
                         <RadioGroup
                           onValueChange={field.onChange}
                           defaultValue={field.value}
-                          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+                          className="grid grid-cols-1 md:grid-cols-2 gap-4"
                         >
                           {activity.types!.map((type) => (
                             <FormItem key={type.slug}>
