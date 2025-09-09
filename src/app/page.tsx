@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1 pt-0 -mt-24">
        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="overflow-y-auto sm:max-w-2xl">
+        <SheetContent className="overflow-y-auto sm:max-w-lg">
           <SheetHeader>
             <SheetTitle className="font-headline text-3xl">Complete Your Booking</SheetTitle>
             <SheetDescription>

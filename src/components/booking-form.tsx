@@ -248,7 +248,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                     <Users className="h-6 w-6 text-primary" />
                     Your Details
                   </FormLabel>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <FormField
                     control={form.control}
                     name="name"
@@ -392,7 +392,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                 </div>
               )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              <div className="grid grid-cols-1 gap-8 items-start">
                 <FormField
                   control={form.control}
                   name="date"
