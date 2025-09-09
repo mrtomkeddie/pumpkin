@@ -92,7 +92,7 @@ export default function BookActivityPage() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
-      <Card className="bg-card/80">
+      <Card>
         <CardHeader>
           <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
           <CardDescription>Select your preferred date and time for this magical experience.</CardDescription>

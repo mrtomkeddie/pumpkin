@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%; /* Dark Slate Blue/Near Black */
-    --foreground: 240 10% 3.9%; /* White */
-    --card: 0 0% 100% / 0.8; /* Slightly lighter dark */
+    --background: 0 0% 98%; /* Off-white */
+    --foreground: 240 10% 3.9%; /* Near Black */
+    --card: 0 0% 100%; /* White */
     --card-foreground: 240 10% 3.9%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 240 10% 3.9%;
     --primary: 34.1 87.5% 62.2%; /* #F1A04D */
     --primary-foreground: 0 0% 98%;
     --secondary: 190 95% 55%; /* Bright Cyan */
     --secondary-foreground: 240 10% 3.9%;
-    --muted: 240 5% 25%;
-    --muted-foreground: 240 5% 35%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
     --accent: 34.1 87.5% 62.2%; /* #F1A04D */
-    --accent-foreground: 240 10% 3.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5% 20%;
-    --input: 240 5% 20%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
     --ring: 34.1 87.5% 62.2%;
     --chart-1: 190 95% 55%;
     --chart-2: 340 90% 60%;
@@ -32,24 +32,24 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%; /* Dark Slate Blue/Near Black */
-    --foreground: 240 10% 3.9%; /* White */
-    --card: 0 0% 100% / 0.8; /* Slightly lighter dark */
+    --background: 0 0% 98%; /* Off-white */
+    --foreground: 240 10% 3.9%; /* Near Black */
+    --card: 0 0% 100%; /* White */
     --card-foreground: 240 10% 3.9%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 240 10% 3.9%;
     --primary: 34.1 87.5% 62.2%; /* #F1A04D */
     --primary-foreground: 0 0% 98%;
     --secondary: 190 95% 55%; /* Bright Cyan */
     --secondary-foreground: 240 10% 3.9%;
-    --muted: 240 5% 25%;
-    --muted-foreground: 240 5% 35%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
     --accent: 34.1 87.5% 62.2%; /* #F1A04D */
-    --accent-foreground: 240 10% 3.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5% 20%;
-    --input: 240 5% 20%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
     --ring: 34.1 87.5% 62.2%;
     --chart-1: 190 95% 55%;
     --chart-2: 340 90% 60%;

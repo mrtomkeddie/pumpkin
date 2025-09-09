@@ -20,7 +20,7 @@ export default function ReservationsPage() {
       </div>
 
       {reservations.length === 0 ? (
-        <div className="text-center py-20 border-2 border-dashed rounded-lg bg-card/80">
+        <div className="text-center py-20 border-2 border-dashed rounded-lg bg-card">
           <h2 className="text-2xl font-semibold text-foreground/80">No Adventures Booked Yet</h2>
           <p className="text-foreground/80 mt-2">Time to plan your next mystical experience!</p>
           <Button asChild className="mt-4">
@@ -30,7 +30,7 @@ export default function ReservationsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reservations.map((reservation) => (
-            <Card key={reservation.id} className="bg-card/80">
+            <Card key={reservation.id}>
               <CardHeader>
                 <CardTitle className="font-headline text-2xl">{reservation.activityTitle}</CardTitle>
                 <CardDescription>Reservation ID: {reservation.id.slice(0, 8)}</CardDescription>

@@ -59,7 +59,7 @@ export default function GiftCardPage() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
-      <Card className="bg-card/80">
+      <Card>
         <CardHeader>
           <div className="flex items-center gap-4">
             <Gift className="h-10 w-10 text-primary" />
