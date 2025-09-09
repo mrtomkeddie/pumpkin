@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { allReservations, allGiftCardPurchases } from "@/app/staff/data";
 import { format } from 'date-fns';
 import { Ticket, Users, Phone, Mail, Eye } from "lucide-react";
@@ -149,6 +149,9 @@ export default function StaffDashboard() {
         
         {selectedReservation && (
            <DialogContent className="sm:max-w-md">
+             <DialogHeader>
+                <DialogTitle className="sr-only">Booking Details</DialogTitle>
+             </DialogHeader>
              <BookingDetails reservation={selectedReservation} />
            </DialogContent>
         )}
