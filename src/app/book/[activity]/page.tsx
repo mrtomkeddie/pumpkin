@@ -26,6 +26,7 @@ import { Separator } from '@/components/ui/separator';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
+const pumpkinTimes = ['15:00', '16:00', '17:00'];
 
 const currentYear = new Date().getFullYear();
 const moonlitDates = [
@@ -64,7 +65,16 @@ export default function BookActivityPage() {
 
   const [suggestedTimes, setSuggestedTimes] = useState<string[]>([]);
   const [isSuggesting, setIsSuggesting] = useState(false);
-  const [availableTimes, setAvailableTimes] = useState<string[]>(dayTimes);
+  
+  const getInitialTimes = () => {
+    if (activity?.slug === 'pumpkin-picking') {
+        const isMoonlit = typeParam === 'moonlit';
+        return isMoonlit ? moonlitTimes : pumpkinTimes;
+    }
+    return dayTimes;
+  }
+
+  const [availableTimes, setAvailableTimes] = useState<string[]>(getInitialTimes());
 
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
@@ -82,12 +92,18 @@ export default function BookActivityPage() {
   }, [typeParam, activity, form]);
 
   useEffect(() => {
+    let newTimes: string[];
     const isMoonlit = watchedActivityType === 'moonlit';
-    setAvailableTimes(isMoonlit ? moonlitTimes : dayTimes);
+
+    if (activity?.slug === 'pumpkin-picking') {
+        newTimes = isMoonlit ? moonlitTimes : pumpkinTimes;
+    } else {
+        newTimes = dayTimes; // Assuming alpaca walk uses dayTimes
+    }
+    setAvailableTimes(newTimes);
 
     // Reset time if it's not in the new set of available times
     const currentTime = form.getValues('time');
-    const newTimes = isMoonlit ? moonlitTimes : dayTimes;
     if (currentTime && !newTimes.includes(currentTime)) {
       form.setValue('time', '');
       setSuggestedTimes([]);
@@ -103,7 +119,7 @@ export default function BookActivityPage() {
         }
     }
 
-  }, [watchedActivityType, form]);
+  }, [watchedActivityType, form, activity?.slug]);
 
   if (!activity) {
     notFound();
@@ -126,7 +142,7 @@ export default function BookActivityPage() {
     setSuggestedTimes([]);
     const result = await getSuggestedTimes(activity.title, format(selectedDate, 'yyyy-MM-dd'));
     if (result.success && result.timeslots) {
-      const currentAvailableTimes = watchedActivityType === 'moonlit' ? moonlitTimes : dayTimes;
+      const currentAvailableTimes = availableTimes;
       const filteredSuggestions = result.timeslots.filter(t => currentAvailableTimes.includes(t));
       setSuggestedTimes(filteredSuggestions);
     } else {
@@ -360,5 +376,3 @@ export default function BookActivityPage() {
     </div>
   );
 }
-
-    
