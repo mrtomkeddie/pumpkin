@@ -53,7 +53,7 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {activities.map((activity, index) => (
+              {activities.map((activity) => (
                 <Card key={activity.slug} className="bg-card border-border/50 overflow-hidden group">
                   <CardHeader className="p-0">
                     <div className="relative h-60 w-full">
@@ -75,7 +75,7 @@ export default function Home() {
                     <CardDescription>{activity.description}</CardDescription>
                   </CardContent>
                   <CardFooter className="p-6 bg-card">
-                    <Button asChild className={`w-full ${index % 2 === 0 ? 'bg-secondary hover:bg-secondary/90 text-secondary-foreground' : 'bg-primary hover:bg-primary/90'}`}>
+                    <Button asChild className="w-full bg-primary hover:bg-primary/90">
                       <Link href={`/book/${activity.slug}`}>
                         Book Now <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
