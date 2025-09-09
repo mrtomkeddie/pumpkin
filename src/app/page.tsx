@@ -11,7 +11,7 @@ import { ArrowRight, MapPin, Phone, Mail, Sun, Gift, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Activity, ActivityType } from "@/lib/types";
 import { AlpacaIcon } from "@/components/icons";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetDescription } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { BookingForm } from "@/components/booking-form";
 
 export default function Home() {
@@ -230,25 +230,8 @@ export default function Home() {
               className="flex items-center gap-2 hover:text-primary transition-colors"
             >
               <Info className="w-4 h-4 text-primary" />
-              <span>Info & FAQ</span>
+              <span>Contact & FAQ</span>
             </Link>
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=The+Barn%2C+Mansant+Ganol%2C+Pontyates%2C+SA15+5RL"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-primary transition-colors"
-            >
-              <MapPin className="w-4 h-4 text-primary" />
-              <span>The Barn, Mansant Ganol, Pontyates, SA15 5RL</span>
-            </a>
-            <a href="tel:07527303240" className="flex items-center gap-2 hover:text-primary transition-colors">
-              <Phone className="w-4 h-4 text-primary" />
-              <span>07527 303240</span>
-            </a>
-            <a href="mailto:tbcpumpkinpatch@outlook.com" className="flex items-center gap-2 hover:text-primary transition-colors">
-              <Mail className="w-4 h-4 text-primary" />
-              <span>tbcpumpkinpatch@outlook.com</span>
-            </a>
         </div>
       </footer>
     </div>
