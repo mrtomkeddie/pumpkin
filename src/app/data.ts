@@ -8,7 +8,7 @@ export const activities: Activity[] = [
     title: "Pumpkin Picking",
     description: "Enjoy a classic autumn day in our sun-drenched pumpkin patch. Perfect for families and photos.",
     icon: Sun,
-    image: "https://picsum.photos/600/400",
+    image: "/patch.jpg",
     aiHint: "pumpkin patch daytime",
   },
   {
