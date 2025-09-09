@@ -23,12 +23,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className={cn('font-body antialiased min-h-screen flex flex-col pt-20')}>
+      <body className={cn('font-body antialiased min-h-screen flex flex-col')}>
         <ReservationsProvider>
           <Header />
-          <main className="flex-1">
+          <div className="flex flex-col flex-1 pt-20">
             {children}
-          </main>
+          </div>
           <Toaster />
         </ReservationsProvider>
       </body>
