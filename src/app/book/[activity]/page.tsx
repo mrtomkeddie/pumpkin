@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { notFound, useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
@@ -24,12 +24,24 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
 
-const availableTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+const moonlitTimes = ['19:00', '20:00'];
+
+const currentYear = new Date().getFullYear();
+const moonlitDates = [
+  new Date(currentYear, 9, 10), // Oct 10
+  new Date(currentYear, 9, 11), // Oct 11
+  new Date(currentYear, 9, 17), // Oct 17
+  new Date(currentYear, 9, 18), // Oct 18
+  new Date(currentYear, 9, 24), // Oct 24
+  new Date(currentYear, 9, 25), // Oct 25
+].map(d => d.setHours(0,0,0,0));
+
 
 const BookingFormSchema = z.object({
   activityType: z.string({
     required_error: 'Please select a booking option.',
-  }).optional(),
+  }),
   date: z.date({
     required_error: 'A date is required.',
   }),
@@ -50,6 +62,7 @@ export default function BookActivityPage() {
 
   const [suggestedTimes, setSuggestedTimes] = useState<string[]>([]);
   const [isSuggesting, setIsSuggesting] = useState(false);
+  const [availableTimes, setAvailableTimes] = useState<string[]>(dayTimes);
 
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
@@ -57,6 +70,32 @@ export default function BookActivityPage() {
       activityType: activity?.types?.[0].slug,
     }
   });
+
+  const watchedActivityType = form.watch('activityType');
+
+  useEffect(() => {
+    const isMoonlit = watchedActivityType === 'moonlit';
+    setAvailableTimes(isMoonlit ? moonlitTimes : dayTimes);
+
+    // Reset time if it's not in the new set of available times
+    const currentTime = form.getValues('time');
+    const newTimes = isMoonlit ? moonlitTimes : dayTimes;
+    if (currentTime && !newTimes.includes(currentTime)) {
+      form.setValue('time', '');
+      setSuggestedTimes([]);
+    }
+
+    // Reset date if changing to/from moonlit and it's invalid
+    const currentDate = form.getValues('date');
+    if (currentDate) {
+        if (isMoonlit && !moonlitDates.includes(currentDate.setHours(0,0,0,0))) {
+            form.setValue('date', undefined as any);
+        } else if (!isMoonlit && moonlitDates.includes(currentDate.setHours(0,0,0,0))) {
+            form.setValue('date', undefined as any);
+        }
+    }
+
+  }, [watchedActivityType, form]);
 
   if (!activity) {
     notFound();
@@ -78,7 +117,9 @@ export default function BookActivityPage() {
     setSuggestedTimes([]);
     const result = await getSuggestedTimes(activity.title, format(selectedDate, 'yyyy-MM-dd'));
     if (result.success && result.timeslots) {
-      setSuggestedTimes(result.timeslots);
+      const currentAvailableTimes = watchedActivityType === 'moonlit' ? moonlitTimes : dayTimes;
+      const filteredSuggestions = result.timeslots.filter(t => currentAvailableTimes.includes(t));
+      setSuggestedTimes(filteredSuggestions);
     } else {
       toast({
         title: 'Suggestion Error',
@@ -203,7 +244,26 @@ export default function BookActivityPage() {
                             mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
-                            disabled={(date) => date < new Date() || date > new Date(new Date().setDate(new Date().getDate() + 60))}
+                            disabled={(date) => {
+                                const today = new Date();
+                                today.setHours(0,0,0,0);
+                                if (date < today || date > new Date(new Date().setDate(new Date().getDate() + 60))) {
+                                    return true;
+                                }
+                                const isMoonlitType = watchedActivityType === 'moonlit';
+                                const dateOnly = new Date(date);
+                                dateOnly.setHours(0,0,0,0);
+                                const isMoonlitDate = moonlitDates.includes(dateOnly.getTime());
+
+                                if (activity.slug === 'pumpkin-picking') {
+                                    if (isMoonlitType) {
+                                        return !isMoonlitDate;
+                                    } else {
+                                        return isMoonlitDate;
+                                    }
+                                }
+                                return false;
+                            }}
                             initialFocus
                           />
                         </PopoverContent>
@@ -282,3 +342,5 @@ export default function BookActivityPage() {
     </div>
   );
 }
+
+    
