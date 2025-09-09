@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { WandSparkles, Calendar as CalendarIcon, Clock, Loader2, ArrowLeft } from 'lucide-react';
+import { WandSparkles, Calendar as CalendarIcon, Clock, Loader2, ArrowLeft, Ticket, Users, Sun, Moon, Mic2 } from 'lucide-react';
 
 import { activities } from '@/app/data';
 import { useReservations } from '@/context/reservations-context';
@@ -15,17 +15,21 @@ import { getSuggestedTimes } from '@/app/actions';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { Separator } from '@/components/ui/separator';
 
-const availableTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+const availableTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
 
 const BookingFormSchema = z.object({
+  activityType: z.string({
+    required_error: 'Please select a booking option.',
+  }).optional(),
   date: z.date({
     required_error: 'A date is required.',
   }),
@@ -49,11 +53,16 @@ export default function BookActivityPage() {
 
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
+    defaultValues: {
+      activityType: activity?.types?.[0].slug,
+    }
   });
 
   if (!activity) {
     notFound();
   }
+  
+  const hasTypes = !!activity.types;
 
   const handleSuggestTimes = async () => {
     const selectedDate = form.getValues('date');
@@ -81,39 +90,101 @@ export default function BookActivityPage() {
   };
 
   function onSubmit(data: BookingFormValues) {
+    const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
+
     addReservation({
       activityTitle: activity!.title,
       activitySlug: activity!.slug,
+      activityType: activityType,
       date: data.date,
       time: data.time,
     });
     router.push('/reservations');
   }
 
+  const TypeIcon = ({ slug }: { slug: string }) => {
+    switch (slug) {
+        case 'day': return <Sun className="h-5 w-5 text-primary" />;
+        case 'quiet': return <Mic2 className="h-5 w-5 text-primary" />;
+        case 'moonlit': return <Moon className="h-5 w-5 text-primary" />;
+        default: return <Ticket className="h-5 w-5 text-primary" />;
+    }
+  };
+
+
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
       <Card>
         <CardHeader>
           <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
-          <CardDescription>Select your preferred date and time for this magical experience.</CardDescription>
+          <CardDescription>Select your preferred package, date, and time for this magical experience.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              
+              {hasTypes && (
+                <FormField
+                  control={form.control}
+                  name="activityType"
+                  render={({ field }) => (
+                    <FormItem className="space-y-4">
+                      <FormLabel className="text-lg font-semibold flex items-center gap-2">
+                        <Ticket className="h-6 w-6 text-primary" />
+                        Choose Your Experience
+                      </FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+                        >
+                          {activity.types!.map((type) => (
+                            <FormItem key={type.slug}>
+                              <FormControl>
+                                <RadioGroupItem value={type.slug} id={type.slug} className="sr-only" />
+                              </FormControl>
+                              <FormLabel
+                                htmlFor={type.slug}
+                                className="flex flex-col rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-full"
+                              >
+                                <div className="flex items-center justify-between mb-2">
+                                    <h3 className="font-bold text-base">{type.title}</h3>
+                                    <TypeIcon slug={type.slug} />
+                                </div>
+                                <p className="text-sm text-muted-foreground flex-1 mb-3">{type.description}</p>
+                                <div className="text-right">
+                                    <p className="font-bold text-lg">{type.price}</p>
+                                    <p className="text-xs text-muted-foreground">{type.details}</p>
+                                </div>
+                              </FormLabel>
+                            </FormItem>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
+              {hasTypes && <Separator />}
+
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <FormField
                   control={form.control}
                   name="date"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel className="flex items-center gap-2 mb-2"><CalendarIcon className="h-5 w-5 text-primary" /> Date</FormLabel>
+                      <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><CalendarIcon className="h-6 w-6 text-primary" /> Date</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
                               variant={'outline'}
                               className={cn(
-                                'w-full justify-start text-left font-normal',
+                                'w-full justify-start text-left font-normal text-base py-6',
                                 !field.value && 'text-muted-foreground'
                               )}
                             >
@@ -142,27 +213,30 @@ export default function BookActivityPage() {
                   name="time"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
-                      <FormLabel className="flex items-center gap-2"><Clock className="h-5 w-5 text-primary" /> Time</FormLabel>
-                      <Button
-                        type="button"
-                        variant="secondary"
-                        size="sm"
-                        onClick={handleSuggestTimes}
-                        disabled={isSuggesting}
-                        className="mb-2"
-                      >
-                        {isSuggesting ? (
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        ) : (
-                          <WandSparkles className="mr-2 h-4 w-4" />
-                        )}
-                        Suggest Best Times
-                      </Button>
+                      <div className='flex items-center justify-between'>
+                        <FormLabel className="text-lg font-semibold flex items-center gap-2"><Clock className="h-6 w-6 text-primary" /> Time</FormLabel>
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          size="sm"
+                          onClick={handleSuggestTimes}
+                          disabled={isSuggesting}
+                          className="mb-2"
+                        >
+                          {isSuggesting ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          ) : (
+                            <WandSparkles className="mr-2 h-4 w-4" />
+                          )}
+                          Suggest
+                        </Button>
+                      </div>
+
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
                           defaultValue={field.value}
-                          className="grid grid-cols-3 gap-4"
+                          className="grid grid-cols-3 sm:grid-cols-4 gap-2"
                         >
                           {availableTimes.map((time) => (
                             <FormItem key={time}>
@@ -175,7 +249,7 @@ export default function BookActivityPage() {
                               >
                                 {time}
                                 {suggestedTimes.includes(time) && (
-                                  <Badge variant="default" className="mt-1 text-xs">Suggested</Badge>
+                                  <Badge variant="default" className="mt-1 text-xs">Best</Badge>
                                 )}
                               </FormLabel>
                             </FormItem>
@@ -187,8 +261,7 @@ export default function BookActivityPage() {
                   )}
                 />
               </div>
-
-              <div className="flex flex-col-reverse sm:flex-row gap-4 mt-8">
+              <CardFooter className="flex flex-col-reverse sm:flex-row gap-4 mt-8 p-0">
                 <Button variant="outline" size="lg" className="w-full" type="button" onClick={() => router.back()}>
                   <ArrowLeft className="mr-2 h-5 w-5" />
                   Back
@@ -196,7 +269,7 @@ export default function BookActivityPage() {
                 <Button type="submit" size="lg" className="w-full">
                   Confirm Booking
                 </Button>
-              </div>
+              </CardFooter>
             </form>
           </Form>
         </CardContent>

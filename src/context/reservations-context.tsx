@@ -51,7 +51,6 @@ export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
     toast({
       title: "Reservation Cancelled",
       description: "Your booking has been successfully cancelled.",
-      variant: "destructive",
     });
   };
 
