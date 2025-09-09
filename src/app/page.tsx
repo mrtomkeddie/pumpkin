@@ -40,6 +40,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/30" />
           </div>
         </CardHeader>
+        <div className="h-1 bg-primary" />
         <CardContent className="p-6 flex-1 relative">
           {itemIcon && <item.icon className="w-6 h-6 text-primary absolute top-6 right-6" />}
           <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
@@ -179,6 +180,7 @@ export default function Home() {
                           <div className="absolute inset-0 bg-black/30" />
                         </div>
                       </CardHeader>
+                      <div className="h-1 bg-primary" />
                       <CardContent className="p-6 flex-1 relative">
                         <Gift className="w-6 h-6 text-primary absolute top-6 right-6" />
                         <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
