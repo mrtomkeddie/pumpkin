@@ -196,10 +196,8 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="text-center py-6 text-sm text-foreground border-t">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-          <p>&copy; {new Date().getFullYear()} The Black Cat Events. All rights reserved.</p>
-          <div className="flex items-center gap-4 mt-4 md:mt-0">
+      <footer className="py-6 text-sm text-foreground border-t">
+        <div className="container mx-auto flex flex-col md:flex-row justify-center items-center gap-8">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />
               <span>The Barn, Mansant Ganol, Ponthenri, Llanelli, United Kingdom</span>
@@ -212,12 +210,8 @@ export default function Home() {
               <Mail className="w-4 h-4 text-primary" />
               <span>Tbcpumpkinpatch@outlook.com</span>
             </div>
-          </div>
         </div>
       </footer>
     </div>
   );
 }
-
-
-    
