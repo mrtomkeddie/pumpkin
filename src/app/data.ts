@@ -6,7 +6,7 @@ import { type Activity } from "@/lib/types";
 export const activities: Activity[] = [
   {
     slug: "pumpkin-picking",
-    title: "Pumpkin picking",
+    title: "Pumpkin Picking",
     description: "Enjoy a classic autumn day in our sun-drenched pumpkin patch. We offer day, quiet, and moonlit sessions.",
     icon: Sun,
     image: "/patch.jpg",
