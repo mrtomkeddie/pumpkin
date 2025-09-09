@@ -29,62 +29,6 @@ export default function Home() {
 
     const itemIcon = 'icon' in item ? item.icon : undefined;
 
-    if (activitySlug === 'alpaca-walk') {
-      return (
-        <Card className="bg-card border-border/50 overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="flex flex-col">
-                    <CardHeader className="p-0">
-                        <div className="relative h-60 w-full">
-                            <Image
-                            src={item.image!}
-                            alt={item.title}
-                            fill
-                            data-ai-hint={item.aiHint}
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                        </div>
-                    </CardHeader>
-                    <CardContent className="p-6 flex-1 relative flex flex-col">
-                        {itemIcon && <item.icon className="w-6 h-6 text-primary absolute top-6 right-6" />}
-                        <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
-                        {item.title}
-                        </CardTitle>
-                        <CardDescription className="flex-1">{item.description}</CardDescription>
-                    </CardContent>
-                    <CardFooter className="p-6 bg-transparent mt-auto">
-                        <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                            <Link href={bookLink}>
-                            Book Now <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                        </Button>
-                    </CardFooter>
-                </div>
-
-                <div className="p-6 border-l border-border/50 flex flex-col justify-center">
-                    <Accordion type="single" collapsible className="w-full" defaultValue="what-to-expect">
-                        <AccordionItem value="what-to-expect">
-                            <AccordionTrigger>What to Expect</AccordionTrigger>
-                            <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
-                                <p>Your adventure begins the moment you arrive! Our team will welcome you at the car park and introduce you to the stars of the show: our three friendly alpacas. You might even meet some of our other barnyard pals, like the goats who love to tag along.</p>
-                                <p>After a quick meet-and-greet, you'll choose your walking companion and we'll set off on a scenic one-mile trek through picturesque Welsh fields. Once the walk is complete, you'll get to reward your new furry friend with some well-deserved treats.</p>
-                                <p><strong>A quick tip:</strong> Welsh weather is wonderfully unpredictable, so please bring your wellies and dress for the day! If you'd prefer to just come along for the scenery, spectator tickets are also available.</p>
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="package-options">
-                            <AccordionTrigger>Package Options & Rules</AccordionTrigger>
-                            <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
-                            <p>We can take a maximum of 6 people per walk. We have 3 alpacas, so if your group has more than 3 people, some will need to share an alpaca. Please select the "Shared Alpaca" ticket in this case.</p>
-                            <p>The minimum age for a solo walk is 10. Younger children must be accompanied by a supervising adult.</p>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </div>
-            </div>
-        </Card>
-      )
-    }
-
     return (
        <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary hover:shadow-lg">
         <CardHeader className="p-0">
