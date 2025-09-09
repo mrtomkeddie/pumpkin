@@ -9,7 +9,7 @@ export function Header() {
       <div className="container flex h-16 max-w-7xl items-center justify-between">
         {/* Left-aligned navigation */}
         <div className="flex items-center gap-6 text-sm text-white">
-           <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+           <Button asChild variant="outline" className="border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground">
             <Link href="/reservations"><Ticket className="mr-2 h-4 w-4" /> My Booking</Link>
           </Button>
         </div>
