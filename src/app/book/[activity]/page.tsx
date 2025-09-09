@@ -233,6 +233,9 @@ export default function BookActivityPage() {
     }
   };
 
+  const selectedPumpkinType = isPumpkinBooking ? activity.types?.find(t => t.slug === typeParam) : null;
+
+
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12 pt-36">
       <Card>
@@ -294,48 +297,23 @@ export default function BookActivityPage() {
 
               <Separator />
 
-              {isPumpkinBooking && activity.types && (
-                  <div className="grid grid-cols-1 gap-8 items-start">
-                    <FormField
-                        control={form.control}
-                        name="activityType"
-                        render={({ field }) => (
-                        <FormItem className="space-y-4">
-                            <FormLabel className="text-lg font-semibold flex items-center gap-2">
-                              <TypeIcon slug={watchedActivityType} />
-                              Choose Your Experience
-                            </FormLabel>
-                            <FormControl>
-                            <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="grid grid-cols-1 gap-4"
-                            >
-                                {activity.types!.map((type) => (
-                                <FormItem key={type.slug}>
-                                    <FormControl>
-                                    <RadioGroupItem value={type.slug} id={type.slug} className="sr-only" />
-                                    </FormControl>
-                                    <FormLabel
-                                    htmlFor={type.slug}
-                                    className="flex flex-col rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary"
-                                    >
-                                    <div className="flex justify-between items-start">
-                                        <span className="font-bold text-base">{type.title}</span>
-                                        <span className="font-bold text-primary">{type.price}</span>
-                                    </div>
-                                    <span className="text-sm font-normal text-muted-foreground mt-2">{type.description}</span>
-                                    <span className="text-xs font-semibold text-muted-foreground mt-2">{type.details}</span>
-                                    </FormLabel>
-                                </FormItem>
-                                ))}
-                            </RadioGroup>
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                        )}
-                    />
-                  </div>
+              {isPumpkinBooking && selectedPumpkinType && (
+                <div className="space-y-4">
+                  <FormLabel className="text-lg font-semibold flex items-center gap-2">
+                    <TypeIcon slug={selectedPumpkinType.slug} />
+                    Your Selected Experience
+                  </FormLabel>
+                  <Card className="bg-popover">
+                    <CardContent className="p-4">
+                      <div className="flex justify-between items-start">
+                        <span className="font-bold text-base">{selectedPumpkinType.title}</span>
+                        <span className="font-bold text-primary">{selectedPumpkinType.price}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-2">{selectedPumpkinType.description}</p>
+                      <p className="text-xs font-semibold text-muted-foreground mt-2">{selectedPumpkinType.details}</p>
+                    </CardContent>
+                  </Card>
+                </div>
               )}
 
               {isAlpacaBooking && activity.types && (
@@ -519,3 +497,5 @@ export default function BookActivityPage() {
   );
 }
 
+
+    
