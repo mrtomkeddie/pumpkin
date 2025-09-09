@@ -101,8 +101,8 @@ export default function Home() {
                   className={cn(
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'pumpkin-picking'
-                      ? "bg-white text-foreground shadow"
-                      : "text-muted-foreground hover:bg-background/50"
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-muted-foreground hover:bg-white/50"
                   )}
                 >
                   <div className='flex items-center gap-2'>
@@ -115,8 +115,8 @@ export default function Home() {
                   className={cn(
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'alpaca-walk'
-                      ? "bg-white text-foreground shadow"
-                      : "text-muted-foreground hover:bg-background/50"
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-muted-foreground hover:bg-white/50"
                   )}
                 >
                   <div className='flex items-center gap-2'>
@@ -129,8 +129,8 @@ export default function Home() {
                   className={cn(
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'gift-card'
-                      ? "bg-white text-foreground shadow"
-                      : "text-muted-foreground hover:bg-background/50"
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-muted-foreground hover:bg-white/50"
                   )}
                 >
                   <div className='flex items-center gap-2'>
