@@ -44,6 +44,7 @@ export default function RootLayout({
         
         <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body
         className={cn('font-body antialiased min-h-screen flex flex-col')}
