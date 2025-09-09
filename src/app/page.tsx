@@ -19,10 +19,13 @@ export default function Home() {
 
   const ExperienceCard = ({ item, parentActivity }: { item: Activity | ActivityType, parentActivity?: Activity }) => {
     const activitySlug = parentActivity ? parentActivity.slug : (item as Activity).slug;
+    const typeSlug = parentActivity ? (item as ActivityType).slug : undefined;
     
-    // For pumpkin picking types, the link should go to the parent activity booking page.
-    // For the main alpaca walk, it's a direct link.
-    const bookLink = parentActivity ? `/book/${parentActivity.slug}`: `/book/${activitySlug}`;
+    // For pumpkin picking types, the link should go to the parent activity booking page with the type
+    let bookLink = `/book/${activitySlug}`;
+    if (parentActivity && typeSlug) {
+      bookLink = `/book/${parentActivity.slug}?type=${typeSlug}`;
+    }
 
     const itemIcon = 'icon' in item ? item.icon : undefined;
 
@@ -215,3 +218,6 @@ export default function Home() {
     </div>
   );
 }
+
+
+    

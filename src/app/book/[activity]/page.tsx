@@ -1,8 +1,8 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
-import { notFound, useParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { notFound, useParams, useSearchParams, useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -55,10 +55,12 @@ type BookingFormValues = z.infer<typeof BookingFormSchema>;
 export default function BookActivityPage() {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const { addReservation } = useReservations();
   const { toast } = useToast();
   const activitySlug = typeof params.activity === 'string' ? params.activity : '';
   const activity = activities.find((a) => a.slug === activitySlug);
+  const typeParam = searchParams.get('type');
 
   const [suggestedTimes, setSuggestedTimes] = useState<string[]>([]);
   const [isSuggesting, setIsSuggesting] = useState(false);
@@ -67,7 +69,7 @@ export default function BookActivityPage() {
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
     defaultValues: {
-      activityType: activity?.types?.[0].slug,
+      activityType: typeParam || activity?.types?.[0].slug,
     }
   });
 
@@ -102,6 +104,7 @@ export default function BookActivityPage() {
   }
   
   const hasTypes = !!activity.types;
+  const isPumpkinBooking = activity.slug === 'pumpkin-picking';
 
   const handleSuggestTimes = async () => {
     const selectedDate = form.getValues('date');
@@ -169,7 +172,7 @@ export default function BookActivityPage() {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               
-              {hasTypes && (
+              {hasTypes && !isPumpkinBooking && (
                 <FormField
                   control={form.control}
                   name="activityType"
@@ -214,7 +217,7 @@ export default function BookActivityPage() {
                 />
               )}
 
-              {hasTypes && <Separator />}
+              {hasTypes && !isPumpkinBooking && <Separator />}
 
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -342,5 +345,7 @@ export default function BookActivityPage() {
     </div>
   );
 }
+
+    
 
     
