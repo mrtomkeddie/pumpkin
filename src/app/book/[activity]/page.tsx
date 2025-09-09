@@ -28,6 +28,7 @@ const moonlitTimes = ['19:00', '20:00'];
 const pumpkinTimes = ['15:00', '16:00', '17:00'];
 
 const currentYear = new Date().getFullYear();
+
 const moonlitDates = [
   new Date(currentYear, 9, 10), // Oct 10
   new Date(currentYear, 9, 11), // Oct 11
@@ -35,6 +36,15 @@ const moonlitDates = [
   new Date(currentYear, 9, 18), // Oct 18
   new Date(currentYear, 9, 24), // Oct 24
   new Date(currentYear, 9, 25), // Oct 25
+].map(d => d.setHours(0,0,0,0));
+
+const quietDates = [
+    new Date(currentYear, 9, 15),
+    new Date(currentYear, 9, 16),
+    new Date(currentYear, 9, 17),
+    new Date(currentYear, 9, 22),
+    new Date(currentYear, 9, 23),
+    new Date(currentYear, 9, 24),
 ].map(d => d.setHours(0,0,0,0));
 
 
@@ -93,6 +103,7 @@ export default function BookActivityPage() {
   useEffect(() => {
     let newTimes: string[];
     const isMoonlit = watchedActivityType === 'moonlit';
+    const isQuiet = watchedActivityType === 'quiet';
 
     if (activity?.slug === 'pumpkin-picking') {
         newTimes = isMoonlit ? moonlitTimes : pumpkinTimes;
@@ -107,12 +118,15 @@ export default function BookActivityPage() {
       form.setValue('time', '');
     }
 
-    // Reset date if changing to/from moonlit and it's invalid
+    // Reset date if changing to/from moonlit/quiet and it's invalid
     const currentDate = form.getValues('date');
     if (currentDate) {
-        if (isMoonlit && !moonlitDates.includes(currentDate.setHours(0,0,0,0))) {
+        const currentDateOnly = new Date(currentDate).setHours(0,0,0,0);
+        if (isMoonlit && !moonlitDates.includes(currentDateOnly)) {
             form.setValue('date', undefined as any);
-        } else if (!isMoonlit && moonlitDates.includes(currentDate.setHours(0,0,0,0))) {
+        } else if (isQuiet && !quietDates.includes(currentDateOnly)) {
+            form.setValue('date', undefined as any);
+        } else if (!isMoonlit && !isQuiet && (moonlitDates.includes(currentDateOnly) || quietDates.includes(currentDateOnly))) {
             form.setValue('date', undefined as any);
         }
     }
@@ -218,7 +232,7 @@ export default function BookActivityPage() {
 
               <Separator />
 
-              {hasTypes && !isPumpkinBooking && (
+              {hasTypes && (
                 <FormField
                   control={form.control}
                   name="activityType"
@@ -263,7 +277,7 @@ export default function BookActivityPage() {
                 />
               )}
 
-              {hasTypes && !isPumpkinBooking && <Separator />}
+              {hasTypes && <Separator />}
 
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -279,7 +293,7 @@ export default function BookActivityPage() {
                             <Button
                               variant={'outline'}
                               className={cn(
-                                'w-full justify-start text-left font-normal text-base h-11',
+                                'w-full justify-start text-left font-normal h-11',
                                 !field.value && 'text-muted-foreground'
                               )}
                             >
@@ -299,26 +313,28 @@ export default function BookActivityPage() {
                                 today.setHours(0,0,0,0);
                                 if (date < today) return true;
 
+                                const dateOnly = new Date(date).setHours(0,0,0,0);
+
                                 if (activity.slug === 'pumpkin-picking') {
                                     if (date.getMonth() !== 9) { // 9 is October
                                         return true;
                                     }
+                                    const isMoonlitType = watchedActivityType === 'moonlit';
+                                    const isQuietType = watchedActivityType === 'quiet';
+
+                                    const isMoonlitDate = moonlitDates.includes(dateOnly);
+                                    const isQuietDate = quietDates.includes(dateOnly);
+
+                                    if (isMoonlitType) {
+                                        return !isMoonlitDate;
+                                    } else if (isQuietType) {
+                                        return !isQuietDate;
+                                    } else {
+                                        return isMoonlitDate || isQuietDate;
+                                    }
                                 } else {
                                      if (date > new Date(new Date().setDate(new Date().getDate() + 60))) {
                                         return true;
-                                    }
-                                }
-
-                                const isMoonlitType = watchedActivityType === 'moonlit';
-                                const dateOnly = new Date(date);
-                                dateOnly.setHours(0,0,0,0);
-                                const isMoonlitDate = moonlitDates.includes(dateOnly.getTime());
-
-                                if (activity.slug === 'pumpkin-picking') {
-                                    if (isMoonlitType) {
-                                        return !isMoonlitDate;
-                                    } else {
-                                        return isMoonlitDate;
                                     }
                                 }
                                 return false;
@@ -336,7 +352,7 @@ export default function BookActivityPage() {
                   control={form.control}
                   name="time"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem className="flex flex-col mt-px">
                       <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><Clock className="h-6 w-6 text-primary" /> Time</FormLabel>
                       <FormControl>
                         <RadioGroup
