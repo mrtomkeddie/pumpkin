@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import type { Activity, ActivityType } from '@/lib/types';
+import { Separator } from './ui/separator';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
@@ -236,11 +237,11 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
   return (
     <div className="pt-8">
       <Card className="border-0 shadow-none">
-        <CardHeader className="px-1">
+        <CardHeader>
           <CardTitle className="font-headline text-2xl">{activity.title}</CardTitle>
           <CardDescription>Select your preferred package(s), date, and time for this magical experience.</CardDescription>
         </CardHeader>
-        <CardContent className="px-1">
+        <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               
@@ -522,3 +523,5 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     </div>
   );
 }
+
+    
