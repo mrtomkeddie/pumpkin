@@ -3,8 +3,10 @@ import { type Reservation, type GiftCardPurchase } from '@/lib/types';
 
 const today = new Date();
 const currentYear = today.getFullYear();
+const lastYear = currentYear - 1;
 
 export const allReservations: Reservation[] = [
+  // Upcoming
   {
     id: 'res_001',
     activityTitle: 'Pumpkin Picking',
@@ -15,7 +17,7 @@ export const allReservations: Reservation[] = [
     name: 'Alice Johnson',
     email: 'alice.j@example.com',
     phone: '07123456789',
-    quantity: 4, // Carload
+    quantity: 4, 
   },
   {
     id: 'res_002',
@@ -38,8 +40,43 @@ export const allReservations: Reservation[] = [
     time: '19:00',
     name: 'Charlie Brown',
     email: 'charlie.b@example.com',
-    quantity: 2, // Carload
+    quantity: 2, 
   },
+   {
+    id: 'res_007',
+    activityTitle: 'Pumpkin Picking',
+    activitySlug: 'pumpkin-picking',
+    activityType: 'Pumpkin Picking',
+    date: new Date(currentYear, 9, 26),
+    time: '11:00',
+    name: 'Grace Lee',
+    email: 'grace.l@example.com',
+    quantity: 5, 
+  },
+   {
+    id: 'res_009',
+    activityTitle: 'Pumpkin Picking',
+    activitySlug: 'pumpkin-picking',
+    activityType: 'Moonlit Pumpkin Picking',
+    date: new Date(currentYear, 9, 25),
+    time: '20:00',
+    name: 'Ivan Petrov',
+    email: 'ivan.p@example.com',
+    quantity: 4, 
+  },
+  {
+    id: 'res_010',
+    activityTitle: 'Pumpkin Picking',
+    activitySlug: 'pumpkin-picking',
+    activityType: 'Pumpkin Picking',
+    date: new Date(currentYear, 9, 27),
+    time: '14:00',
+    name: 'Judy Alvarez',
+    email: 'judy.a@example.com',
+    quantity: 2, 
+  },
+
+  // Past / Archived
   {
     id: 'res_004',
     activityTitle: 'Alpaca Walk',
@@ -49,7 +86,7 @@ export const allReservations: Reservation[] = [
       { slug: 'child', title: 'Child', quantity: 1 },
       { slug: 'adult', title: 'Adult', quantity: 1 },
     ],
-    date: new Date(currentYear, 9, 23),
+    date: new Date(lastYear, 9, 23),
     time: '13:00',
     name: 'Diana Prince',
     email: 'diana.p@example.com',
@@ -61,11 +98,11 @@ export const allReservations: Reservation[] = [
     activityTitle: 'Pumpkin Picking',
     activitySlug: 'pumpkin-picking',
     activityType: 'Quiet Pumpkin Picking',
-    date: new Date(currentYear, 9, 22),
+    date: new Date(lastYear, 9, 22),
     time: '15:00',
     name: 'Eve Adams',
     email: 'eve.a@example.com',
-    quantity: 3, // Carload
+    quantity: 3, 
   },
     {
     id: 'res_006',
@@ -73,22 +110,11 @@ export const allReservations: Reservation[] = [
     activitySlug: 'alpaca-walk',
     activityType: 'Alpaca Walk',
     packages: [{ slug: 'shared', title: 'Shared Alpaca', quantity: 1 }],
-    date: new Date(currentYear, 9, 24),
+    date: new Date(lastYear, 9, 24),
     time: '11:00',
     name: 'Frank Miller',
     email: 'frank.m@example.com',
     quantity: 2,
-  },
-  {
-    id: 'res_007',
-    activityTitle: 'Pumpkin Picking',
-    activitySlug: 'pumpkin-picking',
-    activityType: 'Pumpkin Picking',
-    date: new Date(currentYear, 9, 26),
-    time: '11:00',
-    name: 'Grace Lee',
-    email: 'grace.l@example.com',
-    quantity: 5, // Carload
   },
   {
     id: 'res_008',
@@ -99,34 +125,12 @@ export const allReservations: Reservation[] = [
         { slug: 'adult', title: 'Adult', quantity: 2 },
         { slug: 'spectator', title: 'Spectator', quantity: 1 },
     ],
-    date: new Date(currentYear, 9, 16),
+    date: new Date(lastYear, 9, 16),
     time: '13:00',
     name: 'Heidi Turner',
     email: 'heidi.t@example.com',
     phone: '07555123123',
     quantity: 3,
-  },
-    {
-    id: 'res_009',
-    activityTitle: 'Pumpkin Picking',
-    activitySlug: 'pumpkin-picking',
-    activityType: 'Moonlit Pumpkin Picking',
-    date: new Date(currentYear, 9, 25),
-    time: '20:00',
-    name: 'Ivan Petrov',
-    email: 'ivan.p@example.com',
-    quantity: 4, // carload
-  },
-  {
-    id: 'res_010',
-    activityTitle: 'Pumpkin Picking',
-    activitySlug: 'pumpkin-picking',
-    activityType: 'Pumpkin Picking',
-    date: new Date(currentYear, 9, 27),
-    time: '14:00',
-    name: 'Judy Alvarez',
-    email: 'judy.a@example.com',
-    quantity: 2, // carload
   },
 ];
 
