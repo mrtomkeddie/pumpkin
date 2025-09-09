@@ -83,12 +83,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link href="#experiences">
-                  PYO Pumpkins
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white/10 hover:text-white">
-                <Link href="#experiences">
-                  Alpaca Walks
+                  Book Your Experience
                 </Link>
               </Button>
             </div>
