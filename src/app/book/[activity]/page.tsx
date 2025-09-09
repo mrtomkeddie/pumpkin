@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { WandSparkles, Calendar as CalendarIcon, Clock, Loader2 } from 'lucide-react';
+import { WandSparkles, Calendar as CalendarIcon, Clock, Loader2, ArrowLeft } from 'lucide-react';
 
 import { activities } from '@/app/data';
 import { useReservations } from '@/context/reservations-context';
@@ -188,9 +188,15 @@ export default function BookActivityPage() {
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full mt-8">
-                Confirm Booking
-              </Button>
+              <div className="flex flex-col-reverse sm:flex-row gap-4 mt-8">
+                <Button variant="outline" size="lg" className="w-full" type="button" onClick={() => router.back()}>
+                  <ArrowLeft className="mr-2 h-5 w-5" />
+                  Back
+                </Button>
+                <Button type="submit" size="lg" className="w-full">
+                  Confirm Booking
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>
