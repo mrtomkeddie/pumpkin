@@ -69,12 +69,12 @@ export default function StaffDashboard() {
                       <TableRow key={reservation.id}>
                         <TableCell>
                           <div className="font-medium">{reservation.name}</div>
-                          <div className="hidden text-sm text-muted-foreground md:inline">
+                          <div className="hidden text-sm text-muted-foreground md:block">
                             {reservation.email}
                           </div>
-                           {reservation.phone && (
-                            <div className="hidden text-sm text-muted-foreground md:inline items-center gap-1.5 mt-1">
-                              <Phone className="h-3 w-3 inline-block mr-1" />
+                          {reservation.phone && (
+                            <div className="hidden text-sm text-muted-foreground md:block mt-1">
+                              <Phone className="h-3 w-3 inline-block mr-1.5" />
                               {reservation.phone}
                             </div>
                           )}
