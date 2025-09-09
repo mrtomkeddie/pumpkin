@@ -65,33 +65,33 @@ export default function Home() {
           <div className="absolute inset-0">
             <Image 
               src="https://picsum.photos/1920/1080"
-              alt="Background image of a pumpkin patch"
+              alt="Background image of a pumpkin with soft lighting"
               fill
-              data-ai-hint="pumpkin patch hero"
+              data-ai-hint="pumpkin bokeh"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/60" />
           </div>
           <div className="relative z-10 flex flex-col items-center">
-            <Image
-              src="/logo.png"
-              alt="The Black Cat Pumpkin Patch Logo"
-              width={200}
-              height={46.6}
-              priority
-              className="max-w-full h-auto mb-4"
-            />
+            <p className="text-primary font-semibold mb-2">Welcome To Black Cat Events</p>
             <h1 className="text-5xl md:text-7xl font-headline font-bold mb-4 leading-tight">
-              Experience the Magic of Autumn
+              Where Autumn Adventures Begin
             </h1>
             <p className="max-w-2xl text-lg md:text-xl mb-8">
-              Pingle Farm is your destination for pumpkin picking, alpaca walks, and unforgettable family fun.
+              From enchanting pumpkin picking to delightful alpaca walks, we bring you the magic of autumn in every step.
             </p>
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Link href="#experiences">
-                Book Your Experience <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Link href="#experiences">
+                  PYO Pumpkins
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white/10 hover:text-white">
+                <Link href="#experiences">
+                  Alpaca Walks
+                </Link>
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -224,5 +224,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
