@@ -27,7 +27,7 @@ export default function Home() {
     const itemIcon = 'icon' in item ? item.icon : undefined;
 
     return (
-       <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary">
+       <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary hover:shadow-lg">
         <CardHeader className="p-0">
           <div className="relative h-60 w-full">
             <Image
@@ -37,7 +37,6 @@ export default function Home() {
               data-ai-hint={item.aiHint}
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-black/30" />
           </div>
         </CardHeader>
         <CardContent className="p-6 flex-1 relative flex flex-col">
@@ -102,7 +101,7 @@ export default function Home() {
                   className={cn(
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'pumpkin-picking'
-                      ? "bg-primary text-primary-foreground shadow-md"
+                      ? "bg-white text-foreground shadow"
                       : "text-muted-foreground hover:bg-background/50"
                   )}
                 >
@@ -116,7 +115,7 @@ export default function Home() {
                   className={cn(
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'alpaca-walk'
-                      ? "bg-primary text-primary-foreground shadow-md"
+                      ? "bg-white text-foreground shadow"
                       : "text-muted-foreground hover:bg-background/50"
                   )}
                 >
@@ -130,7 +129,7 @@ export default function Home() {
                   className={cn(
                     "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'gift-card'
-                      ? "bg-primary text-primary-foreground shadow-md"
+                      ? "bg-white text-foreground shadow"
                       : "text-muted-foreground hover:bg-background/50"
                   )}
                 >
@@ -160,7 +159,7 @@ export default function Home() {
               {activeTab === 'gift-card' && (
                 <div className="flex justify-center">
                   <div className="w-full md:w-2/3 lg:w-1/2">
-                    <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary">
+                    <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary hover:shadow-lg">
                       <CardHeader className="p-0">
                         <div className="relative h-60 w-full">
                           <Image
@@ -170,7 +169,6 @@ export default function Home() {
                             data-ai-hint="gift card present"
                             className="object-cover transition-transform duration-300 group-hover:scale-105"
                           />
-                          <div className="absolute inset-0 bg-black/30" />
                         </div>
                       </CardHeader>
                       <CardContent className="p-6 flex-1 relative flex flex-col">

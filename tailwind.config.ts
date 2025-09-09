@@ -18,8 +18,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['Nunito Sans', 'sans-serif'],
-        headline: ['Lora', 'serif'],
+        body: ['Inter', 'sans-serif'],
+        headline: ['DM Serif Display', 'serif'],
         code: ['monospace'],
       },
       colors: {

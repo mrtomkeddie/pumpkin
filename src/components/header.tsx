@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export function Header() {
   return (
-    <header className="absolute top-0 z-50 w-full py-4">
+    <header className="absolute top-0 z-50 w-full py-4 bg-transparent">
       <div className="container flex h-16 max-w-7xl items-center justify-between">
         {/* Left-aligned navigation */}
         <div className="flex items-center gap-6 text-sm text-white">
