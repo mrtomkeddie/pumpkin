@@ -136,14 +136,14 @@ export default function Home() {
 
             <div>
               {activeTab === 'pumpkin-picking' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     {pumpkinActivity?.types?.map((type) => (
                       <ExperienceCard key={type.slug} item={type} parentActivity={pumpkinActivity} />
                     ))}
                 </div>
               )}
               {activeTab === 'alpaca-walk' && (
-                 <div className="flex justify-center max-w-6xl mx-auto">
+                 <div className="flex justify-center max-w-7xl mx-auto">
                     <div className="w-full md:w-1/2 lg:w-1/3">
                         {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
                     </div>
