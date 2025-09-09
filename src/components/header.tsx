@@ -8,6 +8,12 @@ import { Facebook, Instagram, Ticket, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export function Header() {
   const pathname = usePathname();
@@ -41,15 +47,39 @@ export function Header() {
         {/* Left-aligned navigation */}
         <div className="flex w-1/3 items-center gap-6 text-sm">
           {isHomePage ? (
-            <Button
-              asChild
-              variant="outline"
-              className="border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground"
-            >
-              <Link href="/reservations">
-                <Ticket className="mr-2 h-4 w-4" /> My Booking
-              </Link>
-            </Button>
+            <>
+              {/* Desktop Button */}
+              <Button
+                asChild
+                variant="outline"
+                className="border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground hidden sm:inline-flex"
+              >
+                <Link href="/reservations">
+                  <Ticket className="mr-2 h-4 w-4" /> My Booking
+                </Link>
+              </Button>
+               {/* Mobile Icon Button */}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="icon"
+                      className="border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground sm:hidden"
+                    >
+                      <Link href="/reservations">
+                        <Ticket className="h-5 w-5" />
+                        <span className="sr-only">My Booking</span>
+                      </Link>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>My Booking</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </>
           ) : (
             <Button variant="ghost" onClick={() => router.back()}>
               <ArrowLeft className="mr-2 h-4 w-4" /> Back
