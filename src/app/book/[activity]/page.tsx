@@ -51,6 +51,10 @@ const pumpkinAvailableDates = [
     11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27, 28, 30
 ].map(day => new Date(currentYear, 9, day).setHours(0,0,0,0));
 
+const alpacaAvailableDates = [
+  15, 16, 17, 22, 23, 24
+].map(day => new Date(2025, 9, day).setHours(0,0,0,0));
+
 const alpacaPackagesSchema = z.record(z.string(), z.number().min(0).max(6));
 
 const BookingFormSchema = z.object({
@@ -420,11 +424,11 @@ export default function BookActivityPage() {
                             mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
-                            defaultMonth={isPumpkinBooking ? new Date(new Date().getFullYear(), 9) : undefined}
+                            defaultMonth={isPumpkinBooking ? new Date(new Date().getFullYear(), 9) : (isAlpacaBooking ? new Date(2025, 9) : undefined)}
                             disabled={(date) => {
                                 const today = new Date();
                                 today.setHours(0,0,0,0);
-                                if (date < today) return true;
+                                if (date < today && activity.slug !== 'alpaca-walk') return true;
 
                                 const dateOnly = new Date(date).setHours(0,0,0,0);
 
@@ -445,10 +449,8 @@ export default function BookActivityPage() {
                                     } else {
                                         return isMoonlitDate || isQuietDate;
                                     }
-                                } else {
-                                     if (date > new Date(new Date().setDate(new Date().getDate() + 60))) {
-                                        return true;
-                                    }
+                                } else if (activity.slug === 'alpaca-walk') {
+                                    return !alpacaAvailableDates.includes(dateOnly);
                                 }
                                 return false;
                             }}
