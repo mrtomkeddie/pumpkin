@@ -6,7 +6,7 @@ import { notFound, useParams, useSearchParams, useRouter } from 'next/navigation
 import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'z';
+import { z } from 'zod';
 import { Calendar as CalendarIcon, Clock, Users, Sun, Moon, Mic2, User, Mail, Phone } from 'lucide-react';
 
 import { activities } from '@/app/data';
