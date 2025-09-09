@@ -6,8 +6,8 @@ import { Header } from '@/components/header';
 import { ReservationsProvider } from '@/context/reservations-context';
 
 export const metadata: Metadata = {
-  title: 'Black Cat Bookings',
-  description: 'Book your mystical autumn adventure at the Black Cat Events pumpkin patch.',
+  title: 'Pingle Farm',
+  description: 'Book your next adventure at Pingle Farm.',
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />

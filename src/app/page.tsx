@@ -10,18 +10,18 @@ export default function Home() {
     <div className="container mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <h1 className="text-5xl font-headline font-bold text-primary mb-2">
-          A Mystical Autumn Adventure
+          Pingle Farm
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Welcome to Black Cat Bookings. Discover the magic of the season with our unique pumpkin patch experiences.
+          Book your next adventure
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
         {activities.map((activity) => (
           <Card key={activity.slug} className="flex flex-col overflow-hidden bg-card/80 backdrop-blur-sm border-primary/20 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300">
             <CardHeader className="p-0">
-              <div className="relative h-48 w-full">
+              <div className="relative h-60 w-full">
                 <Image
                   src={activity.image}
                   alt={activity.title}
