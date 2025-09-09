@@ -193,10 +193,10 @@ export default function Home() {
                       <CardHeader className="p-0">
                         <div className="relative h-60 w-full">
                           <Image
-                            src="https://picsum.photos/600/400"
-                            alt="Gift Card"
+                            src="/pumpkin.png"
+                            alt="A decorative pumpkin"
                             fill
-                            data-ai-hint="gift card present"
+                            data-ai-hint="pumpkin decorative"
                             className="object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
