@@ -13,6 +13,7 @@ import type { Activity, ActivityType } from "@/lib/types";
 import { AlpacaIcon } from "@/components/icons";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { BookingForm } from "@/components/booking-form";
+import { AlpacaExperienceCard } from "@/components/alpaca-experience-card";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('pumpkin-picking');
@@ -149,7 +150,7 @@ export default function Home() {
                 >
                   <div className='flex items-center gap-2'>
                     <AlpacaIcon className="h-5 w-5" />
-                    <span className="sm:hidden">Alpacas</span>
+                    <span className="smhidden">Alpacas</span>
                     <span className="hidden sm:inline">Alpaca Walks</span>
                   </div>
                 </button>
@@ -182,7 +183,10 @@ export default function Home() {
               {activeTab === 'alpaca-walk' && (
                  <div className="flex justify-center">
                     <div className="w-full md:w-2/3 lg:w-1/2">
-                      <ExperienceCard item={alpacaActivity} />
+                      <AlpacaExperienceCard 
+                        activity={alpacaActivity} 
+                        onBookClick={handleBookClick}
+                      />
                     </div>
                   </div>
               )}
