@@ -18,8 +18,8 @@ export default function Home() {
           <Image
             src="/logo.png"
             alt="Pingle Farm Logo"
-            width={400}
-            height={94}
+            width={300}
+            height={70}
             priority
           />
           
@@ -47,7 +47,7 @@ export default function Home() {
         {/* Experiences Section */}
         <section id="experiences" className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose your experience</h2>
+            <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose Your Experience</h2>
             <div className="flex justify-center mb-12">
               <div className="h-1 w-24 bg-secondary rounded-full" />
             </div>
