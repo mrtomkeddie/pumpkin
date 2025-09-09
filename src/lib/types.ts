@@ -42,3 +42,13 @@ export interface Reservation {
   phone?: string;
   quantity?: number; // Total people, for display
 }
+
+export interface GiftCardPurchase {
+    id: string;
+    amount: string;
+    senderName: string;
+    recipientName: string;
+    recipientEmail: string;
+    message?: string;
+    purchaseDate: Date;
+}

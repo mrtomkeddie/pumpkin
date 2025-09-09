@@ -1,5 +1,5 @@
 
-import { type Reservation } from '@/lib/types';
+import { type Reservation, type GiftCardPurchase } from '@/lib/types';
 
 const today = new Date();
 const currentYear = today.getFullYear();
@@ -123,5 +123,54 @@ export const allReservations: Reservation[] = [
     name: 'Judy Alvarez',
     email: 'judy.a@example.com',
     quantity: 2, // carload
+  },
+];
+
+
+export const allGiftCardPurchases: GiftCardPurchase[] = [
+  {
+    id: 'gc_001',
+    amount: '25.00',
+    senderName: 'Tom Keddie',
+    recipientName: 'Jane Doe',
+    recipientEmail: 'jane.doe@example.com',
+    message: 'Happy Birthday! Hope you have a magical time.',
+    purchaseDate: new Date(2024, 8, 15),
+  },
+  {
+    id: 'gc_002',
+    amount: '50.00',
+    senderName: 'Alice Johnson',
+    recipientName: 'Bob Williams',
+    recipientEmail: 'bob.w@example.com',
+    message: 'Enjoy the alpaca walk!',
+    purchaseDate: new Date(2024, 8, 20),
+  },
+  {
+    id: 'gc_003',
+    amount: '75.00',
+    senderName: 'Charlie Brown',
+    recipientName: 'Diana Prince',
+    recipientEmail: 'diana.p@example.com',
+    message: '', // No message
+    purchaseDate: new Date(2024, 9, 1),
+  },
+  {
+    id: 'gc_004',
+    amount: '100.00',
+    senderName: 'Eve Adams',
+    recipientName: 'Frank Miller',
+    recipientEmail: 'frank.m@example.com',
+    message: 'A little something for your next adventure.',
+    purchaseDate: new Date(2024, 9, 5),
+  },
+  {
+    id: 'gc_005',
+    amount: '30.00',
+    senderName: 'Grace Lee',
+    recipientName: 'Heidi Turner',
+    recipientEmail: 'heidi.t@example.com',
+    message: 'Just because!',
+    purchaseDate: new Date(2024, 9, 10),
   },
 ];

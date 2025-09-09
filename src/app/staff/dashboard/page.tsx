@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { allReservations } from "@/app/staff/data";
+import { allReservations, allGiftCardPurchases } from "@/app/staff/data";
 import { format } from 'date-fns';
 import { Ticket, Users, Phone } from "lucide-react";
 import { GiftCardSummary } from "@/components/staff/gift-card-summary";
@@ -20,7 +20,7 @@ export default function StaffDashboard() {
     return reservation.activitySlug === filter;
   });
 
-  const giftCardsSoldCount = 5; // Dummy data
+  const giftCardsSoldCount = allGiftCardPurchases.length;
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -69,12 +69,12 @@ export default function StaffDashboard() {
                       <TableRow key={reservation.id}>
                         <TableCell>
                           <div className="font-medium">{reservation.name}</div>
-                          <div className="hidden text-sm text-muted-foreground md:block">
+                          <div className="text-sm text-muted-foreground">
                             {reservation.email}
                           </div>
                           {reservation.phone && (
-                            <div className="hidden text-sm text-muted-foreground md:block mt-1">
-                              <Phone className="h-3 w-3 inline-block mr-1.5" />
+                            <div className="text-sm text-muted-foreground mt-1 flex items-center gap-1.5">
+                              <Phone className="h-3 w-3" />
                               {reservation.phone}
                             </div>
                           )}
