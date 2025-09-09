@@ -7,7 +7,7 @@ import { useState } from "react";
 import { activities } from "@/app/data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, MapPin, Phone, Clock, Sun, Moon } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Clock, Sun, Gift } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Activity, ActivityType } from "@/lib/types";
 import { AlpacaIcon } from "@/components/icons";
@@ -131,6 +131,20 @@ export default function Home() {
                     Alpaca Walks
                   </div>
                 </button>
+                <button
+                  onClick={() => setActiveTab('gift-card')}
+                  className={cn(
+                    "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
+                    activeTab === 'gift-card'
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "text-muted-foreground hover:bg-background/50"
+                  )}
+                >
+                  <div className='flex items-center gap-2'>
+                    <Gift className="h-5 w-5" />
+                    Gift Cards
+                  </div>
+                </button>
               </div>
             </div>
 
@@ -148,6 +162,40 @@ export default function Home() {
                         {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
                     </div>
                  </div>
+              )}
+              {activeTab === 'gift-card' && (
+                <div className="flex justify-center max-w-7xl mx-auto">
+                  <div className="w-full md:w-2/3 lg:w-1/2">
+                    <Card className="bg-card border-border/50 overflow-hidden group flex flex-col">
+                      <CardHeader className="p-0">
+                        <div className="relative h-60 w-full">
+                          <Image
+                            src="https://picsum.photos/600/400"
+                            alt="Gift Card"
+                            fill
+                            data-ai-hint="gift card present"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-black/30" />
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-6 flex-1 relative">
+                        <Gift className="w-6 h-6 text-primary absolute top-6 right-6" />
+                        <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
+                          Gift Card
+                        </CardTitle>
+                        <CardDescription>The perfect gift for any occasion. Give the gift of a magical experience at Pingle Farm.</CardDescription>
+                      </CardContent>
+                      <CardFooter className="p-6 bg-transparent mt-auto">
+                        <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                          <Link href="/gift-card">
+                            Purchase Now <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                </div>
               )}
             </div>
           </div>
