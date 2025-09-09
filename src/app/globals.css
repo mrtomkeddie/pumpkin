@@ -68,11 +68,18 @@
   }
   
   .bg-image-wrapper {
-    @apply bg-background;
+    @apply relative isolate;
+  }
+  
+  .bg-image-wrapper::before {
+    content: '';
+    @apply absolute inset-0 -z-10 bg-cover bg-center bg-fixed bg-no-repeat;
     background-image: url('/hero.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+  }
+
+  .bg-image-wrapper::after {
+    content: '';
+    @apply absolute inset-0 -z-10;
+    background-color: hsla(var(--background), 0.7);
   }
 }
