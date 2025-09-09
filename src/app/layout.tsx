@@ -24,7 +24,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className={cn('font-body antialiased min-h-screen flex flex-col')}>
-        <div className="fixed inset-0 bg-[url(/pumpkin.avif)] bg-cover bg-center -z-20" />
+        <div className="fixed inset-0 bg-[url(/pumpkin.png)] bg-cover bg-center -z-20" />
         <div className="fixed inset-0 bg-background/90 -z-10" />
         <ReservationsProvider>
           <Header />
