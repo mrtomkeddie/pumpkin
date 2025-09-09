@@ -15,7 +15,7 @@ export function Header() {
           </Link>
         </div>
         <nav className="flex items-center gap-2">
-          <Button variant="ghost" asChild>
+          <Button variant="outline" asChild className="border-primary text-foreground hover:bg-primary/10 hover:text-primary">
             <Link href="/reservations">
               My Bookings
             </Link>
