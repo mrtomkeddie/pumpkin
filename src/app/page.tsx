@@ -61,7 +61,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col flex-1 pt-0 -mt-24">
       <main className="flex-1 flex flex-col">
       <section className="relative flex flex-col items-center justify-center text-center p-4 min-h-screen text-white">
           <div className="absolute inset-0">

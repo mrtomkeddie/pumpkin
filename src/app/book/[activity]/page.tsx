@@ -168,7 +168,7 @@ export default function BookActivityPage() {
 
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12 pt-32">
+    <div className="container mx-auto max-w-4xl px-4 py-12">
       <Card>
         <CardHeader>
           <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
