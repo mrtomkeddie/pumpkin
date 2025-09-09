@@ -18,7 +18,7 @@ export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     try {
-      const storedReservations = localStorage.getItem('blackCatReservations');
+      const storedReservations = localStorage.getItem('pingleFarmReservations');
       if (storedReservations) {
         const parsed = JSON.parse(storedReservations).map((r: any) => ({ ...r, date: new Date(r.date) }));
         setReservations(parsed);
@@ -31,7 +31,7 @@ export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('blackCatReservations', JSON.stringify(reservations));
+      localStorage.setItem('pingleFarmReservations', JSON.stringify(reservations));
     } catch (error) {
       console.error("Failed to save reservations to localStorage", error);
     }
