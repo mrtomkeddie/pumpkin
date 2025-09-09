@@ -222,7 +222,7 @@ export default function BookActivityPage() {
                             <Button
                               variant={'outline'}
                               className={cn(
-                                'w-full justify-start text-left font-normal text-base py-6',
+                                'w-full justify-start text-left font-normal text-base h-11',
                                 !field.value && 'text-muted-foreground'
                               )}
                             >
@@ -297,7 +297,7 @@ export default function BookActivityPage() {
                               </FormControl>
                               <FormLabel
                                 htmlFor={time}
-                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-3 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-[52px]"
+                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-3 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-11"
                               >
                                 {time}
                               </FormLabel>
