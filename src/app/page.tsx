@@ -211,9 +211,9 @@ export default function Home() {
               <Phone className="w-4 h-4 text-primary" />
               <span>07527 303240</span>
             </a>
-            <a href="mailto:Tbcpumpkinpatch@outlook.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+            <a href="mailto:tbcpumpkinpatch@outlook.com" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Mail className="w-4 h-4 text-primary" />
-              <span>Tbcpumpkinpatch@outlook.com</span>
+              <span>tbcpumpkinpatch@outlook.com</span>
             </a>
         </div>
       </footer>
