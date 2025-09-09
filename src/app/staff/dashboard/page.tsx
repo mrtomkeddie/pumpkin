@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { allReservations, allGiftCardPurchases } from "@/app/staff/data";
 import { format } from 'date-fns';
-import { Ticket, Users, Phone, Mail } from "lucide-react";
+import { Ticket, Users, Phone, Mail, Box } from "lucide-react";
 import { GiftCardSummary } from "@/components/staff/gift-card-summary";
 
 export default function StaffDashboard() {
@@ -88,10 +88,22 @@ export default function StaffDashboard() {
                           {reservation.time}
                         </TableCell>
                         <TableCell className="text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <Users className="h-4 w-4 text-muted-foreground" />
-                            <span className="font-bold">{reservation.quantity || 1}</span>
-                          </div>
+                          {reservation.packages && reservation.packages.length > 0 ? (
+                            <div className="flex flex-col items-end gap-1">
+                                <div className="flex items-center justify-end gap-2 font-bold">
+                                    <Users className="h-4 w-4 text-muted-foreground" />
+                                    <span>{reservation.quantity}</span>
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                {reservation.packages.map(pkg => `${pkg.quantity}x ${pkg.title}`).join(', ')}
+                                </div>
+                            </div>
+                          ) : (
+                             <div className="flex items-center justify-end gap-2">
+                                <Users className="h-4 w-4 text-muted-foreground" />
+                                <span className="font-bold">{reservation.quantity || 1}</span>
+                            </div>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))}
