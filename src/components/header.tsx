@@ -106,14 +106,14 @@ export function Header() {
           {isHomePage && (
             <>
               <Link
-                href="https://facebook.com"
+                href="https://www.facebook.com/theblackcatpumpkinpatch"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Facebook className="h-6 w-6 text-white hover:text-primary transition-colors" />
               </Link>
               <Link
-                href="https://instagram.com"
+                href="https://www.instagram.com/tbcpumpkinpatch/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
