@@ -64,10 +64,9 @@ export default function Home() {
       <section className="relative flex flex-col items-center justify-center text-center p-4 min-h-screen text-white">
           <div className="absolute inset-0">
             <Image 
-              src="https://picsum.photos/1920/1080"
-              alt="Background image of a pumpkin with soft lighting"
+              src="/home.png"
+              alt="Pingle Farm entrance with pumpkin decorations"
               fill
-              data-ai-hint="pumpkin bokeh"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/60" />
