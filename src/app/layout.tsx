@@ -23,7 +23,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
-      <body className={cn('font-body antialiased min-h-screen flex flex-col')}>
+      <body
+        className={cn('font-body antialiased min-h-screen flex flex-col')}
+        suppressHydrationWarning={true}
+      >
         <ReservationsProvider>
           <Header />
           <div className="flex flex-col flex-1 pt-24">
