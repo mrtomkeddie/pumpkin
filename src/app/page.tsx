@@ -90,7 +90,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="experiences" className="py-20 bg-background">
+        <section id="experiences" className="py-12 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose Your Experience</h2>
             <div className="flex justify-center mb-12">
