@@ -18,7 +18,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
-        headline: ['Fredoka', 'serif'],
+        headline: ['Baloo 2', 'serif'],
         code: ['monospace'],
       },
       colors: {
