@@ -7,10 +7,11 @@ import { useState } from "react";
 import { activities } from "@/app/data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, MapPin, Phone, Mail, Sun, Gift } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Mail, Sun, Gift, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Activity, ActivityType } from "@/lib/types";
 import { AlpacaIcon } from "@/components/icons";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('pumpkin-picking');
@@ -21,7 +22,6 @@ export default function Home() {
     const activitySlug = parentActivity ? parentActivity.slug : (item as Activity).slug;
     const typeSlug = parentActivity ? (item as ActivityType).slug : undefined;
     
-    // For pumpkin picking types, the link should go to the parent activity booking page with the type
     let bookLink = `/book/${activitySlug}`;
     if (parentActivity && typeSlug) {
       bookLink = `/book/${parentActivity.slug}?type=${typeSlug}`;
@@ -49,6 +49,35 @@ export default function Home() {
             </CardTitle>
             <CardDescription className="flex-1">{item.description}</CardDescription>
         </CardContent>
+
+        {activitySlug === 'alpaca-walk' && (
+          <CardContent className="p-6 pt-0">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="overview">
+                <AccordionTrigger>Overview</AccordionTrigger>
+                <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
+                  <p>Our alpaca walks offers the opportunity for you to meet our three Alpacas, walk approximately one mile with them with a halter and feed them in their natural habitat, all whilst enjoying the amazing views.​ The walk will include plenty of amazing photo opportunities, and a chance to meet the rest of the barn animals too.</p>
+                  <p>Min age for solo walk is 10. Younger children must be supervised.</p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="what-to-expect">
+                <AccordionTrigger>What to Expect</AccordionTrigger>
+                <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
+                  <p>When you first arrive at our farm, you'll be greeted by one of our team members at the car park. They will take you down to the alpaca's stable where you will meet our three boys. You will also have the opportunity to meet our goats who often follow us on our walks. Other furry farm friends may also make an appearance during your visit. We then halter our boys and your group will decide which alpaca they would like to walk. The team member will then guide you on a lovely walk (approximately 1 mile) through fields around the farm with plenty of picturesque views along the way. Once finished we will reward our boys with some well-earned treats back at the stable.</p>
+                  <p>Make sure you bring your wellies and dress appropriately as the Welsh weather always makes an appearance! If you are attending with a group and do not wish to walk the alpacas please feel free to join the walk with a spectator ticket.</p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="package-options">
+                <AccordionTrigger>Package Options</AccordionTrigger>
+                <AccordionContent className="prose prose-sm max-w-none text-muted-foreground">
+                   <p>Please note: We can take a maximum of 6 people per walk and have 3 alpaca's so if your booking includes more than 3 people, some attendees will share an alpaca for the walk (if this is the case please select the shared alpaca walk ticket).</p>
+                   <p>Also, minimum age for independent walks is 10. Younger children require adult supervision.</p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardContent>
+        )}
+        
         <CardFooter className="p-6 bg-transparent mt-auto">
            <Button asChild className="w-full bg-primary hover:bg-primary/90">
             <Link href={bookLink}>
@@ -220,3 +249,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
