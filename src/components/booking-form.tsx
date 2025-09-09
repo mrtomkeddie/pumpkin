@@ -419,60 +419,60 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><CalendarIcon className="h-6 w-6 text-primary" /> Date</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-full justify-start text-left font-normal h-11',
-                                !field.value && 'text-muted-foreground'
-                              )}
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            defaultMonth={isPumpkinBooking ? new Date(new Date().getFullYear(), 9) : (isAlpacaBooking ? new Date(2025, 9) : undefined)}
-                            disabled={(date) => {
-                                const today = new Date();
-                                today.setHours(0,0,0,0);
-                                if (date < today && activity.slug !== 'alpaca-walk') return true;
+                      <FormControl>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                              <Button
+                                variant={'outline'}
+                                className={cn(
+                                  'w-full justify-start text-left font-normal h-11',
+                                  !field.value && 'text-muted-foreground'
+                                )}
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                              </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              defaultMonth={isPumpkinBooking ? new Date(new Date().getFullYear(), 9) : (isAlpacaBooking ? new Date(2025, 9) : undefined)}
+                              disabled={(date) => {
+                                  const today = new Date();
+                                  today.setHours(0,0,0,0);
+                                  if (date < today && activity.slug !== 'alpaca-walk') return true;
 
-                                const dateOnly = new Date(date).setHours(0,0,0,0);
+                                  const dateOnly = new Date(date).setHours(0,0,0,0);
 
-                                if (activity.slug === 'pumpkin-picking') {
-                                    if (!pumpkinAvailableDates.includes(dateOnly)) {
-                                        return true;
-                                    }
-                                    const isMoonlitType = watchedActivityType === 'moonlit';
-                                    const isQuietType = watchedActivityType === 'quiet';
+                                  if (activity.slug === 'pumpkin-picking') {
+                                      if (!pumpkinAvailableDates.includes(dateOnly)) {
+                                          return true;
+                                      }
+                                      const isMoonlitType = watchedActivityType === 'moonlit';
+                                      const isQuietType = watchedActivityType === 'quiet';
 
-                                    const isMoonlitDate = moonlitDates.includes(dateOnly);
-                                    const isQuietDate = quietDates.includes(dateOnly);
+                                      const isMoonlitDate = moonlitDates.includes(dateOnly);
+                                      const isQuietDate = quietDates.includes(dateOnly);
 
-                                    if (isMoonlitType) {
-                                        return !isMoonlitDate;
-                                    } else if (isQuietType) {
-                                        return !isQuietDate;
-                                    } else {
-                                        return isMoonlitDate || isQuietDate;
-                                    }
-                                } else if (activity.slug === 'alpaca-walk') {
-                                    return !alpacaAvailableDates.includes(dateOnly);
-                                }
-                                return false;
-                            }}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
+                                      if (isMoonlitType) {
+                                          return !isMoonlitDate;
+                                      } else if (isQuietType) {
+                                          return !isQuietDate;
+                                      } else {
+                                          return isMoonlitDate || isQuietDate;
+                                      }
+                                  } else if (activity.slug === 'alpaca-walk') {
+                                      return !alpacaAvailableDates.includes(dateOnly);
+                                  }
+                                  return false;
+                              }}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -522,3 +522,5 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     </div>
   );
 }
+
+    
