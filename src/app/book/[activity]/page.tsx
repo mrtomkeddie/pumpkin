@@ -279,11 +279,8 @@ export default function BookActivityPage() {
                   control={form.control}
                   name="time"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
-                      <div className='flex items-center justify-between'>
-                        <FormLabel className="text-lg font-semibold flex items-center gap-2"><Clock className="h-6 w-6 text-primary" /> Time</FormLabel>
-                      </div>
-
+                    <FormItem className="flex flex-col">
+                      <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><Clock className="h-6 w-6 text-primary" /> Time</FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
@@ -297,7 +294,7 @@ export default function BookActivityPage() {
                               </FormControl>
                               <FormLabel
                                 htmlFor={time}
-                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-3 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-11"
+                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover py-3 px-2 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-11"
                               >
                                 {time}
                               </FormLabel>
