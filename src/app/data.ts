@@ -49,7 +49,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "alpaca-walk",
-    title: "Alpaca walk",
+    title: "Alpaca Walk",
     description: "Meet our three Alpacas, walk with them, and feed them in their natural habitat. A true Welsh experience!",
     icon: AlpacaIcon,
     image: "/alpaca.jpg",
