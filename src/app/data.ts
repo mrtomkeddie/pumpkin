@@ -14,7 +14,7 @@ export const activities: Activity[] = [
         {
             slug: 'day',
             title: 'Pumpkin Picking',
-            description: 'This ticket grants you access to our pumpkin patch. At our venue we offer more than just pumpkins, we have mazes, several photo opportunities, spooky activities, a chance to meet the farm animals and so much more. (Please note the pumpkins are not included with your ticket, they are sold separately).',
+            description: 'Enjoy full access to our pumpkin patch and all farm activities, including mazes, photo ops, and animal encounters. Please note that pumpkins are sold separately.',
             price: '£9.43',
             details: '1 Car Per Ticket',
             icon: Sun,
