@@ -209,7 +209,6 @@ export default function Home() {
       </main>
       <footer className="text-center py-6 text-sm text-foreground border-t">
         <p>&copy; {new Date().getFullYear()} Pingle Farm. All rights reserved.</p>
-        <Link href="/gift-card" className="hover:text-primary transition-colors mt-2 inline-block">Gift Cards</Link>
       </footer>
     </div>
   );
