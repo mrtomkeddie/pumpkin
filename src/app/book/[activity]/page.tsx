@@ -6,8 +6,8 @@ import { notFound, useParams, useSearchParams, useRouter } from 'next/navigation
 import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Calendar as CalendarIcon, Clock, ArrowLeft, Ticket, Users, Sun, Moon, Mic2, User, Mail, Phone } from 'lucide-react';
+import { z } from 'z';
+import { Calendar as CalendarIcon, Clock, Users, Sun, Moon, Mic2, User, Mail, Phone } from 'lucide-react';
 
 import { activities } from '@/app/data';
 import { useReservations } from '@/context/reservations-context';
@@ -19,7 +19,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 
@@ -62,6 +61,7 @@ const BookingFormSchema = z.object({
   time: z.string({
     required_error: 'Please select a time.',
   }),
+  activityType: z.string().optional(),
 });
 
 type BookingFormValues = z.infer<typeof BookingFormSchema>;
@@ -71,12 +71,18 @@ export default function BookActivityPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const { addReservation } = useReservations();
-  const { toast } = useToast();
   const activitySlug = typeof params.activity === 'string' ? params.activity : '';
   const activity = activities.find((a) => a.slug === activitySlug);
   const typeParam = searchParams.get('type');
 
-  const watchedActivityType = typeParam || activity?.types?.[0].slug;
+  const form = useForm<BookingFormValues>({
+    resolver: zodResolver(BookingFormSchema),
+    defaultValues: {
+      activityType: typeParam || activity?.types?.[0].slug,
+    }
+  });
+
+  const watchedActivityType = form.watch('activityType');
 
   const getInitialTimes = () => {
     if (activity?.slug === 'pumpkin-picking') {
@@ -87,12 +93,6 @@ export default function BookActivityPage() {
   }
 
   const [availableTimes, setAvailableTimes] = useState<string[]>(getInitialTimes());
-
-  const form = useForm<BookingFormValues>({
-    resolver: zodResolver(BookingFormSchema),
-    defaultValues: {}
-  });
-
 
   useEffect(() => {
     let newTimes: string[];
@@ -106,13 +106,11 @@ export default function BookActivityPage() {
     }
     setAvailableTimes(newTimes);
 
-    // Reset time if it's not in the new set of available times
     const currentTime = form.getValues('time');
     if (currentTime && !newTimes.includes(currentTime)) {
       form.setValue('time', '');
     }
 
-    // Reset date if changing to/from moonlit/quiet and it's invalid
     const currentDate = form.getValues('date');
     if (currentDate) {
         const currentDateOnly = new Date(currentDate).setHours(0,0,0,0);
@@ -136,7 +134,7 @@ export default function BookActivityPage() {
   const activityTitle = selectedActivityType?.title || activity.title;
 
   function onSubmit(data: BookingFormValues) {
-    const activityType = activity?.types?.find(t => t.slug === watchedActivityType)?.title;
+    const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
 
     addReservation({
       activityTitle: activity!.title,
@@ -161,7 +159,7 @@ export default function BookActivityPage() {
         case 'shared':
         case 'spectator':
             return <Users className="h-5 w-5 text-primary" />;
-        default: return <Ticket className="h-5 w-5 text-primary" />;
+        default: return <Users className="h-5 w-5 text-primary" />;
     }
   };
 
@@ -170,7 +168,7 @@ export default function BookActivityPage() {
     <div className="container mx-auto max-w-4xl px-4 py-12 pt-36">
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline text-4xl">{activityTitle}</CardTitle>
+          <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
           <CardDescription>Select your preferred package, date, and time for this magical experience.</CardDescription>
         </CardHeader>
         <CardContent>
@@ -226,6 +224,52 @@ export default function BookActivityPage() {
               </div>
 
               <Separator />
+
+              {activity.types && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="activityType"
+                    render={({ field }) => (
+                      <FormItem className="space-y-4">
+                        <FormLabel className="text-lg font-semibold flex items-center gap-2">
+                           <TypeIcon slug={watchedActivityType!} />
+                           Choose Your Experience
+                        </FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                          >
+                            {activity.types!.map((type) => (
+                              <FormItem key={type.slug}>
+                                <FormControl>
+                                  <RadioGroupItem value={type.slug} id={type.slug} className="sr-only" />
+                                </FormControl>
+                                <FormLabel
+                                  htmlFor={type.slug}
+                                  className="flex flex-col rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary"
+                                >
+                                  <div className="flex justify-between items-start">
+                                    <span className="font-bold text-base">{type.title}</span>
+                                    <span className="font-bold text-primary">{type.price}</span>
+                                  </div>
+                                  <span className="text-sm font-normal text-muted-foreground mt-2">{type.description}</span>
+                                  <span className="text-xs font-semibold text-muted-foreground mt-2">{type.details}</span>
+                                </FormLabel>
+                              </FormItem>
+                            ))}
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Separator />
+                </>
+              )}
+
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <FormField
@@ -314,7 +358,7 @@ export default function BookActivityPage() {
                               </FormControl>
                               <FormLabel
                                 htmlFor={time}
-                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover py-3 px-2 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-11"
+                                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary h-11"
                               >
                                 {time}
                               </FormLabel>
@@ -339,7 +383,3 @@ export default function BookActivityPage() {
     </div>
   );
 }
-
-    
-
-    
