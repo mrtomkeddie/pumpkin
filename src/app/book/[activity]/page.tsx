@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound, useRouter, useParams } from 'next/navigation';
 import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -35,11 +35,13 @@ const BookingFormSchema = z.object({
 
 type BookingFormValues = z.infer<typeof BookingFormSchema>;
 
-export default function BookActivityPage({ params }: { params: { activity: string } }) {
+export default function BookActivityPage() {
   const router = useRouter();
+  const params = useParams();
   const { addReservation } = useReservations();
   const { toast } = useToast();
-  const activity = activities.find((a) => a.slug === params.activity);
+  const activitySlug = typeof params.activity === 'string' ? params.activity : '';
+  const activity = activities.find((a) => a.slug === activitySlug);
 
   const [suggestedTimes, setSuggestedTimes] = useState<string[]>([]);
   const [isSuggesting, setIsSuggesting] = useState(false);
