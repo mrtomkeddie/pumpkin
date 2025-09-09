@@ -69,7 +69,6 @@ export default function Home() {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-black/60" />
           </div>
           <div className="relative z-10 flex flex-col items-center">
             <p className="text-primary font-semibold mb-2">Welcome To Black Cat Events</p>
