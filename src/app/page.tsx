@@ -15,12 +15,14 @@ export default function Home() {
         <section className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 lg:py-40 px-4 bg-background">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(var(--primary-rgb),0.1),_transparent_40%)] -z-10" />
           
-          <h1 className="text-6xl md:text-8xl font-headline font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-x">
-            Pingle Farm
-          </h1>
-          <p className="mt-4 text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-            FAMILY ENTERTAINMENT CENTRE
-          </p>
+          <Image
+            src="/logo.png"
+            alt="Pingle Farm Logo"
+            width={600}
+            height={141}
+            priority
+          />
+          
           <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-muted-foreground">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-secondary" />
