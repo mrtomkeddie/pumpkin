@@ -16,7 +16,7 @@ export const activities: Activity[] = [
     title: "Alpaca Picnic",
     description: "A spooky, moonlit pumpkin search! Bring your flashlights for a thrilling nighttime harvest.",
     icon: AlpacaIcon,
-    image: "https://picsum.photos/600/401",
+    image: "/alpaca.jpg",
     aiHint: "alpaca picnic",
   },
 ];
