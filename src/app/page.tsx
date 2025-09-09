@@ -35,7 +35,7 @@ export default function Home() {
     const activity = parentActivity || (item as Activity);
     const type = parentActivity ? (item as ActivityType) : undefined;
     
-    const itemIcon = 'icon' in item ? item.icon : undefined;
+    const itemIcon = 'icon' in item ? item.icon : AlpacaIcon;
 
     return (
        <Card className="bg-card border-border/50 overflow-hidden group flex flex-col transition-all duration-300 hover:border-primary hover:shadow-lg">
@@ -180,11 +180,11 @@ export default function Home() {
                 </div>
               )}
               {activeTab === 'alpaca-walk' && (
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                    {alpacaActivity?.types?.map((type) => (
-                      <ExperienceCard key={type.slug} item={type} parentActivity={alpacaActivity} />
-                    ))}
-                 </div>
+                 <div className="flex justify-center">
+                    <div className="w-full md:w-2/3 lg:w-1/2">
+                      <ExperienceCard item={alpacaActivity} />
+                    </div>
+                  </div>
               )}
               {activeTab === 'gift-card' && (
                 <div className="flex justify-center">
