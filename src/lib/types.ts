@@ -10,6 +10,7 @@ export interface ActivityType {
   icon?: LucideIcon | FC<SVGProps<SVGSVGElement>>;
   image?: string;
   aiHint?: string;
+  pax: number; // Number of people this package counts for
 }
 
 export interface Activity {
@@ -22,15 +23,22 @@ export interface Activity {
   types?: ActivityType[];
 }
 
+export interface ReservationPackage {
+  slug: string;
+  title: string;
+  quantity: number;
+}
+
 export interface Reservation {
   id: string;
   activityTitle: string;
   activitySlug: string;
-  activityType?: string;
+  activityType?: string; // For single-type bookings like pumpkin picking
+  packages?: ReservationPackage[]; // For multi-package bookings like alpaca walks
   date: Date;
   time: string;
   name: string;
   email: string;
   phone?: string;
-  quantity?: number;
+  quantity?: number; // Total people, for display
 }

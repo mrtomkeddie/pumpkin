@@ -21,6 +21,7 @@ export const activities: Activity[] = [
             icon: Sun,
             image: '/patch.jpg',
             aiHint: "pumpkin patch daytime",
+            pax: 1,
         },
         {
             slug: 'quiet',
@@ -30,7 +31,8 @@ export const activities: Activity[] = [
             details: '1 Car Per Ticket',
             icon: Mic2,
             image: '/quiet.jpg',
-            aiHint: "empty pumpkin patch"
+            aiHint: "empty pumpkin patch",
+            pax: 1,
         },
         {
             slug: 'moonlit',
@@ -40,7 +42,8 @@ export const activities: Activity[] = [
             details: '1 Car Per Ticket',
             icon: Moon,
             image: '/moonlit.jpg?v=2',
-            aiHint: "pumpkin patch nighttime"
+            aiHint: "pumpkin patch nighttime",
+            pax: 1,
         },
     ]
   },
@@ -58,6 +61,7 @@ export const activities: Activity[] = [
             description: 'One adult gets to walk one alpaca. A classic one-on-one experience with our furry friends.',
             price: '£26.20',
             details: 'Min age 10 for solo walk',
+            pax: 1,
         },
         {
             slug: 'child',
@@ -65,6 +69,7 @@ export const activities: Activity[] = [
             description: 'A shared experience for one child (under 10) and one supervising adult, walking one alpaca together.',
             price: '£20.96',
             details: '1 child & 1 adult',
+            pax: 2, // This package includes two people
         },
         {
             slug: 'shared',
@@ -72,6 +77,7 @@ export const activities: Activity[] = [
             description: 'Perfect for couples or friends. Two people share the responsibility and joy of walking one alpaca.',
             price: '£52.40',
             details: '1 Alpaca for 2 people',
+            pax: 2, // This package includes two people
         },
         {
             slug: 'spectator',
@@ -79,6 +85,7 @@ export const activities: Activity[] = [
             description: 'Want to join the fun without walking an alpaca? This ticket lets you accompany the group.',
             price: '£10.48',
             details: 'Walk along with the group',
+            pax: 1,
         }
     ]
   },

@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react';
 import { notFound, useParams, useSearchParams, useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
-import { Calendar as CalendarIcon, Clock, Users, Sun, Moon, Mic2, User, Mail, Phone } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, Users, Sun, Moon, Mic2, User, Mail, Phone, Minus, Plus } from 'lucide-react';
 
 import { activities } from '@/app/data';
 import { useReservations } from '@/context/reservations-context';
@@ -21,7 +21,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
@@ -51,6 +51,7 @@ const pumpkinAvailableDates = [
     11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27, 28, 30
 ].map(day => new Date(currentYear, 9, day).setHours(0,0,0,0));
 
+const alpacaPackagesSchema = z.record(z.string(), z.number().min(0).max(6));
 
 const BookingFormSchema = z.object({
   name: z.string().min(1, 'Name is required.'),
@@ -63,8 +64,18 @@ const BookingFormSchema = z.object({
     required_error: 'Please select a time.',
   }),
   activityType: z.string().optional(),
-  quantity: z.string().optional(),
+  packages: alpacaPackagesSchema.optional(),
+}).refine(data => {
+  if (data.packages) {
+    const total = Object.values(data.packages).reduce((acc, curr) => acc + curr, 0);
+    return total > 0;
+  }
+  return true;
+}, {
+  message: 'Please select at least one package.',
+  path: ['packages'],
 });
+
 
 type BookingFormValues = z.infer<typeof BookingFormSchema>;
 
@@ -77,15 +88,23 @@ export default function BookActivityPage() {
   const activity = activities.find((a) => a.slug === activitySlug);
   const typeParam = searchParams.get('type');
 
+  const defaultPackages = activity?.slug === 'alpaca-walk' 
+    ? activity.types?.reduce((acc, type) => {
+        acc[type.slug] = 0;
+        return acc;
+      }, {} as Record<string, number>)
+    : undefined;
+
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
     defaultValues: {
-      activityType: typeParam || activity?.types?.[0].slug,
-      quantity: '1',
+      activityType: typeParam || (activity?.slug === 'pumpkin-picking' ? activity?.types?.[0].slug : undefined),
+      packages: defaultPackages,
     }
   });
 
   const watchedActivityType = form.watch('activityType');
+  const watchedPackages = form.watch('packages');
 
   const getInitialTimes = () => {
     if (activity?.slug === 'pumpkin-picking') {
@@ -98,34 +117,31 @@ export default function BookActivityPage() {
   const [availableTimes, setAvailableTimes] = useState<string[]>(getInitialTimes());
 
   useEffect(() => {
-    let newTimes: string[];
-    const isMoonlit = watchedActivityType === 'moonlit';
-    const isQuiet = watchedActivityType === 'quiet';
-
     if (activity?.slug === 'pumpkin-picking') {
+        let newTimes: string[];
+        const isMoonlit = watchedActivityType === 'moonlit';
+        
         newTimes = isMoonlit ? moonlitTimes : pumpkinTimes;
-    } else {
-        newTimes = dayTimes; // Assuming alpaca walk uses dayTimes
-    }
-    setAvailableTimes(newTimes);
+        setAvailableTimes(newTimes);
 
-    const currentTime = form.getValues('time');
-    if (currentTime && !newTimes.includes(currentTime)) {
-      form.setValue('time', '');
-    }
+        const currentTime = form.getValues('time');
+        if (currentTime && !newTimes.includes(currentTime)) {
+          form.setValue('time', '');
+        }
 
-    const currentDate = form.getValues('date');
-    if (currentDate) {
-        const currentDateOnly = new Date(currentDate).setHours(0,0,0,0);
-        if (isMoonlit && !moonlitDates.includes(currentDateOnly)) {
-            form.setValue('date', undefined as any);
-        } else if (isQuiet && !quietDates.includes(currentDateOnly)) {
-            form.setValue('date', undefined as any);
-        } else if (!isMoonlit && !isQuiet && (moonlitDates.includes(currentDateOnly) || quietDates.includes(currentDateOnly))) {
-            form.setValue('date', undefined as any);
+        const currentDate = form.getValues('date');
+        if (currentDate) {
+            const currentDateOnly = new Date(currentDate).setHours(0,0,0,0);
+            const isQuiet = watchedActivityType === 'quiet';
+            if (isMoonlit && !moonlitDates.includes(currentDateOnly)) {
+                form.setValue('date', undefined as any);
+            } else if (isQuiet && !quietDates.includes(currentDateOnly)) {
+                form.setValue('date', undefined as any);
+            } else if (!isMoonlit && !isQuiet && (moonlitDates.includes(currentDateOnly) || quietDates.includes(currentDateOnly))) {
+                form.setValue('date', undefined as any);
+            }
         }
     }
-
   }, [watchedActivityType, form, activity?.slug]);
 
   if (!activity) {
@@ -135,46 +151,79 @@ export default function BookActivityPage() {
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
   const isAlpacaBooking = activity.slug === 'alpaca-walk';
   const selectedActivityType = activity.types?.find(t => t.slug === watchedActivityType);
-  const activityTitle = selectedActivityType?.title || activity.title;
+
+  const alpacaTotalPeople = isAlpacaBooking && watchedPackages ?
+    Object.entries(watchedPackages).reduce((total, [slug, quantity]) => {
+      const packageType = activity.types?.find(t => t.slug === slug);
+      return total + (quantity * (packageType?.pax || 0));
+    }, 0) : 0;
 
   function onSubmit(data: BookingFormValues) {
-    const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
+    if (isAlpacaBooking) {
+      const packages = Object.entries(data.packages || {})
+        .filter(([, quantity]) => quantity > 0)
+        .map(([slug, quantity]) => {
+          const type = activity.types!.find(t => t.slug === slug)!;
+          return { slug, title: type.title, quantity };
+        });
 
-    addReservation({
-      activityTitle: activity!.title,
-      activitySlug: activity!.slug,
-      activityType: activityType,
-      date: data.date,
-      time: data.time,
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      quantity: isAlpacaBooking ? parseInt(data.quantity!, 10) : undefined
-    });
+      addReservation({
+        activityTitle: activity!.title,
+        activitySlug: activity!.slug,
+        packages,
+        date: data.date,
+        time: data.time,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        quantity: alpacaTotalPeople
+      });
+    } else {
+      const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
+      addReservation({
+        activityTitle: activity!.title,
+        activitySlug: activity!.slug,
+        activityType: activityType,
+        date: data.date,
+        time: data.time,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      });
+    }
     router.push('/reservations');
   }
 
-  const TypeIcon = ({ slug }: { slug: string }) => {
+  const TypeIcon = ({ slug }: { slug?: string }) => {
+    if (!slug) return <Users className="h-5 w-5 text-primary" />;
     switch (slug) {
         case 'day': return <Sun className="h-5 w-5 text-primary" />;
         case 'quiet': return <Mic2 className="h-5 w-5 text-primary" />;
         case 'moonlit': return <Moon className="h-5 w-5 text-primary" />;
-        case 'adult':
-        case 'child':
-        case 'shared':
-        case 'spectator':
-            return <Users className="h-5 w-5 text-primary" />;
         default: return <Users className="h-5 w-5 text-primary" />;
     }
   };
 
+  const handlePackageQuantityChange = (slug: string, newQuantity: number) => {
+    const currentPackages = form.getValues('packages') || {};
+    const currentQuantity = currentPackages[slug] || 0;
+    
+    // Calculate the change in total people
+    const packageType = activity.types?.find(t => t.slug === slug);
+    const paxPerPackage = packageType?.pax || 0;
+    const peopleChange = (newQuantity - currentQuantity) * paxPerPackage;
+  
+    if (alpacaTotalPeople + peopleChange <= 6) {
+      form.setValue(`packages.${slug}`, newQuantity, { shouldValidate: true });
+    }
+  };
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12 pt-36">
       <Card>
         <CardHeader>
           <CardTitle className="font-headline text-4xl">{activity.title}</CardTitle>
-          <CardDescription>Select your preferred package, date, and time for this magical experience.</CardDescription>
+          <CardDescription>Select your preferred package(s), date, and time for this magical experience.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -230,17 +279,16 @@ export default function BookActivityPage() {
 
               <Separator />
 
-              {activity.types && (
-                <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              {isPumpkinBooking && activity.types && (
+                  <div className="grid grid-cols-1 gap-8 items-start">
                     <FormField
                         control={form.control}
                         name="activityType"
                         render={({ field }) => (
                         <FormItem className="space-y-4">
                             <FormLabel className="text-lg font-semibold flex items-center gap-2">
-                            <TypeIcon slug={watchedActivityType!} />
-                            Choose Your Experience
+                              <TypeIcon slug={watchedActivityType} />
+                              Choose Your Experience
                             </FormLabel>
                             <FormControl>
                             <RadioGroup
@@ -272,36 +320,77 @@ export default function BookActivityPage() {
                         </FormItem>
                         )}
                     />
-                    {isAlpacaBooking && (
-                      <FormField
-                        control={form.control}
-                        name="quantity"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-lg font-semibold flex items-center gap-2 mb-2"><Users className="h-6 w-6 text-primary" /> Number of People</FormLabel>
-                             <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                  <SelectTrigger className="h-11">
-                                    <SelectValue placeholder="Select number of people" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {[...Array(6)].map((_, i) => (
-                                    <SelectItem key={i + 1} value={`${i + 1}`}>
-                                      {i + 1}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    )}
                   </div>
-                  <Separator />
-                </>
               )}
+
+              {isAlpacaBooking && activity.types && (
+                <div className="space-y-4">
+                   <FormLabel className="text-lg font-semibold flex items-center gap-2">
+                    <Users className="h-6 w-6 text-primary" />
+                     Choose Packages (Max 6 people)
+                   </FormLabel>
+                   <div className='space-y-4'>
+                    {activity.types.map((type) => (
+                       <Controller
+                         key={type.slug}
+                         control={form.control}
+                         name={`packages.${type.slug}` as const}
+                         render={({ field }) => (
+                          <Card className='bg-popover'>
+                            <CardContent className='p-4 flex items-center justify-between'>
+                              <div className='flex-1 pr-4'>
+                                <p className='font-bold'>{type.title}</p>
+                                <p className='text-sm text-muted-foreground mt-1'>{type.description}</p>
+                                <p className='text-xs text-muted-foreground font-semibold mt-2'>{type.details}</p>
+                              </div>
+                              <div className='flex items-center gap-4'>
+                                <span className="font-bold text-primary text-lg">{type.price}</span>
+                                <div className='flex items-center gap-2'>
+                                  <Button 
+                                    type="button" 
+                                    size="icon" 
+                                    variant="outline"
+                                    className='h-8 w-8'
+                                    onClick={() => handlePackageQuantityChange(type.slug, Math.max(0, (field.value || 0) - 1))}
+                                    disabled={!field.value || field.value === 0}
+                                  >
+                                    <Minus className='h-4 w-4' />
+                                  </Button>
+                                  <span className='text-lg font-bold w-6 text-center'>{field.value || 0}</span>
+                                  <Button 
+                                    type="button" 
+                                    size="icon" 
+                                    variant="outline"
+                                    className='h-8 w-8'
+                                    onClick={() => handlePackageQuantityChange(type.slug, (field.value || 0) + 1)}
+                                    disabled={alpacaTotalPeople >= 6}
+                                  >
+                                    <Plus className='h-4 w-4' />
+                                  </Button>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                         )}
+                        />
+                    ))}
+                  </div>
+                  {form.formState.errors.packages && (
+                     <Alert variant="destructive" className="mt-4">
+                        <AlertDescription>{form.formState.errors.packages.message}</AlertDescription>
+                    </Alert>
+                  )}
+                  {alpacaTotalPeople > 0 && (
+                     <Alert className="mt-4">
+                        <AlertDescription className='font-bold text-right'>
+                            Total People: {alpacaTotalPeople} / 6
+                        </AlertDescription>
+                    </Alert>
+                  )}
+                </div>
+              )}
+
+              {(isPumpkinBooking || isAlpacaBooking) && <Separator />}
 
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">

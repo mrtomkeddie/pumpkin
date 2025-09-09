@@ -4,10 +4,11 @@
 import { useReservations } from '@/context/reservations-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Clock, Trash2, Ticket, User, Users } from 'lucide-react';
+import { Calendar, Clock, Trash2, Ticket, User, Users, Box } from 'lucide-react';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 export default function ReservationsPage() {
   const { reservations, removeReservation } = useReservations();
@@ -59,7 +60,25 @@ export default function ReservationsPage() {
                     <span>{reservation.quantity} {reservation.quantity > 1 ? 'people' : 'person'}</span>
                   </div>
                 )}
-                <CardDescription>Reservation ID: {reservation.id.slice(0, 8)}</CardDescription>
+                {reservation.packages && reservation.packages.length > 0 && (
+                  <>
+                    <Separator className='my-4' />
+                    <div className='space-y-2'>
+                       <div className="flex items-center gap-3 text-sm font-semibold">
+                          <Box className="h-4 w-4 text-primary" />
+                          <span>Package Summary</span>
+                       </div>
+                      {reservation.packages.map(pkg => (
+                        <div key={pkg.slug} className='flex justify-between items-center text-sm ml-7'>
+                          <span className='text-muted-foreground'>{pkg.title}</span>
+                          <span className='font-bold'>x{pkg.quantity}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                <CardDescription className="pt-2">Reservation ID: {reservation.id.slice(0, 8)}</CardDescription>
               </CardContent>
               <CardFooter>
                 <Button
