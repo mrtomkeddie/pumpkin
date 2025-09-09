@@ -52,9 +52,6 @@ const BookingFormSchema = z.object({
   name: z.string().min(1, 'Name is required.'),
   email: z.string().email('Please enter a valid email.'),
   phone: z.string().optional(),
-  activityType: z.string({
-    required_error: 'Please select a booking option.',
-  }),
   date: z.date({
     required_error: 'A date is required.',
   }),
@@ -75,6 +72,8 @@ export default function BookActivityPage() {
   const activity = activities.find((a) => a.slug === activitySlug);
   const typeParam = searchParams.get('type');
 
+  const watchedActivityType = typeParam || activity?.types?.[0].slug;
+
   const getInitialTimes = () => {
     if (activity?.slug === 'pumpkin-picking') {
         const isMoonlit = typeParam === 'moonlit';
@@ -87,18 +86,9 @@ export default function BookActivityPage() {
 
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(BookingFormSchema),
-    defaultValues: {
-      activityType: typeParam || activity?.types?.[0].slug,
-    }
+    defaultValues: {}
   });
 
-  const watchedActivityType = form.watch('activityType');
-
-  useEffect(() => {
-    if (activity?.slug === 'pumpkin-picking' && typeParam) {
-      form.setValue('activityType', typeParam);
-    }
-  }, [typeParam, activity, form]);
 
   useEffect(() => {
     let newTimes: string[];
@@ -142,7 +132,7 @@ export default function BookActivityPage() {
   const activityTitle = selectedActivityType?.title || activity.title;
 
   function onSubmit(data: BookingFormValues) {
-    const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
+    const activityType = activity?.types?.find(t => t.slug === watchedActivityType)?.title;
 
     addReservation({
       activityTitle: activity!.title,
@@ -333,11 +323,7 @@ export default function BookActivityPage() {
                   )}
                 />
               </div>
-              <CardFooter className="flex flex-col-reverse sm:flex-row gap-4 mt-8 p-0">
-                <Button variant="outline" size="lg" className="w-full" type="button" onClick={() => router.back()}>
-                  <ArrowLeft className="mr-2 h-5 w-5" />
-                  Back
-                </Button>
+              <CardFooter className="flex mt-8 p-0">
                 <Button type="submit" size="lg" className="w-full">
                   Confirm Booking
                 </Button>
@@ -349,3 +335,5 @@ export default function BookActivityPage() {
     </div>
   );
 }
+
+    
