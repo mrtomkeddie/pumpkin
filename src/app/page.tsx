@@ -225,6 +225,13 @@ export default function Home() {
       </main>
       <footer className="py-8 md:py-6 text-sm text-foreground border-t">
         <div className="container mx-auto flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8 text-center md:text-left">
+             <Link
+              href="/info"
+              className="flex items-center gap-2 hover:text-primary transition-colors"
+            >
+              <Info className="w-4 h-4 text-primary" />
+              <span>Info & FAQ</span>
+            </Link>
             <a
               href="https://www.google.com/maps/search/?api=1&query=The+Barn%2C+Mansant+Ganol%2C+Pontyates%2C+SA15+5RL"
               target="_blank"
