@@ -90,7 +90,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="experiences" className="py-12 bg-background">
+        <section id="experiences" className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose Your Experience</h2>
             <div className="flex justify-center mb-12">
@@ -198,18 +198,23 @@ export default function Home() {
       </main>
       <footer className="py-6 text-sm text-foreground border-t">
         <div className="container mx-auto flex flex-col md:flex-row justify-center items-center gap-8">
-            <div className="flex items-center gap-2">
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=The+Barn%2C+Mansant+Ganol%2C+Ponthenri%2C+Llanelli%2C+United+Kingdom"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-primary transition-colors"
+            >
               <MapPin className="w-4 h-4 text-primary" />
               <span>The Barn, Mansant Ganol, Ponthenri, Llanelli, United Kingdom</span>
-            </div>
-            <div className="flex items-center gap-2">
+            </a>
+            <a href="tel:07527303240" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Phone className="w-4 h-4 text-primary" />
               <span>07527 303240</span>
-            </div>
-            <div className="flex items-center gap-2">
+            </a>
+            <a href="mailto:Tbcpumpkinpatch@outlook.com" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Mail className="w-4 h-4 text-primary" />
               <span>Tbcpumpkinpatch@outlook.com</span>
-            </div>
+            </a>
         </div>
       </footer>
     </div>
