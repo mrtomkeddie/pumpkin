@@ -29,62 +29,64 @@ export default function StaffGiftCardPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Recipient</TableHead>
-                      <TableHead>Sender</TableHead>
-                      <TableHead className="hidden md:table-cell">Date</TableHead>
-                      <TableHead className="hidden md:table-cell">Message</TableHead>
-                      <TableHead className="text-right">Amount</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {sortedGiftCards.map((card) => (
-                      <TableRow key={card.id}>
-                        <TableCell>
-                          <div className="font-medium flex items-center gap-2">
-                            <User className="h-4 w-4 text-muted-foreground" />
-                            {card.recipientName}
-                          </div>
-                          <div className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
-                             <Mail className="h-4 w-4 text-muted-foreground" />
-                            {card.recipientEmail}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                           <div className="font-medium flex items-center gap-2">
-                             <User className="h-4 w-4 text-muted-foreground" />
-                             {card.senderName}
-                           </div>
-                           <div className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
-                             <Mail className="h-4 w-4 text-muted-foreground" />
-                             {card.senderEmail}
-                           </div>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                           <div className="flex items-center gap-2">
-                                <Calendar className="h-4 w-4 text-muted-foreground" />
-                                {format(card.purchaseDate, 'dd/MM/yyyy')}
-                           </div>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell max-w-xs truncate">
-                           {card.message ? (
-                             <div className="flex items-start gap-2">
-                                <MessageSquare className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" />
-                                <span className="italic">"{card.message}"</span>
-                             </div>
-                           ) : (
-                                <span className="text-muted-foreground/70">No message</span>
-                           )}
-                        </TableCell>
-                        <TableCell className="text-right font-bold text-lg">
-                          £{card.amount}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="overflow-x-auto">
+                    <Table>
+                    <TableHeader>
+                        <TableRow>
+                        <TableHead>Recipient</TableHead>
+                        <TableHead>Sender</TableHead>
+                        <TableHead className="hidden sm:table-cell">Date</TableHead>
+                        <TableHead className="hidden lg:table-cell">Message</TableHead>
+                        <TableHead className="text-right">Amount</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {sortedGiftCards.map((card) => (
+                        <TableRow key={card.id}>
+                            <TableCell>
+                            <div className="font-medium flex items-center gap-2">
+                                <User className="h-4 w-4 text-muted-foreground" />
+                                {card.recipientName}
+                            </div>
+                            <div className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
+                                <Mail className="h-4 w-4 text-muted-foreground" />
+                                {card.recipientEmail}
+                            </div>
+                            </TableCell>
+                            <TableCell>
+                            <div className="font-medium flex items-center gap-2">
+                                <User className="h-4 w-4 text-muted-foreground" />
+                                {card.senderName}
+                            </div>
+                            <div className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
+                                <Mail className="h-4 w-4 text-muted-foreground" />
+                                {card.senderEmail}
+                            </div>
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                            <div className="flex items-center gap-2">
+                                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                                    {format(card.purchaseDate, 'dd/MM/yyyy')}
+                            </div>
+                            </TableCell>
+                            <TableCell className="hidden lg:table-cell max-w-xs truncate">
+                            {card.message ? (
+                                <div className="flex items-start gap-2">
+                                    <MessageSquare className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" />
+                                    <span className="italic">"{card.message}"</span>
+                                </div>
+                            ) : (
+                                    <span className="text-muted-foreground/70">No message</span>
+                            )}
+                            </TableCell>
+                            <TableCell className="text-right font-bold text-lg">
+                            £{card.amount}
+                            </TableCell>
+                        </TableRow>
+                        ))}
+                    </TableBody>
+                    </Table>
+                </div>
             </CardContent>
           </Card>
     </div>
