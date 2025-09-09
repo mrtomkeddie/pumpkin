@@ -35,7 +35,7 @@ export const activities: Activity[] = [
         {
             slug: 'moonlit',
             title: 'Moonlit Pumpkin Picking',
-            description: 'This ticket grants you access to our pumpkin patch with the added twist of picking the pumpkins under the night sky. We have mazes, photo opportunities, spooky activities, and more. (Pumpkins sold separately).',
+            description: 'Experience the magic of our pumpkin patch after dark! Pick pumpkins under the night sky, explore mazes, snap photos, enjoy spooky activities, and more. Pumpkins sold separately.',
             price: '£10.48',
             details: '1 Car Per Ticket',
             icon: Moon,
