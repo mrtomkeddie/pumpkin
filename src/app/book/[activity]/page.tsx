@@ -296,8 +296,6 @@ export default function BookActivityPage() {
                 </div>
               </div>
 
-              <Separator />
-
               {isPumpkinBooking && selectedPumpkinType && (
                 <div className="space-y-4">
                   <FormLabel className="text-lg font-semibold flex items-center gap-2">
