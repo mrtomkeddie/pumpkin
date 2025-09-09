@@ -14,9 +14,11 @@ const ReservationsContext = createContext<ReservationsContextType | undefined>(u
 
 export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
+    // This effect runs only on the client, after the initial render.
     try {
       const storedReservations = localStorage.getItem('pingleFarmReservations');
       if (storedReservations) {
@@ -26,19 +28,21 @@ export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Failed to parse reservations from localStorage", error);
       setReservations([]);
+    } finally {
+        setIsLoaded(true);
     }
   }, []);
 
   useEffect(() => {
-    // We need to check if window is defined to avoid running this on the server
-    if (typeof window !== 'undefined') {
-        try {
-            localStorage.setItem('pingleFarmReservations', JSON.stringify(reservations));
-        } catch (error) {
-            console.error("Failed to save reservations to localStorage", error);
-        }
+    // This effect saves to localStorage only on the client and only after the initial load.
+    if (isLoaded) {
+      try {
+        localStorage.setItem('pingleFarmReservations', JSON.stringify(reservations));
+      } catch (error) {
+        console.error("Failed to save reservations to localStorage", error);
+      }
     }
-  }, [reservations]);
+  }, [reservations, isLoaded]);
 
   const addReservation = (reservation: Omit<Reservation, 'id'>) => {
     const newReservation: Reservation = { ...reservation, id: crypto.randomUUID() };
