@@ -93,10 +93,11 @@ interface BookingFormProps {
 export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: BookingFormProps) {
   const router = useRouter();
   const { addReservation } = useReservations();
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const defaultPackages = activity.slug === 'alpaca-walk' 
     ? activity.types?.reduce((acc, type) => {
-        acc[type.slug] = type.slug === activityTypeSlug ? 1 : 0;
+        acc[type.slug] = 0; // Start all packages at 0
         return acc;
       }, {} as Record<string, number>)
     : undefined;
@@ -129,7 +130,6 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     let newTimes: string[];
     if (activity.slug === 'pumpkin-picking') {
         const isMoonlit = watchedActivityType === 'moonlit';
-        
         newTimes = isMoonlit ? moonlitTimes : pumpkinTimes;
     } else if (activity.slug === 'alpaca-walk') {
         newTimes = alpacaTimes;
@@ -159,7 +159,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
         }
     }
   }, [watchedActivityType, form, activity.slug]);
-  
+
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
   const isAlpacaBooking = activity.slug === 'alpaca-walk';
   const selectedActivityType = activity.types?.find(t => t.slug === (isPumpkinBooking ? watchedActivityType : activityTypeSlug));
@@ -183,6 +183,25 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
 
     return peopleInOtherPackages + ((currentQuantity + 1) * packageType.pax) <= 6;
   }
+
+  useEffect(() => {
+    const parsePrice = (price: string) => parseFloat(price.replace('£', ''));
+    
+    let total = 0;
+    if (isPumpkinBooking && selectedActivityType) {
+        total = parsePrice(selectedActivityType.price);
+    } else if (isAlpacaBooking && watchedPackages && activity.types) {
+        total = Object.entries(watchedPackages).reduce((acc, [slug, quantity]) => {
+            const type = activity.types!.find(t => t.slug === slug);
+            if (type && quantity > 0) {
+                return acc + (parsePrice(type.price) * quantity);
+            }
+            return acc;
+        }, 0);
+    }
+    setTotalPrice(total);
+  }, [watchedActivityType, watchedPackages, isPumpkinBooking, isAlpacaBooking, selectedActivityType, activity.types]);
+
 
   function onSubmit(data: BookingFormValues) {
     if (isAlpacaBooking) {
@@ -510,10 +529,15 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                   )}
                 />
               </div>
-              <CardFooter className="flex mt-8 p-0">
-                <Button type="submit" size="lg" className="w-full">
-                  Confirm Booking
-                </Button>
+              <CardFooter className="flex flex-col sm:flex-row items-center mt-8 p-0 gap-4">
+                  <div className="flex-1 w-full sm:w-auto">
+                    <Button type="submit" size="lg" className="w-full">
+                      Confirm Booking
+                    </Button>
+                  </div>
+                  <div className="bg-muted text-muted-foreground font-bold text-lg rounded-md px-4 py-2 text-center w-full sm:w-auto">
+                    Total: £{totalPrice.toFixed(2)}
+                  </div>
               </CardFooter>
             </form>
           </Form>
