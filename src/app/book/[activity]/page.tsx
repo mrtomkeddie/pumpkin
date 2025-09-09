@@ -7,11 +7,10 @@ import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { WandSparkles, Calendar as CalendarIcon, Clock, Loader2, ArrowLeft, Ticket, Users, Sun, Moon, Mic2 } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, ArrowLeft, Ticket, Users, Sun, Moon, Mic2 } from 'lucide-react';
 
 import { activities } from '@/app/data';
 import { useReservations } from '@/context/reservations-context';
-import { getSuggestedTimes } from '@/app/actions';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -20,7 +19,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
 
@@ -63,9 +61,6 @@ export default function BookActivityPage() {
   const activity = activities.find((a) => a.slug === activitySlug);
   const typeParam = searchParams.get('type');
 
-  const [suggestedTimes, setSuggestedTimes] = useState<string[]>([]);
-  const [isSuggesting, setIsSuggesting] = useState(false);
-  
   const getInitialTimes = () => {
     if (activity?.slug === 'pumpkin-picking') {
         const isMoonlit = typeParam === 'moonlit';
@@ -106,7 +101,6 @@ export default function BookActivityPage() {
     const currentTime = form.getValues('time');
     if (currentTime && !newTimes.includes(currentTime)) {
       form.setValue('time', '');
-      setSuggestedTimes([]);
     }
 
     // Reset date if changing to/from moonlit and it's invalid
@@ -127,33 +121,6 @@ export default function BookActivityPage() {
   
   const hasTypes = !!activity.types;
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
-
-  const handleSuggestTimes = async () => {
-    const selectedDate = form.getValues('date');
-    if (!selectedDate) {
-      toast({
-        title: 'Please select a date first',
-        description: 'We need a date to suggest the best times.',
-        variant: 'destructive',
-      });
-      return;
-    }
-    setIsSuggesting(true);
-    setSuggestedTimes([]);
-    const result = await getSuggestedTimes(activity.title, format(selectedDate, 'yyyy-MM-dd'));
-    if (result.success && result.timeslots) {
-      const currentAvailableTimes = availableTimes;
-      const filteredSuggestions = result.timeslots.filter(t => currentAvailableTimes.includes(t));
-      setSuggestedTimes(filteredSuggestions);
-    } else {
-      toast({
-        title: 'Suggestion Error',
-        description: result.error || 'Could not fetch suggestions at this time.',
-        variant: 'destructive',
-      });
-    }
-    setIsSuggesting(false);
-  };
 
   function onSubmit(data: BookingFormValues) {
     const activityType = activity?.types?.find(t => t.slug === data.activityType)?.title;
@@ -314,21 +281,6 @@ export default function BookActivityPage() {
                     <FormItem className="space-y-3">
                       <div className='flex items-center justify-between'>
                         <FormLabel className="text-lg font-semibold flex items-center gap-2"><Clock className="h-6 w-6 text-primary" /> Time</FormLabel>
-                        <Button
-                          type="button"
-                          variant="secondary"
-                          size="sm"
-                          onClick={handleSuggestTimes}
-                          disabled={isSuggesting}
-                          className="mb-2"
-                        >
-                          {isSuggesting ? (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          ) : (
-                            <WandSparkles className="mr-2 h-4 w-4" />
-                          )}
-                          Suggest
-                        </Button>
                       </div>
 
                       <FormControl>
@@ -347,9 +299,6 @@ export default function BookActivityPage() {
                                 className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-3 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary"
                               >
                                 {time}
-                                {suggestedTimes.includes(time) && (
-                                  <Badge variant="default" className="mt-1 text-xs">Best</Badge>
-                                )}
                               </FormLabel>
                             </FormItem>
                           ))}
