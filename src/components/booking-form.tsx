@@ -305,7 +305,6 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                         <span className="font-bold text-base">{selectedPumpkinType.title}</span>
                         <span className="font-bold text-primary">{selectedPumpkinType.price}</span>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-2">{selectedPumpkinType.description}</p>
                       <p className="text-xs font-semibold text-muted-foreground mt-2">{selectedPumpkinType.details}</p>
                     </CardContent>
                   </Card>
@@ -523,5 +522,3 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     </div>
   );
 }
-
-    
