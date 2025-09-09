@@ -224,7 +224,7 @@ export default function Home() {
         </section>
       </main>
       <footer className="py-8 md:py-6 text-sm text-foreground border-t">
-        <div className="container mx-auto flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8 text-center md:text-left">
+        <div className="container mx-auto flex flex-col justify-center items-center gap-4 text-center">
              <Link
               href="/info"
               className="flex items-center gap-2 hover:text-primary transition-colors"
@@ -232,6 +232,7 @@ export default function Home() {
               <Info className="w-4 h-4 text-primary" />
               <span>Contact & FAQ</span>
             </Link>
+            <p className="text-muted-foreground">© 2025 Black Cat Events | Design by Tom Keddie</p>
         </div>
       </footer>
     </div>
