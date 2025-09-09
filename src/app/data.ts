@@ -39,7 +39,7 @@ export const activities: Activity[] = [
             price: '£10.48',
             details: '1 Car Per Ticket',
             icon: Moon,
-            image: '/patch-moonlit.jpg',
+            image: '/moonlit.jpg',
             aiHint: "pumpkin patch nighttime"
         },
     ]
