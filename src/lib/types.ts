@@ -29,4 +29,7 @@ export interface Reservation {
   activityType?: string;
   date: Date;
   time: string;
+  name: string;
+  email: string;
+  phone?: string;
 }

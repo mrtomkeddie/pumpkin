@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Calendar as CalendarIcon, Clock, ArrowLeft, Ticket, Users, Sun, Moon, Mic2 } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, ArrowLeft, Ticket, Users, Sun, Moon, Mic2, User, Mail, Phone } from 'lucide-react';
 
 import { activities } from '@/app/data';
 import { useReservations } from '@/context/reservations-context';
@@ -21,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
+import { Input } from '@/components/ui/input';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
@@ -38,6 +39,9 @@ const moonlitDates = [
 
 
 const BookingFormSchema = z.object({
+  name: z.string().min(1, 'Name is required.'),
+  email: z.string().email('Please enter a valid email.'),
+  phone: z.string().optional(),
   activityType: z.string({
     required_error: 'Please select a booking option.',
   }),
@@ -131,6 +135,9 @@ export default function BookActivityPage() {
       activityType: activityType,
       date: data.date,
       time: data.time,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
     });
     router.push('/reservations');
   }
@@ -161,6 +168,56 @@ export default function BookActivityPage() {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               
+              <div className="space-y-4">
+                  <FormLabel className="text-lg font-semibold flex items-center gap-2">
+                    <Users className="h-6 w-6 text-primary" />
+                    Your Details
+                  </FormLabel>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-sm"><User className="h-4 w-4" /> Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Full Name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-sm"><Mail className="h-4 w-4" /> Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="example@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-sm"><Phone className="h-4 w-4" /> Phone (Optional)</FormLabel>
+                        <FormControl>
+                          <Input type="tel" placeholder="Contact Number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              <Separator />
+
               {hasTypes && !isPumpkinBooking && (
                 <FormField
                   control={form.control}
