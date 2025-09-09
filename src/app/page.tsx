@@ -206,7 +206,7 @@ export default function Home() {
                           <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
                             Gift Card
                           </CardTitle>
-                          <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Bookings.</CardDescription>
+                          <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Bookings, redeemable against any of our activities.</CardDescription>
                       </CardContent>
                       <CardFooter className="p-6 bg-transparent mt-auto">
                         <Button asChild className="w-full bg-primary hover:bg-primary/90">

@@ -54,7 +54,7 @@ const pumpkinAvailableDates = [
 
 const alpacaAvailableDates = [
   15, 16, 17, 22, 23, 24
-].map(day => new Date(2025, 9, day).setHours(0,0,0,0));
+].map(day => new Date(currentYear, 9, day).setHours(0,0,0,0));
 
 const alpacaPackagesSchema = z.record(z.string(), z.number().min(0).max(6));
 
@@ -417,11 +417,11 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                               mode="single"
                               selected={field.value}
                               onSelect={field.onChange}
-                              defaultMonth={isPumpkinBooking ? new Date(new Date().getFullYear(), 9) : (isAlpacaBooking ? new Date(2025, 9) : undefined)}
+                              defaultMonth={isPumpkinBooking || isAlpacaBooking ? new Date(new Date().getFullYear(), 9) : undefined}
                               disabled={(date) => {
                                   const today = new Date();
                                   today.setHours(0,0,0,0);
-                                  if (date < today && activity.slug !== 'alpaca-walk') return true;
+                                  if (date < today) return true;
 
                                   const dateOnly = new Date(date).setHours(0,0,0,0);
 

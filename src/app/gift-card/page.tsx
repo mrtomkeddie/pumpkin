@@ -11,15 +11,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 
-const giftCardAmounts = ['5', '10', '20', '30', '50', '100', '200'];
+const giftCardAmounts = ['25', '50', '75', '100'];
 
 const GiftCardFormSchema = z.object({
   amount: z.string({ required_error: 'Please select an amount.' }),
-  customAmount: z.number().optional(),
   recipientName: z.string().min(1, 'Recipient name is required.'),
   recipientEmail: z.string().email('Please enter a valid email.'),
   senderName: z.string().min(1, 'Your name is required.'),
@@ -36,19 +35,17 @@ export default function GiftCardPage() {
     resolver: zodResolver(GiftCardFormSchema),
   });
 
-  const handleAmountChange = (value: string) => {
-    if (value === 'custom') {
-      setIsCustomAmount(true);
-      form.setValue('amount', 'custom');
+  const handleAmountClick = (amount: string) => {
+    setIsCustomAmount(amount === 'custom');
+    if (amount === 'custom') {
+        form.setValue('amount', '');
     } else {
-      setIsCustomAmount(false);
-      form.setValue('amount', value);
-      form.unregister('customAmount');
+        form.setValue('amount', amount);
     }
   };
 
   function onSubmit(data: GiftCardFormValues) {
-    const finalAmount = isCustomAmount ? data.customAmount : `£${data.amount}`;
+    const finalAmount = `£${data.amount}`;
     toast({
       title: "Gift Card Purchase Successful!",
       description: `You've purchased a ${finalAmount} gift card for ${data.recipientName}.`,
@@ -65,58 +62,58 @@ export default function GiftCardPage() {
             <Gift className="h-10 w-10 text-primary" />
             <div>
               <CardTitle className="font-headline text-4xl">Purchase a Gift Card</CardTitle>
-              <CardDescription>The perfect gift for any occasion.</CardDescription>
+              <CardDescription>The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Bookings.</CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-8">
-                  <FormField
-                    control={form.control}
-                    name="amount"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2"><CreditCard className="h-5 w-5 text-primary" /> Amount</FormLabel>
-                        <Select onValueChange={handleAmountChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select an amount" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
+               <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2 text-lg font-semibold"><CreditCard className="h-6 w-6 text-primary" /> Select Amount</FormLabel>
+                    <FormControl>
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 pt-2">
                             {giftCardAmounts.map((amount) => (
-                              <SelectItem key={amount} value={amount}>
-                                £{amount} gift card
-                              </SelectItem>
+                            <Button 
+                                key={amount} 
+                                type="button"
+                                variant={field.value === amount ? 'default' : 'outline'}
+                                onClick={() => handleAmountClick(amount)}
+                                className="h-20 flex-col gap-1"
+                            >
+                                <span className="text-2xl font-bold">£{amount}</span>
+                            </Button>
                             ))}
-                            <SelectItem value="custom">Custom amount</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {isCustomAmount && (
-                     <FormField
-                        control={form.control}
-                        name="customAmount"
-                        render={({ field }) => (
-                          <FormItem>
+                             <Button 
+                                type="button"
+                                variant={isCustomAmount ? 'default' : 'outline'}
+                                onClick={() => handleAmountClick('custom')}
+                                className="h-20 flex-col gap-1"
+                            >
+                                <Edit className="h-6 w-6" />
+                                <span className="font-bold">Custom</span>
+                            </Button>
+                        </div>
+                    </FormControl>
+                    {isCustomAmount && (
+                        <div className="pt-4">
                             <FormLabel className="flex items-center gap-2"><Edit className="h-5 w-5 text-primary" /> Custom Amount (£)</FormLabel>
                              <FormControl>
-                                <Input type="number" placeholder="Enter amount" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} />
+                                <Input type="number" placeholder="Enter amount, e.g. 30" {...field} className="mt-2" />
                              </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                  )}
+                        </div>
+                    )}
+                    <FormMessage className="pt-2" />
+                  </FormItem>
+                )}
+              />
 
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-8">
                   <FormField
                     control={form.control}
                     name="recipientName"
