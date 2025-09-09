@@ -20,7 +20,7 @@ export default function ReservationsPage() {
       </div>
 
       {reservations.length === 0 ? (
-        <div className="text-center py-20 border-2 border-dashed rounded-lg">
+        <div className="text-center py-20 border-2 border-dashed rounded-lg bg-card/80 backdrop-blur-sm">
           <h2 className="text-2xl font-semibold text-muted-foreground">No Adventures Booked Yet</h2>
           <p className="text-muted-foreground mt-2">Time to plan your next mystical experience!</p>
           <Button asChild className="mt-4">

@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Gift, CreditCard, User, Mail, MessageSquare, WandSparkles, Loader2, Calendar, Edit } from 'lucide-react';
+import { Gift, CreditCard, User, Mail, MessageSquare, Edit } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
@@ -59,7 +59,7 @@ export default function GiftCardPage() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
-      <Card>
+      <Card className="bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <div className="flex items-center gap-4">
             <Gift className="h-10 w-10 text-primary" />
