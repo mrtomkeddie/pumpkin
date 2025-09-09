@@ -126,7 +126,7 @@ export default function Home() {
                 <button
                   onClick={() => setActiveTab('pumpkin-picking')}
                   className={cn(
-                    "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
+                    "px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'pumpkin-picking'
                       ? "bg-primary text-primary-foreground shadow"
                       : "text-muted-foreground hover:bg-card/80"
@@ -134,13 +134,14 @@ export default function Home() {
                 >
                   <div className='flex items-center gap-2'>
                     <Sun className="h-5 w-5" />
-                    Pumpkin Picking
+                    <span className="sm:hidden">Pumpkins</span>
+                    <span className="hidden sm:inline">Pumpkin Picking</span>
                   </div>
                 </button>
                 <button
                   onClick={() => setActiveTab('alpaca-walk')}
                   className={cn(
-                    "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
+                    "px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'alpaca-walk'
                       ? "bg-primary text-primary-foreground shadow"
                       : "text-muted-foreground hover:bg-card/80"
@@ -148,13 +149,14 @@ export default function Home() {
                 >
                   <div className='flex items-center gap-2'>
                     <AlpacaIcon className="h-5 w-5" />
-                    Alpaca Walks
+                    <span className="sm:hidden">Alpacas</span>
+                    <span className="hidden sm:inline">Alpaca Walks</span>
                   </div>
                 </button>
                 <button
                   onClick={() => setActiveTab('gift-card')}
                   className={cn(
-                    "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
+                    "px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
                     activeTab === 'gift-card'
                       ? "bg-primary text-primary-foreground shadow"
                       : "text-muted-foreground hover:bg-card/80"
@@ -162,7 +164,8 @@ export default function Home() {
                 >
                   <div className='flex items-center gap-2'>
                     <Gift className="h-5 w-5" />
-                    Gift Cards
+                    <span className="sm:hidden">Gifts</span>
+                    <span className="hidden sm:inline">Gift Cards</span>
                   </div>
                 </button>
               </div>
