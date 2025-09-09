@@ -61,8 +61,8 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1">
       <main className="flex-1 flex flex-col">
-        <section className="relative flex flex-col items-center justify-center text-center p-4 bg-background min-h-screen">
-          <div className="flex flex-col items-center justify-center">
+      <section className="relative flex flex-col items-center justify-center text-center p-4 min-h-screen">
+        <div className="flex flex-col items-center justify-center">
             <Image
               src="/logo.png"
               alt="The Black Cat Pumpkin Patch Logo"
