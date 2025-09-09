@@ -7,10 +7,10 @@ import { useState } from "react";
 import { activities } from "@/app/data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, MapPin, Phone, Clock } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ArrowRight, MapPin, Phone, Clock, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Activity, ActivityType } from "@/lib/types";
+import { AlpacaIcon } from "@/components/icons";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('pumpkin-picking');
@@ -19,7 +19,11 @@ export default function Home() {
 
   const ExperienceCard = ({ item, parentActivity }: { item: Activity | ActivityType, parentActivity?: Activity }) => {
     const activitySlug = parentActivity ? parentActivity.slug : (item as Activity).slug;
-    const bookLink = `/book/${activitySlug}`;
+    
+    // For pumpkin picking types, the link should go to the parent activity booking page.
+    // For the main alpaca walk, it's a direct link.
+    const bookLink = parentActivity ? `/book/${parentActivity.slug}`: `/book/${activitySlug}`;
+
     const itemIcon = 'icon' in item ? item.icon : undefined;
 
     return (
@@ -44,7 +48,7 @@ export default function Home() {
           <CardDescription>{item.description}</CardDescription>
         </CardContent>
         <CardFooter className="p-6 bg-transparent mt-auto">
-          <Button asChild className="w-full bg-primary hover:bg-primary/90">
+           <Button asChild className="w-full bg-primary hover:bg-primary/90">
             <Link href={bookLink}>
               Book Now <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
@@ -55,10 +59,10 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-1">
       <main className="flex-1 flex flex-col">
         <section className="relative flex flex-col items-center justify-center text-center p-4 bg-background min-h-screen">
-          <div className="flex flex-col items-center justify-center flex-1">
+          <div className="flex flex-col items-center justify-center">
             <Image
               src="/logo.png"
               alt="The Black Cat Pumpkin Patch Logo"
@@ -90,31 +94,60 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="experiences" className="py-20 bg-background">
+        <section id="experiences" className="py-20 bg-background min-h-screen w-full">
           <div className="container mx-auto px-4">
             <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose Your Experience</h2>
             <div className="flex justify-center mb-12">
               <div className="h-1 w-24 bg-primary rounded-full" />
             </div>
 
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
-                <TabsTrigger value="pumpkin-picking">Pumpkin Picking</TabsTrigger>
-                <TabsTrigger value="alpaca-walk">Alpaca Walks</TabsTrigger>
-              </TabsList>
-              <TabsContent value="pumpkin-picking" className="mt-12">
+            <div className="flex justify-center mb-12">
+              <div className="bg-muted p-1 rounded-full flex items-center space-x-1">
+                <button
+                  onClick={() => setActiveTab('pumpkin-picking')}
+                  className={cn(
+                    "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
+                    activeTab === 'pumpkin-picking'
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "text-muted-foreground hover:bg-background/50"
+                  )}
+                >
+                  <div className='flex items-center gap-2'>
+                    <Sun className="h-5 w-5" />
+                    Pumpkin Picking
+                  </div>
+                </button>
+                <button
+                  onClick={() => setActiveTab('alpaca-walk')}
+                  className={cn(
+                    "px-6 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none",
+                    activeTab === 'alpaca-walk'
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "text-muted-foreground hover:bg-background/50"
+                  )}
+                >
+                  <div className='flex items-center gap-2'>
+                    <AlpacaIcon className="h-5 w-5" />
+                    Alpaca Walks
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              {activeTab === 'pumpkin-picking' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     {pumpkinActivity?.types?.map((type) => (
                       <ExperienceCard key={type.slug} item={type} parentActivity={pumpkinActivity} />
                     ))}
                 </div>
-              </TabsContent>
-              <TabsContent value="alpaca-walk" className="mt-12">
+              )}
+              {activeTab === 'alpaca-walk' && (
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                    {alpacaActivity && <ExperienceCard item={alpacaActivity} />}
                  </div>
-              </TabsContent>
-            </Tabs>
+              )}
+            </div>
           </div>
         </section>
       </main>
