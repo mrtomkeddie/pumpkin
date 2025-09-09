@@ -22,7 +22,6 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import type { Activity, ActivityType } from '@/lib/types';
-import { Separator } from './ui/separator';
 
 const dayTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 const moonlitTimes = ['19:00', '20:00'];
@@ -163,7 +162,7 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
   
   const isPumpkinBooking = activity.slug === 'pumpkin-picking';
   const isAlpacaBooking = activity.slug === 'alpaca-walk';
-  const selectedActivityType = activity.types?.find(t => t.slug === watchedActivityType);
+  const selectedActivityType = activity.types?.find(t => t.slug === (isPumpkinBooking ? activityTypeSlug : watchedActivityType));
 
   const alpacaTotalPeople = isAlpacaBooking && watchedPackages ?
     Object.entries(watchedPackages).reduce((total, [slug, quantity]) => {
@@ -208,21 +207,10 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     router.push('/reservations');
   }
 
-  const TypeIcon = ({ slug }: { slug?: string }) => {
-    if (!slug) return <Users className="h-5 w-5 text-primary" />;
-    switch (slug) {
-        case 'day': return <Sun className="h-5 w-5 text-primary" />;
-        case 'quiet': return <Mic2 className="h-5 w-5 text-primary" />;
-        case 'moonlit': return <Moon className="h-5 w-5 text-primary" />;
-        default: return <Users className="h-5 w-5 text-primary" />;
-    }
-  };
-
   const handlePackageQuantityChange = (slug: string, newQuantity: number) => {
     const currentPackages = form.getValues('packages') || {};
     const currentQuantity = currentPackages[slug] || 0;
     
-    // Calculate the change in total people
     const packageType = activity.types?.find(t => t.slug === slug);
     const paxPerPackage = packageType?.pax || 0;
     const peopleChange = (newQuantity - currentQuantity) * paxPerPackage;
@@ -232,14 +220,23 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     }
   };
 
-  const selectedPumpkinType = isPumpkinBooking ? activity.types?.find(t => t.slug === activityTypeSlug) : null;
+  const formTitle = isPumpkinBooking 
+    ? selectedActivityType?.title || activity.title
+    : activity.title;
+
+  const formPrice = isPumpkinBooking ? selectedActivityType?.price : null;
 
   return (
     <div className="pt-8">
       <Card className="border-0 shadow-none">
         <CardHeader>
-          <CardTitle className="font-headline text-2xl">{activity.title}</CardTitle>
-          <CardDescription>Select your preferred package(s), date, and time for this magical experience.</CardDescription>
+            <div className='flex justify-between items-baseline'>
+                <CardTitle className="font-headline text-2xl">{formTitle}</CardTitle>
+                {formPrice && (
+                    <span className='text-xl font-bold text-primary'>{formPrice}</span>
+                )}
+            </div>
+          <CardDescription>Select your preferred date and time for this magical experience.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -292,24 +289,6 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                   />
                 </div>
               </div>
-
-              {isPumpkinBooking && selectedPumpkinType && (
-                <div className="space-y-4">
-                  <FormLabel className="text-lg font-semibold flex items-center gap-2">
-                    <TypeIcon slug={selectedPumpkinType.slug} />
-                    Your Selected Experience
-                  </FormLabel>
-                  <Card className="bg-popover">
-                    <CardContent className="p-4">
-                      <div className="flex justify-between items-start">
-                        <span className="font-bold text-base">{selectedPumpkinType.title}</span>
-                        <span className="font-bold text-primary">{selectedPumpkinType.price}</span>
-                      </div>
-                      <p className="text-xs font-semibold text-muted-foreground mt-2">{selectedPumpkinType.details}</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
 
               {isAlpacaBooking && (
                 <Card>
@@ -522,3 +501,5 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     </div>
   );
 }
+
+    
