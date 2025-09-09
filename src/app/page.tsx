@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1 pt-0 -mt-24">
        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="overflow-y-auto">
+        <SheetContent className="overflow-y-auto sm:max-w-2xl">
           <SheetHeader>
             <SheetTitle className="font-headline text-3xl">Complete Your Booking</SheetTitle>
             <SheetDescription>
@@ -84,7 +84,7 @@ export default function Home() {
             />
           )}
         </SheetContent>
-      </Sheet>>
+      </Sheet>
 
       <main className="flex-1 flex flex-col">
       <section className="relative flex flex-col items-center justify-center text-center p-4 min-h-screen text-white">
