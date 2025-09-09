@@ -236,6 +236,7 @@ export default function BookActivityPage() {
                             mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
+                            defaultMonth={isPumpkinBooking ? new Date(new Date().getFullYear(), 9) : undefined}
                             disabled={(date) => {
                                 const today = new Date();
                                 today.setHours(0,0,0,0);
