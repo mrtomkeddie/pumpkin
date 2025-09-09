@@ -7,20 +7,35 @@ import { Button } from './ui/button';
 import { Facebook, Instagram, Ticket, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
 
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const isHomePage = pathname === '/';
+  const [isHomePage, setIsHomePage] = useState(false);
+  const [headerClass, setHeaderClass] = useState('');
+  const [logoClass, setLogoClass] = useState('max-w-full h-auto');
+
+  useEffect(() => {
+    const home = pathname === '/';
+    setIsHomePage(home);
+
+    setHeaderClass(cn(
+        'z-50 w-full py-4',
+        home
+          ? 'absolute top-0 bg-transparent'
+          : 'fixed top-0 border-b bg-background/80 backdrop-blur-sm'
+    ));
+
+    setLogoClass(cn(
+        'max-w-full h-auto',
+        !home && 'dark:invert-0'
+    ));
+  }, [pathname]);
 
   return (
     <header
-      className={cn(
-        'z-50 w-full py-4',
-        isHomePage
-          ? 'absolute top-0 bg-transparent'
-          : 'fixed top-0 border-b bg-background/80 backdrop-blur-sm'
-      )}
+      className={headerClass}
     >
       <div className="container flex h-16 max-w-7xl items-center justify-between">
         {/* Left-aligned navigation */}
@@ -51,10 +66,7 @@ export function Header() {
               width={120}
               height={28}
               priority
-              className={cn(
-                'max-w-full h-auto',
-                !isHomePage && 'dark:invert-0'
-              )}
+              className={logoClass}
             />
           </Link>
         </div>
