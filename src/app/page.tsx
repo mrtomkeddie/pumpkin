@@ -13,7 +13,7 @@ export default function Home() {
     <div className="flex flex-col">
       <main className="flex-1 flex flex-col">
         {/* Hero Section */}
-        <section className="relative flex items-center justify-center text-center px-4 bg-background h-screen">
+        <section className="relative flex flex-col items-center justify-center text-center px-4 bg-background h-screen">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(var(--primary-rgb),0.1),_transparent_40%)] -z-10" />
           
           <div className="flex flex-col items-center">
