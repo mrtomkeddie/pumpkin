@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 export default function StaffLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     // This effect runs only on the client.

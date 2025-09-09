@@ -173,7 +173,15 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
   const canAddMorePeople = (slug: string) => {
     const packageType = activity.types?.find(t => t.slug === slug);
     if (!packageType) return false;
-    return alpacaTotalPeople + packageType.pax <= 6;
+    const currentPackages = form.getValues('packages') || {};
+    const currentQuantity = currentPackages[slug] || 0;
+    const peopleInOtherPackages = Object.entries(currentPackages).reduce((total, [pkgSlug, qty]) => {
+        if (pkgSlug === slug) return total;
+        const otherPackageType = activity.types?.find(t => t.slug === pkgSlug);
+        return total + (qty * (otherPackageType?.pax || 0));
+    }, 0);
+
+    return peopleInOtherPackages + ((currentQuantity + 1) * packageType.pax) <= 6;
   }
 
   function onSubmit(data: BookingFormValues) {
@@ -216,11 +224,19 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
   const handlePackageQuantityChange = (slug: string, newQuantity: number) => {
     const currentPackages = form.getValues('packages') || {};
     const currentQuantity = currentPackages[slug] || 0;
+    const packageType = activity.types?.find(t => t.slug === slug);
+
+    if (!packageType) return;
     
     if (newQuantity > currentQuantity) {
-      if (canAddMorePeople(slug)) {
-        form.setValue(`packages.${slug}`, newQuantity, { shouldValidate: true });
-      }
+       const peopleInOtherPackages = Object.entries(currentPackages).reduce((total, [pkgSlug, qty]) => {
+            if (pkgSlug === slug) return total;
+            const otherPackageType = activity.types?.find(t => t.slug === pkgSlug);
+            return total + (qty * (otherPackageType?.pax || 0));
+        }, 0);
+        if (peopleInOtherPackages + (newQuantity * packageType.pax) <= 6) {
+             form.setValue(`packages.${slug}`, newQuantity, { shouldValidate: true });
+        }
     } else {
        form.setValue(`packages.${slug}`, newQuantity, { shouldValidate: true });
     }
