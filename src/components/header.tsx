@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Facebook, Instagram } from "lucide-react";
+import { Facebook, Instagram, Ticket } from "lucide-react";
 import Image from "next/image";
 
 export function Header() {
@@ -9,8 +9,8 @@ export function Header() {
       <div className="container flex h-16 max-w-7xl items-center justify-between">
         {/* Left-aligned navigation */}
         <div className="flex items-center gap-6 text-sm text-white">
-           <Button asChild variant="ghost" className="hover:bg-white/10 hover:text-white">
-            <Link href="/reservations">Check my booking</Link>
+           <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <Link href="/reservations"><Ticket className="mr-2 h-4 w-4" /> My Booking</Link>
           </Button>
         </div>
 
