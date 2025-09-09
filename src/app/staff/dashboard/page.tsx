@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { allReservations } from "@/app/staff/data";
 import { format } from 'date-fns';
-import { Ticket } from "lucide-react";
+import { Ticket, Users } from "lucide-react";
 
 export default function StaffDashboard() {
 
@@ -46,7 +46,7 @@ export default function StaffDashboard() {
                       {reservation.email}
                     </div>
                   </TableCell>
-                  <TableCell>{reservation.activityTitle}</TableCell>
+                  <TableCell>{reservation.activityType || reservation.activityTitle}</TableCell>
                   <TableCell className="hidden md:table-cell">
                     {format(reservation.date, 'dd/MM/yyyy')}
                   </TableCell>
@@ -54,11 +54,10 @@ export default function StaffDashboard() {
                     {reservation.time}
                   </TableCell>
                   <TableCell className="text-right">
-                    {reservation.activityType ? (
-                       <Badge variant="outline">{reservation.activityType}</Badge>
-                    ) : (
-                       <span>{reservation.quantity} people</span>
-                    )}
+                    <div className="flex items-center justify-end gap-2">
+                       <Users className="h-4 w-4 text-muted-foreground" />
+                       <span>{reservation.quantity || 1}</span>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

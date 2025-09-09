@@ -14,6 +14,7 @@ export const allReservations: Reservation[] = [
     time: '10:00',
     name: 'Alice Johnson',
     email: 'alice.j@example.com',
+    quantity: 4, // Carload
   },
   {
     id: 'res_002',
@@ -35,6 +36,7 @@ export const allReservations: Reservation[] = [
     time: '19:00',
     name: 'Charlie Brown',
     email: 'charlie.b@example.com',
+    quantity: 2, // Carload
   },
   {
     id: 'res_004',
@@ -59,6 +61,7 @@ export const allReservations: Reservation[] = [
     time: '15:00',
     name: 'Eve Adams',
     email: 'eve.a@example.com',
+    quantity: 3, // Carload
   },
     {
     id: 'res_006',
@@ -80,6 +83,7 @@ export const allReservations: Reservation[] = [
     time: '11:00',
     name: 'Grace Lee',
     email: 'grace.l@example.com',
+    quantity: 5, // Carload
   },
   {
     id: 'res_008',
@@ -100,19 +104,21 @@ export const allReservations: Reservation[] = [
     activityTitle: 'Pumpkin Picking',
     activitySlug: 'pumpkin-picking',
     activityType: 'Moonlit Pumpkin Picking',
-    date: new Date(currentYear, 9, 25),
+    date: new date(currentyear, 9, 25),
     time: '20:00',
-    name: 'Ivan Petrov',
+    name: 'ivan petrov',
     email: 'ivan.p@example.com',
+    quantity: 4, // carload
   },
   {
     id: 'res_010',
-    activityTitle: 'Pumpkin Picking',
-    activitySlug: 'pumpkin-picking',
-    activityType: 'Pumpkin Picking',
-    date: new Date(currentYear, 9, 27),
+    activitytitle: 'pumpkin picking',
+    activityslug: 'pumpkin-picking',
+    activitytype: 'pumpkin picking',
+    date: new date(currentyear, 9, 27),
     time: '14:00',
-    name: 'Judy Alvarez',
+    name: 'judy alvarez',
     email: 'judy.a@example.com',
+    quantity: 2, // carload
   },
 ];
