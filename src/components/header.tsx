@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -52,7 +53,7 @@ export function Header() {
               priority
               className={cn(
                 'max-w-full h-auto',
-                !isHomePage && 'invert'
+                !isHomePage && 'dark:invert-0'
               )}
             />
           </Link>
