@@ -13,7 +13,7 @@ export default function Home() {
     <div className="flex flex-col">
       <main className="flex-1 flex flex-col">
         {/* Hero Section */}
-        <section className="relative flex flex-col items-center justify-center text-center px-4 bg-background min-h-[calc(100vh-5rem)]">
+        <section className="relative flex flex-col items-center justify-center text-center px-4 bg-background min-h-screen">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(var(--primary-rgb),0.1),_transparent_40%)] -z-10" />
           
           <Image
@@ -50,7 +50,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <h2 className="text-center text-4xl font-bold font-headline mb-2">Choose Your Experience</h2>
             <div className="flex justify-center mb-12">
-              <div className="h-1 w-24 bg-secondary rounded-full" />
+              <div className="h-1 w-24 bg-primary rounded-full" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
