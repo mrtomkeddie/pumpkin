@@ -14,6 +14,7 @@ export const allReservations: Reservation[] = [
     time: '10:00',
     name: 'Alice Johnson',
     email: 'alice.j@example.com',
+    phone: '07123456789',
     quantity: 4, // Carload
   },
   {
@@ -50,6 +51,7 @@ export const allReservations: Reservation[] = [
     time: '13:00',
     name: 'Diana Prince',
     email: 'diana.p@example.com',
+    phone: '07987654321',
     quantity: 3,
   },
   {
@@ -97,6 +99,7 @@ export const allReservations: Reservation[] = [
     time: '13:00',
     name: 'Heidi Turner',
     email: 'heidi.t@example.com',
+    phone: '07555123123',
     quantity: 3,
   },
     {
