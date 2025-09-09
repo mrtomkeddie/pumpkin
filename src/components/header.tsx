@@ -8,10 +8,8 @@ export function Header() {
     <header className="absolute top-0 z-50 w-full py-4">
       <div className="container flex h-16 max-w-7xl items-center justify-between">
         {/* Left-aligned navigation for spacing */}
-        <nav className="hidden md:flex items-center gap-6 text-sm text-white">
-          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-          <Link href="#experiences" className="hover:text-primary transition-colors">Events</Link>
-        </nav>
+        <div className="hidden md:flex items-center gap-6 text-sm text-white">
+        </div>
 
         {/* Centered Logo */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
