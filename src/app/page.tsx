@@ -179,7 +179,7 @@ export default function Home() {
                           <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
                             Gift Card
                           </CardTitle>
-                          <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Pingle Farm.</CardDescription>
+                          <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Bookings.</CardDescription>
                       </CardContent>
                       <CardFooter className="p-6 bg-transparent mt-auto">
                         <Button asChild className="w-full bg-primary hover:bg-primary/90">
@@ -198,7 +198,7 @@ export default function Home() {
       </main>
       <footer className="text-center py-6 text-sm text-foreground border-t">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-          <p>&copy; {new Date().getFullYear()} Pingle Farm. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} The Black Cat Events. All rights reserved.</p>
           <div className="flex items-center gap-4 mt-4 md:mt-0">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />

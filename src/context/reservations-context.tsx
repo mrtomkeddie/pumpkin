@@ -20,7 +20,7 @@ export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // This effect runs only on the client, after the initial render.
     try {
-      const storedReservations = localStorage.getItem('pingleFarmReservations');
+      const storedReservations = localStorage.getItem('blackCatReservations');
       if (storedReservations) {
         const parsed = JSON.parse(storedReservations).map((r: any) => ({ ...r, date: new Date(r.date) }));
         setReservations(parsed);
@@ -37,7 +37,7 @@ export const ReservationsProvider = ({ children }: { children: ReactNode }) => {
     // This effect saves to localStorage only on the client and only after the initial load.
     if (isLoaded) {
       try {
-        localStorage.setItem('pingleFarmReservations', JSON.stringify(reservations));
+        localStorage.setItem('blackCatReservations', JSON.stringify(reservations));
       } catch (error) {
         console.error("Failed to save reservations to localStorage", error);
       }
