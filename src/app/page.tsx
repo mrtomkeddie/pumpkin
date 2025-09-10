@@ -150,7 +150,7 @@ export default function Home() {
                 >
                   <div className='flex items-center gap-2'>
                     <AlpacaIcon className="h-5 w-5" />
-                    <span className="smhidden">Alpacas</span>
+                    <span className="sm:hidden">Alpacas</span>
                     <span className="hidden sm:inline">Alpaca Walks</span>
                   </div>
                 </button>
@@ -209,7 +209,7 @@ export default function Home() {
                           <Gift className="w-6 h-6 text-primary absolute top-6 right-6" />
                           <CardTitle className="font-headline text-2xl tracking-wider mb-2 pr-8">
                             Gift Card
-                          </CardTitle>
+                          </Title>
                           <CardDescription className="flex-1">The perfect gift for any occasion. Give the gift of a magical experience at Black Cat Events, redeemable against any of our activities.</CardDescription>
                       </CardContent>
                       <CardFooter className="p-6 bg-transparent mt-auto">
