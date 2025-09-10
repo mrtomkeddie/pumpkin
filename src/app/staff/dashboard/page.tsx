@@ -7,12 +7,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { allReservations, allGiftCardPurchases } from "@/app/staff/data";
-import { format, addDays } from 'date-fns';
-import { Ticket, Users, Phone, Mail, Eye, Archive, Calendar as CalendarIcon, BarChart } from "lucide-react";
+import { format } from 'date-fns';
+import { Ticket, Users, Phone, Mail, Eye, Archive, Calendar as CalendarIcon } from "lucide-react";
 import { GiftCardSummary } from "@/components/staff/gift-card-summary";
 import { BookingDetails } from "@/components/staff/booking-details";
-import { BookingsChart } from "@/components/staff/bookings-chart";
-import { ActivityChart } from "@/components/staff/activity-chart";
 import type { Reservation } from "@/lib/types";
 
 export default function StaffDashboard() {
@@ -44,35 +42,6 @@ export default function StaffDashboard() {
   const closeDialog = () => {
     setSelectedReservation(null);
   }
-
-  const analyticsData = useMemo(() => {
-    const next7Days = Array.from({ length: 7 }, (_, i) => addDays(today, i));
-    
-    const dailyVisitorData = next7Days.map(day => {
-      const dayString = format(day, 'yyyy-MM-dd');
-      const visitors = upcomingReservations
-        .filter(r => format(r.date, 'yyyy-MM-dd') === dayString)
-        .reduce((acc, r) => acc + (r.quantity || 1), 0);
-      return {
-        date: format(day, 'MMM d'),
-        visitors: visitors,
-      };
-    });
-
-    const activityData = upcomingReservations.reduce((acc, r) => {
-        const activityName = r.activitySlug === 'pumpkin-picking' ? 'Pumpkin Picking' : 'Alpaca Walks';
-        const existingActivity = acc.find(item => item.name === activityName);
-        if (existingActivity) {
-            existingActivity.value += (r.quantity || 1);
-        } else {
-            acc.push({ name: activityName, value: (r.quantity || 1) });
-        }
-        return acc;
-    }, [] as { name: string; value: number }[]);
-    
-    return { dailyVisitorData, activityData };
-  }, [upcomingReservations]);
-
 
   const ReservationsList = ({ reservations }: { reservations: Reservation[] }) => (
     <>
@@ -185,9 +154,8 @@ export default function StaffDashboard() {
                         <CardDescription>
                             A list of all bookings made for your events.
                         </CardDescription>
-                         <TabsList className="grid w-full grid-cols-3 md:w-auto">
+                         <TabsList className="grid w-full grid-cols-2 md:w-auto">
                             <TabsTrigger value="upcoming" className="flex items-center gap-2"><CalendarIcon className="h-4 w-4" />Upcoming</TabsTrigger>
-                             <TabsTrigger value="analytics" className="flex items-center gap-2"><BarChart className="h-4 w-4" />Analytics</TabsTrigger>
                             <TabsTrigger value="archive" className="flex items-center gap-2"><Archive className="h-4 w-4" />Archive</TabsTrigger>
                         </TabsList>
                     </div>
@@ -204,28 +172,6 @@ export default function StaffDashboard() {
                             </div>
                             <ReservationsList reservations={getFilteredReservations(upcomingReservations)} />
                         </Tabs>
-                    </TabsContent>
-                    <TabsContent value="analytics">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Upcoming Visitors</CardTitle>
-                                    <CardDescription>Number of visitors booked in the next 7 days.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <BookingsChart data={analyticsData.dailyVisitorData} />
-                                </CardContent>
-                            </Card>
-                             <Card>
-                                <CardHeader>
-                                    <CardTitle>Activity Popularity</CardTitle>
-                                    <CardDescription>Breakdown of upcoming bookings by activity.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <ActivityChart data={analyticsData.activityData} />
-                                </CardContent>
-                            </Card>
-                        </div>
                     </TabsContent>
                     <TabsContent value="archive">
                         <Tabs defaultValue="all" onValueChange={setFilter}>
