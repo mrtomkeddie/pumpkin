@@ -2,7 +2,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Donut, DonutChart, Legend } from 'recharts';
+import { Pie, PieChart, Legend } from 'recharts';
 import {
   ChartConfig,
   ChartContainer,
@@ -36,19 +36,19 @@ export function ActivityChart({ data }: ActivityChartProps) {
       config={chartConfig}
       className="mx-auto aspect-square h-[250px]"
     >
-      <DonutChart>
+      <PieChart>
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent hideLabel />}
         />
-        <Donut
+        <Pie
           data={data}
           dataKey="value"
           nameKey="name"
           innerRadius={60}
           strokeWidth={5}
         >
-        </Donut>
+        </Pie>
         <Legend
           content={({ payload }) => {
             return (
@@ -72,7 +72,7 @@ export function ActivityChart({ data }: ActivityChartProps) {
           align="left"
           wrapperStyle={{ paddingLeft: '10px' }}
         />
-      </DonutChart>
+      </PieChart>
     </ChartContainer>
   );
 }

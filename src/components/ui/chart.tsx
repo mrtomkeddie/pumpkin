@@ -356,7 +356,7 @@ function getPayloadConfigFromPayload(
     : config[key as keyof typeof config]
 }
 
-const ChartDonut = RechartsPrimitive.Donut
+const ChartPie = RechartsPrimitive.Pie
 
 export {
   ChartContainer,
@@ -365,5 +365,5 @@ export {
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
-  ChartDonut
+  ChartPie,
 }
