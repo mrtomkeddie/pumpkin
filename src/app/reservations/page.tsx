@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { useReservations } from '@/context/reservations-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Clock, Trash2, Ticket, User, Users, Box, Search } from 'lucide-react';
+import { Calendar, Clock, Trash2, User, Users, Box, Search } from 'lucide-react';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
@@ -49,7 +49,7 @@ export default function ReservationsPage() {
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
       <div className="flex items-center gap-4 mb-8">
-        <Ticket className="h-10 w-10 text-primary" />
+        <Search className="h-10 w-10 text-primary" />
         <div>
           <h1 className="text-4xl font-headline font-bold">My Reservations</h1>
           <p className="text-foreground/80">Look up your booking details below.</p>

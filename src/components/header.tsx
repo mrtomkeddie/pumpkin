@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from './ui/button';
-import { Facebook, Instagram, Ticket, ArrowLeft } from 'lucide-react';
+import { Facebook, Instagram, Search, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
@@ -55,7 +55,7 @@ export function Header() {
                 className="border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground hidden sm:inline-flex"
               >
                 <Link href="/reservations">
-                  <Ticket className="mr-2 h-4 w-4" /> My Booking
+                  <Search className="mr-2 h-4 w-4" /> My Booking
                 </Link>
               </Button>
                {/* Mobile Icon Button */}
@@ -69,7 +69,7 @@ export function Header() {
                       className="border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground sm:hidden"
                     >
                       <Link href="/reservations">
-                        <Ticket className="h-5 w-5" />
+                        <Search className="h-5 w-5" />
                         <span className="sr-only">My Booking</span>
                       </Link>
                     </Button>
