@@ -488,7 +488,6 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                                   }
                                   return false;
                               }}
-                              initialFocus
                             />
                           </PopoverContent>
                         </Popover>
