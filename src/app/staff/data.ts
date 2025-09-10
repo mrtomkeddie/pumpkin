@@ -1,9 +1,12 @@
 
-import { type Reservation, type GiftCardPurchase } from '@/lib/types';
+import { type Reservation, type GiftCardPurchase, type Activity } from '@/lib/types';
+import { activities } from '@/app/data';
 
 const today = new Date();
 const currentYear = today.getFullYear();
 const lastYear = currentYear - 1;
+
+export const allActivities: Activity[] = activities;
 
 export const allReservations: Reservation[] = [
   // Upcoming
