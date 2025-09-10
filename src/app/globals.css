@@ -65,8 +65,20 @@
   }
   html {
     @apply scroll-smooth;
+     /* Improve mobile touch scrolling */
+    -webkit-overflow-scrolling: touch;
   }
   body {
     @apply bg-background text-foreground;
+     /* Prevent zoom on input focus on iOS */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Improve touch targets on mobile */
+  @media (max-width: 768px) {
+    button, [role="button"] {
+      min-height: 44px;
+      touch-action: manipulation;
+    }
   }
 }

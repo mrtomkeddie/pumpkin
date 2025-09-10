@@ -443,9 +443,10 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
                         <Popover>
                           <PopoverTrigger asChild>
                             <Button
+                              type="button"
                               variant={'outline'}
                               className={cn(
-                                'w-full justify-start text-left font-normal h-11',
+                                'w-full justify-start text-left font-normal h-11 touch-manipulation',
                                 !field.value && 'text-muted-foreground'
                               )}
                             >
