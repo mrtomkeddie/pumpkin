@@ -107,7 +107,8 @@ export function BookingForm({ activity, activityTypeSlug, onBookingConfirmed }: 
     defaultValues: {
       activityType: activityTypeSlug || (activity.slug === 'pumpkin-picking' ? activity.types?.[0].slug : activity.slug === 'alpaca-walk' ? 'alpaca-walk' : undefined),
       packages: defaultPackages,
-    }
+    },
+    shouldFocusError: false,
   });
 
   const watchedActivityType = form.watch('activityType');
