@@ -78,32 +78,32 @@ export default function StaffDashboard() {
           <GiftCardSummary count={giftCardsSoldCount} />
       </div>
 
-      <Dialog open={!!selectedReservation} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
-        <Tabs defaultValue="upcoming" className="w-full">
-            <Card>
-                 <CardHeader>
-                    <CardTitle>All Bookings</CardTitle>
-                    <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
-                        <CardDescription>
-                            A list of all bookings made for your events. Click a row to view details.
-                        </CardDescription>
-                         <TabsList className="grid w-full grid-cols-2 md:w-auto">
-                            <TabsTrigger value="upcoming" className="flex items-center gap-2"><CalendarIcon className="h-4 w-4" />Upcoming ({upcomingReservations.length})</TabsTrigger>
-                            <TabsTrigger value="archive" className="flex items-center gap-2"><Archive className="h-4 w-4" />Archive ({pastReservations.length})</TabsTrigger>
-                        </TabsList>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <TabsContent value="upcoming">
-                        <ReservationsTable reservations={upcomingReservations} onRowClick={handleRowClick} />
-                    </TabsContent>
-                    <TabsContent value="archive">
-                        <ReservationsTable reservations={pastReservations} onRowClick={handleRowClick} />
-                    </TabsContent>
-                </CardContent>
-            </Card>
-        </Tabs>
+      <Tabs defaultValue="upcoming" className="w-full">
+          <Card>
+               <CardHeader>
+                  <CardTitle>All Bookings</CardTitle>
+                  <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+                      <CardDescription>
+                          A list of all bookings made for your events. Click a row to view details.
+                      </CardDescription>
+                       <TabsList className="grid w-full grid-cols-2 md:w-auto">
+                          <TabsTrigger value="upcoming" className="flex items-center gap-2"><CalendarIcon className="h-4 w-4" />Upcoming ({upcomingReservations.length})</TabsTrigger>
+                          <TabsTrigger value="archive" className="flex items-center gap-2"><Archive className="h-4 w-4" />Archive ({pastReservations.length})</TabsTrigger>
+                      </TabsList>
+                  </div>
+              </CardHeader>
+              <CardContent>
+                  <TabsContent value="upcoming">
+                      <ReservationsTable reservations={upcomingReservations} onRowClick={handleRowClick} />
+                  </TabsContent>
+                  <TabsContent value="archive">
+                      <ReservationsTable reservations={pastReservations} onRowClick={handleRowClick} />
+                  </TabsContent>
+              </CardContent>
+          </Card>
+      </Tabs>
         
+      <Dialog open={!!selectedReservation} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
         {selectedReservation && (
            <DialogContent className="sm:max-w-md">
              <DialogHeader>
