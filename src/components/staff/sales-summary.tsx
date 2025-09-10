@@ -1,22 +1,25 @@
 
 'use client';
 
-import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Wallet } from "lucide-react"
+import { Wallet, Sun, Gift } from "lucide-react"
+import { AlpacaIcon } from "../icons";
+import { Separator } from "../ui/separator";
 
 interface SalesSummaryProps {
     totalSales: number;
-    estimatedProfit: number;
+    pumpkinSales: number;
+    alpacaSales: number;
+    giftCardSales: number;
 }
 
-export function SalesSummary({ totalSales, estimatedProfit }: SalesSummaryProps) {
+export function SalesSummary({ totalSales, pumpkinSales, alpacaSales, giftCardSales }: SalesSummaryProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(amount);
   };
 
   return (
-    <Card className="col-span-2">
+    <Card className="lg:col-span-3">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
                 Sales Overview
@@ -24,20 +27,30 @@ export function SalesSummary({ totalSales, estimatedProfit }: SalesSummaryProps)
             <Wallet className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-                <div>
-                    <p className="text-2xl font-bold">{formatCurrency(totalSales)}</p>
-                    <p className="text-xs text-muted-foreground">
-                        Total Sales (Bookings + Gift Cards)
-                    </p>
+           <div className="text-2xl font-bold mb-4">{formatCurrency(totalSales)}</div>
+           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                    <Sun className="h-5 w-5 text-primary" />
+                    <div>
+                        <p className="font-semibold">{formatCurrency(pumpkinSales)}</p>
+                        <p className="text-xs text-muted-foreground">Pumpkin Picking</p>
+                    </div>
                 </div>
-                <div>
-                    <p className="text-2xl font-bold">{formatCurrency(estimatedProfit)}</p>
-                    <p className="text-xs text-muted-foreground">
-                        Est. Profit (60% Margin)
-                    </p>
+                 <div className="flex items-center gap-2">
+                    <AlpacaIcon className="h-5 w-5 text-primary" />
+                    <div>
+                        <p className="font-semibold">{formatCurrency(alpacaSales)}</p>
+                        <p className="text-xs text-muted-foreground">Alpaca Walks</p>
+                    </div>
                 </div>
-            </div>
+                 <div className="flex items-center gap-2">
+                    <Gift className="h-5 w-5 text-primary" />
+                    <div>
+                        <p className="font-semibold">{formatCurrency(giftCardSales)}</p>
+                        <p className="text-xs text-muted-foreground">Gift Cards</p>
+                    </div>
+                </div>
+           </div>
         </CardContent>
     </Card>
   )
