@@ -86,9 +86,9 @@ export default function StaffDashboard() {
                       <CardDescription>
                           A list of all bookings made for your events. Click a row to view details.
                       </CardDescription>
-                       <TabsList className="grid w-full grid-cols-2 md:w-auto">
-                          <TabsTrigger value="upcoming" className="flex items-center gap-2 py-2.5"><CalendarIcon className="h-4 w-4" />Upcoming ({upcomingReservations.length})</TabsTrigger>
-                          <TabsTrigger value="archive" className="flex items-center gap-2 py-2.5"><Archive className="h-4 w-4" />Archive ({pastReservations.length})</TabsTrigger>
+                       <TabsList className="w-full md:w-auto">
+                          <TabsTrigger value="upcoming"><CalendarIcon className="h-4 w-4" />Upcoming ({upcomingReservations.length})</TabsTrigger>
+                          <TabsTrigger value="archive"><Archive className="h-4 w-4" />Archive ({pastReservations.length})</TabsTrigger>
                       </TabsList>
                   </div>
               </CardHeader>
