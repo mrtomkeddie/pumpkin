@@ -2,16 +2,18 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Pie, PieChart, Legend } from 'recharts';
+import { Pie, PieChart } from 'recharts';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
 } from '@/components/ui/chart';
 
 const chartConfig = {
-  visitors: {
+  value: {
     label: 'Visitors',
   },
   'Pumpkin Picking': {
@@ -25,7 +27,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface ActivityChartProps {
-  data: { name: string; value: number; fill: string }[];
+  data: { name: string; value: number }[];
 }
 
 export function ActivityChart({ data }: ActivityChartProps) {
@@ -47,30 +49,10 @@ export function ActivityChart({ data }: ActivityChartProps) {
           nameKey="name"
           innerRadius={60}
           strokeWidth={5}
-        >
-        </Pie>
-        <Legend
-          content={({ payload }) => {
-            return (
-              <ul className="flex flex-col gap-2">
-                {payload?.map((item, index) => {
-                  const { name, value, color } = item.payload;
-                  const percentage = totalVisitors > 0 ? (value / totalVisitors * 100).toFixed(1) : 0;
-                  return (
-                    <li key={item.value} className="flex items-center gap-2 text-sm">
-                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
-                      <span className="text-muted-foreground">{name}</span>
-                      <span className="font-bold">{value}</span>
-                      <span className="text-muted-foreground/70">({percentage}%)</span>
-                    </li>
-                  )
-                })}
-              </ul>
-            )
-          }}
-          verticalAlign="bottom"
-          align="left"
-          wrapperStyle={{ paddingLeft: '10px' }}
+        />
+         <ChartLegend
+          content={<ChartLegendContent nameKey="name" />}
+          className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
         />
       </PieChart>
     </ChartContainer>

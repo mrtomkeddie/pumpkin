@@ -60,16 +60,15 @@ export default function StaffDashboard() {
     });
 
     const activityData = upcomingReservations.reduce((acc, r) => {
-        if (r.activitySlug === 'pumpkin-picking') {
-            acc[0].value += (r.quantity || 1);
-        } else if (r.activitySlug === 'alpaca-walk') {
-            acc[1].value += (r.quantity || 1);
+        const activityName = r.activitySlug === 'pumpkin-picking' ? 'Pumpkin Picking' : 'Alpaca Walks';
+        const existingActivity = acc.find(item => item.name === activityName);
+        if (existingActivity) {
+            existingActivity.value += (r.quantity || 1);
+        } else {
+            acc.push({ name: activityName, value: (r.quantity || 1) });
         }
         return acc;
-    }, [
-        { name: 'Pumpkin Picking', value: 0, fill: 'var(--color-pumpkin)' },
-        { name: 'Alpaca Walks', value: 0, fill: 'var(--color-alpaca)' }
-    ]);
+    }, [] as { name: string; value: number }[]);
     
     return { dailyVisitorData, activityData };
   }, [upcomingReservations]);

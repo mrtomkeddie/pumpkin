@@ -13,7 +13,7 @@ import {
 const chartConfig = {
   visitors: {
     label: 'Visitors',
-    color: 'hsl(var(--primary))',
+    color: 'hsl(var(--chart-1))',
   },
 } satisfies ChartConfig;
 
